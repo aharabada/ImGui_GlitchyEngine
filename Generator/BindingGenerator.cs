@@ -50,11 +50,15 @@ $@"// -- GENERATION INFORMATION --
 
 ";
             }
-
+			
 			string secondLine = File.ReadLines("../cimgui/cimgui.h").ElementAt(1);
-			Regex pattern = new Regex(@"\d+(\.\d+)+");
-			Match match = pattern.Match(secondLine);
-			string version = match.Value;
+			Regex pattern = new Regex(@"""(\d[\.\d+]+).*""");
+            Match match = pattern.Match(secondLine);
+			// The full version String (e.g. "1.80 WIP")
+            string version = match.Value;
+            // The version string (e.g. 1.80)
+			string versionnumber = match.Groups[1].Value;
+			// Todo: VERSION_NUM only matches IMGUI_VERSION_NUM in release builds
 
 			imguiFile +=
 $@"using System;
@@ -63,8 +67,8 @@ namespace ImGui
 {{
     public static class ImGui
     {{
-		public static char8* VERSION = ""{version}"";
-		public static int VERSION_NUM = {version.Replace(".", "")}00;
+		public static char8* VERSION = {version};
+		public static int VERSION_NUM = {versionnumber.Replace(".", "")}00;
 		public static bool CHECKVERSION()
 		{{
 			bool result = DebugCheckVersionAndDataLayout(VERSION, sizeof(IO), sizeof(Style), sizeof(Vec2), sizeof(Vec4), sizeof(DrawVert), sizeof(DrawIdx));

@@ -1,5 +1,4 @@
 using System;
-using ImGui;
 using DirectX.D3D11;
 
 namespace ImGui

@@ -1,7 +1,6 @@
 FileVersion = 1
-Dependencies = {corlib = "*", DirectX = "*"}
+Dependencies = {corlib = "*", DirectX = "*", ImGui = "*"}
 
 [Project]
-Name = "ImGuiImplDx11"
-TargetType = "BeefLib"
+Name = "ImGuiImplDX11"
 DefaultNamespace = "ImGui"

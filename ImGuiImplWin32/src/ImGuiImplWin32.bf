@@ -16,12 +16,9 @@ namespace ImGui
 		private static extern void ImGui_ImplWin32_NewFrame_Impl();
 		public static void NewFrame() => ImGui_ImplWin32_NewFrame_Impl();
 		
-		/*
-		// Todo: WndProcHandler
 		[LinkName("ImGui_ImplWin32_WndProcHandler")]
-		private static extern bool ImGui_ImplWin32_WndProcHandler_Impl();
-		public static bool WndProcHandler() => ImGui_ImplWin32_WndProcHandler_Impl();
-		*/
+		private static extern bool ImGui_ImplWin32_WndProcHandler_Impl(Windows.HWnd hWnd, uint32 uMsg, uint wParam, int lParam);
+		public static bool WndProcHandler(Windows.HWnd hWnd, uint32 uMsg, uint wParam, int lParam) => ImGui_ImplWin32_WndProcHandler_Impl(hWnd, uMsg, wParam, lParam);
 		
 		[LinkName("ImGui_ImplWin32_EnableDpiAwareness")]
 		private static extern void ImGui_ImplWin32_EnableDpiAwareness_Impl();

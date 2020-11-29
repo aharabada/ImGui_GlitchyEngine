@@ -2,3 +2,5 @@
 .vs/
 bin/
 obj/
+# Ignore build-directories
+build/

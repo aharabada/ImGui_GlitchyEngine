@@ -9,7 +9,7 @@ if(($option -eq "make") -or (!$option))
     }
     mkdir build
     cd build
-    cmake ../cimgui
+    cmake ../ -DIMGUI_STATIC="ON"
     cd ..
 }
 elseif($option -eq "clean")
@@ -39,7 +39,14 @@ elseif($option -eq "build")
             devenv /build Debug cimgui.sln
             echo "Finished build."
             echo "Copying library..."
-            cp -Path "Debug/*" -Destination "../ImGui/dist/Debug-Win64/"
+
+            $debugpath = "../ImGui/dist/Debug-Win64/"
+            if(!(Test-Path $debugpath))
+            {
+                mkdir $debugpath
+            }
+
+            cp -Path "Debug/*" -Destination $debugpath
         }
         else
         {
@@ -47,7 +54,14 @@ elseif($option -eq "build")
             devenv /build Release cimgui.sln
             echo "Finished build."
             echo "Copying library..."
-            cp -Path "Release/*" -Destination "../ImGui/dist/Release-Win64/"
+
+            $releasepath = "../ImGui/dist/Release-Win64/"
+            if(!(Test-Path $releasepath))
+            {
+                mkdir $releasepath
+            }
+
+            cp -Path "Release/*" -Destination $releasepath
         }
         echo "CImGui compiled."
         cd ..
@@ -62,4 +76,11 @@ elseif($option -eq "generate")
     ./bin/Release/netcoreapp3.1/Generator.exe
     echo "Finished."
     cd ..
+}
+elseif($option -eq "all")
+{
+	./build_cimgui.ps1 make
+	./build_cimgui.ps1 build debug
+	./build_cimgui.ps1 build release
+	./build_cimgui.ps1 generate
 }

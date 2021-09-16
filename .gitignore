@@ -4,3 +4,5 @@ bin/
 obj/
 # Ignore build-directories
 build/
+
+cimgui/

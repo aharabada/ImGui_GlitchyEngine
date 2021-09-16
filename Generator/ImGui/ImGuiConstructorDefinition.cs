@@ -5,7 +5,7 @@ namespace ImGuiBeefGenerator.ImGui
 {
     class ImGuiConstructorDefinition : ImGuiStructMethodDefinition
     {
-        public ImGuiConstructorDefinition(List<object> argsT, string structType, bool isGeneric, Dictionary<string, object> defaults) : base("this", $"{structType}_{structType}", argsT, structType, isGeneric, defaults) 
+        public ImGuiConstructorDefinition(string linkName, List<object> argsT, string structType, bool isGeneric, Dictionary<string, object> defaults) : base("this", linkName, argsT, structType, isGeneric, defaults) 
         {
             if (IsGeneric)
             {
@@ -30,7 +30,7 @@ namespace ImGuiBeefGenerator.ImGui
 
         public override string Serialize()
         {
-            if (LinkName == "ImVec2_ImVec2" && Args.Count == 0)
+            if (LinkName == "ImVec2_ImVec2_Nil" && Args.Count == 0)
             {
                 return
 @"
@@ -41,7 +41,7 @@ public this()
 }
 ";
             }
-            else if (LinkName == "ImVec2_ImVec2")
+            else if (LinkName == "ImVec2_ImVec2_Float")
             {
                 return
 @"
@@ -52,7 +52,7 @@ public this(float x, float y)
 }
 ";
             }
-            else if (LinkName == "ImVec4_ImVec4" && Args.Count == 0)
+            else if (LinkName == "ImVec4_ImVec4_Nil" && Args.Count == 0)
             {
                 return
 @"
@@ -65,7 +65,7 @@ public this()
 }
 ";
             }
-            else if (LinkName == "ImVec4_ImVec4")
+            else if (LinkName == "ImVec4_ImVec4_Float")
             {
                 return
 @"

@@ -5,7 +5,7 @@ namespace ImGui
     public static class ImGuiImplSDL2
     {
         private typealias SDL_Window = SDL2.SDL.Window;
-        private typealias SDL_Event = SDL2.SDL.Window;
+        private typealias SDL_Event = SDL2.SDL.Event;
     
         [LinkName("ImGui_ImplSDL2_InitForD3D")]
         private static extern bool InitForD3DImpl(SDL_Window* window);
@@ -24,8 +24,8 @@ namespace ImGui
         public static bool InitForVulkan(SDL_Window* window) => InitForVulkanImpl(window);
         
         [LinkName("ImGui_ImplSDL2_NewFrame")]
-        private static extern void NewFrameImpl(SDL_Window* window);
-        public static void NewFrame(SDL_Window* window) => NewFrameImpl(window);
+        private static extern void NewFrameImpl();
+        public static void NewFrame() => NewFrameImpl();
         
         [LinkName("ImGui_ImplSDL2_ProcessEvent")]
         private static extern bool ProcessEventImpl(SDL_Event* event);

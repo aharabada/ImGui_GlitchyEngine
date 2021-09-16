@@ -1,5 +1,5 @@
 // -- GENERATION INFORMATION --
-// Date: 16.09.2021 15:04:16
+// Date: 16.09.2021 15:36:25
 // Constructors: 0
 // Destructors: 0
 // Enums: 70
@@ -5246,7 +5246,7 @@ namespace ImGui
         
         [LinkName("igBeginTable")]
         private static extern bool BeginTableImpl(char* str_id, int32 column, TableFlags flags, Vec2 outer_size, float inner_width);
-        public static bool BeginTable(char* str_id, int32 column, TableFlags flags = (TableFlags) 0, Vec2 outer_size = .(0, 0), float inner_width = (float) 0.0f) => BeginTableImpl(str_id, column, flags, outer_size, inner_width);
+        public static bool BeginTable(char* str_id, int32 column, TableFlags flags = (TableFlags) 0, Vec2 outer_size = .(0.0f,0.0f), float inner_width = (float) 0.0f) => BeginTableImpl(str_id, column, flags, outer_size, inner_width);
         
         [LinkName("igBeginTableEx")]
         private static extern bool BeginTableExImpl(char* name, ID id, int32 columns_count, TableFlags flags, Vec2 outer_size, float inner_width);

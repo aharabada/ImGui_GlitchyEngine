@@ -201,6 +201,8 @@ namespace ImGui
 			files["ImGuiImplOpenGL2.bf"] = GenerateImplFile("ImGuiImplOpenGL2", Bindings);
 			files["ImGuiImplOpenGL3.bf"] = GenerateImplFile("ImGuiImplOpenGL3", Bindings);
 			files["ImGuiImplSDL.bf"] = GenerateImplFile("ImGuiImplSDL2", Bindings);
+			files["ImGuiImplDX11.bf"] = GenerateImplFile("ImGuiImplDX11", Bindings);
+			files["ImGuiImplWin32.bf"] = GenerateImplFile("ImGuiImplWin32", Bindings);
 
 			return files;
         }

@@ -8,6 +8,11 @@ else()
 	set(TABLES_SOURCE "")
 endif()
 
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/cimgui/imgui/backends)
+	set(BAKENDS_FOLDER "cimgui/imgui/backends/")
+else()
+	set(BAKENDS_FOLDER "cimgui/imgui/examples/")
+endif()
 
 #general settings
 file(GLOB IMGUI_SOURCES
@@ -16,14 +21,14 @@ file(GLOB IMGUI_SOURCES
     cimgui/imgui/imgui_draw.cpp
     cimgui/imgui/imgui_demo.cpp
     cimgui/imgui/imgui_widgets.cpp
-    #win32 backend
-    cimgui/imgui/backends/imgui_impl_win32.cpp
-    cimgui/imgui/backends/imgui_impl_win32.h
-    #dx11 backend
-    cimgui/imgui/backends/imgui_impl_dx11.cpp
-    cimgui/imgui/backends/imgui_impl_dx11.h
 	${TABLES_SOURCE}
 )
+
+#DX11 backend
+list(APPEND IMGUI_SOURCES ${BAKENDS_FOLDER}imgui_impl_dx11.cpp)
+
+#WIN32 backend
+list(APPEND IMGUI_SOURCES ${BAKENDS_FOLDER}imgui_impl_win32.cpp)
 
 set(IMGUI_STATIC "no" CACHE STRING "Build as a static library")
 set(IMGUI_FREETYPE "no" CACHE STRING "Build with freetype library")

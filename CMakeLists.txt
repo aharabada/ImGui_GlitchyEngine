@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.15)
 
 project(cimgui)
 
@@ -44,6 +44,9 @@ endif(IMGUI_FREETYPE)
 #add library and link
 if (IMGUI_STATIC)
     add_library(cimgui STATIC ${IMGUI_SOURCES})
+
+    set_property(TARGET cimgui PROPERTY
+        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 else (IMGUI_STATIC)
     add_library(cimgui SHARED ${IMGUI_SOURCES})
 endif (IMGUI_STATIC)

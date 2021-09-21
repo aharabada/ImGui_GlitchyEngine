@@ -1,5 +1,5 @@
 // -- GENERATION INFORMATION --
-// Date: 16.09.2021 15:36:25
+// Date: 21.09.2021 22:04:28
 // Constructors: 0
 // Destructors: 0
 // Enums: 70
@@ -1289,35 +1289,35 @@ namespace ImGui
         {
             public Vec4 Value;
         
-            [LinkName("ImColor_ImColorNil")]
+            [LinkName("ImColor_ImColor_Nil")]
             private static extern Color* CtorImpl();
             public this()
             {
                 this = *CtorImpl();
             }
             
-            [LinkName("ImColor_ImColorInt")]
+            [LinkName("ImColor_ImColor_Int")]
             private static extern Color* CtorImpl(int32 r, int32 g, int32 b, int32 a);
             public this(int32 r, int32 g, int32 b, int32 a = (int32) 255)
             {
                 this = *CtorImpl(r, g, b, a);
             }
             
-            [LinkName("ImColor_ImColorU32")]
+            [LinkName("ImColor_ImColor_U32")]
             private static extern Color* CtorImpl(U32 rgba);
             public this(U32 rgba)
             {
                 this = *CtorImpl(rgba);
             }
             
-            [LinkName("ImColor_ImColorFloat")]
+            [LinkName("ImColor_ImColor_Float")]
             private static extern Color* CtorImpl(float r, float g, float b, float a);
             public this(float r, float g, float b, float a = (float) 1.0f)
             {
                 this = *CtorImpl(r, g, b, a);
             }
             
-            [LinkName("ImColor_ImColorVec4")]
+            [LinkName("ImColor_ImColor_Vec4")]
             private static extern Color* CtorImpl(Vec4 col);
             public this(Vec4 col)
             {
@@ -1530,11 +1530,11 @@ namespace ImGui
             private static extern void AddRectFilledMultiColorImpl(DrawList* self, Vec2 p_min, Vec2 p_max, U32 col_upr_left, U32 col_upr_right, U32 col_bot_right, U32 col_bot_left);
             public void AddRectFilledMultiColor(Vec2 p_min, Vec2 p_max, U32 col_upr_left, U32 col_upr_right, U32 col_bot_right, U32 col_bot_left) mut=> AddRectFilledMultiColorImpl(&this, p_min, p_max, col_upr_left, col_upr_right, col_bot_right, col_bot_left);
             
-            [LinkName("ImDrawList_AddTextVec2")]
+            [LinkName("ImDrawList_AddText_Vec2")]
             private static extern void AddTextImpl(DrawList* self, Vec2 pos, U32 col, char* text_begin, char* text_end);
             public void AddText(Vec2 pos, U32 col, char* text_begin, char* text_end = null) mut=> AddTextImpl(&this, pos, col, text_begin, text_end);
             
-            [LinkName("ImDrawList_AddTextFontPtr")]
+            [LinkName("ImDrawList_AddText_FontPtr")]
             private static extern void AddTextImpl(DrawList* self, Font* font, float font_size, Vec2 pos, U32 col, char* text_begin, char* text_end, float wrap_width, Vec4* cpu_fine_clip_rect);
             public void AddText(Font* font, float font_size, Vec2 pos, U32 col, char* text_begin, char* text_end = null, float wrap_width = (float) 0.0f, Vec4* cpu_fine_clip_rect = null) mut=> AddTextImpl(&this, font, font_size, pos, col, text_begin, text_end, wrap_width, cpu_fine_clip_rect);
             
@@ -3243,14 +3243,14 @@ namespace ImGui
             public void* Ptr;
             public int32 Index;
         
-            [LinkName("ImGuiPtrOrIndex_ImGuiPtrOrIndexPtr")]
+            [LinkName("ImGuiPtrOrIndex_ImGuiPtrOrIndex_Ptr")]
             private static extern PtrOrIndex* CtorImpl(void* ptr);
             public this(void* ptr)
             {
                 this = *CtorImpl(ptr);
             }
             
-            [LinkName("ImGuiPtrOrIndex_ImGuiPtrOrIndexInt")]
+            [LinkName("ImGuiPtrOrIndex_ImGuiPtrOrIndex_Int")]
             private static extern PtrOrIndex* CtorImpl(int32 index);
             public this(int32 index)
             {
@@ -3403,21 +3403,21 @@ namespace ImGui
             public float val_f { get { return Union0.val_f; } set mut { Union0.val_f = value; } };
             public void* val_p { get { return Union0.val_p; } set mut { Union0.val_p = value; } };
         
-            [LinkName("ImGuiStoragePair_ImGuiStoragePairInt")]
+            [LinkName("ImGuiStoragePair_ImGuiStoragePair_Int")]
             private static extern StoragePair* CtorImpl(ID _key, int32 _val_i);
             public this(ID _key, int32 _val_i)
             {
                 this = *CtorImpl(_key, _val_i);
             }
             
-            [LinkName("ImGuiStoragePair_ImGuiStoragePairFloat")]
+            [LinkName("ImGuiStoragePair_ImGuiStoragePair_Float")]
             private static extern StoragePair* CtorImpl(ID _key, float _val_f);
             public this(ID _key, float _val_f)
             {
                 this = *CtorImpl(_key, _val_f);
             }
             
-            [LinkName("ImGuiStoragePair_ImGuiStoragePairPtr")]
+            [LinkName("ImGuiStoragePair_ImGuiStoragePair_Ptr")]
             private static extern StoragePair* CtorImpl(ID _key, void* _val_p);
             public this(ID _key, void* _val_p)
             {
@@ -3500,21 +3500,21 @@ namespace ImGui
             public int32[2] BackupInt { get { return Union0.BackupInt; } set mut { Union0.BackupInt = value; } };
             public float[2] BackupFloat { get { return Union0.BackupFloat; } set mut { Union0.BackupFloat = value; } };
         
-            [LinkName("ImGuiStyleMod_ImGuiStyleModInt")]
+            [LinkName("ImGuiStyleMod_ImGuiStyleMod_Int")]
             private static extern StyleMod* CtorImpl(StyleVar idx, int32 v);
             public this(StyleVar idx, int32 v)
             {
                 this = *CtorImpl(idx, v);
             }
             
-            [LinkName("ImGuiStyleMod_ImGuiStyleModFloat")]
+            [LinkName("ImGuiStyleMod_ImGuiStyleMod_Float")]
             private static extern StyleMod* CtorImpl(StyleVar idx, float v);
             public this(StyleVar idx, float v)
             {
                 this = *CtorImpl(idx, v);
             }
             
-            [LinkName("ImGuiStyleMod_ImGuiStyleModVec2")]
+            [LinkName("ImGuiStyleMod_ImGuiStyleMod_Vec2")]
             private static extern StyleMod* CtorImpl(StyleVar idx, Vec2 v);
             public this(StyleVar idx, Vec2 v)
             {
@@ -3979,14 +3979,14 @@ namespace ImGui
             public char* b;
             public char* e;
         
-            [LinkName("ImGuiTextRange_ImGuiTextRangeNil")]
+            [LinkName("ImGuiTextRange_ImGuiTextRange_Nil")]
             private static extern TextRange* CtorImpl();
             public this()
             {
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiTextRange_ImGuiTextRangeStr")]
+            [LinkName("ImGuiTextRange_ImGuiTextRange_Str")]
             private static extern TextRange* CtorImpl(char* _b, char* _e);
             public this(char* _b, char* _e)
             {
@@ -4258,15 +4258,15 @@ namespace ImGui
             private static extern float CalcFontSizeImpl(Window* self);
             public float CalcFontSize() mut=> CalcFontSizeImpl(&this);
             
-            [LinkName("ImGuiWindow_GetIDStr")]
+            [LinkName("ImGuiWindow_GetID_Str")]
             private static extern ID GetIDImpl(Window* self, char* str, char* str_end);
             public ID GetID(char* str, char* str_end = null) mut=> GetIDImpl(&this, str, str_end);
             
-            [LinkName("ImGuiWindow_GetIDPtr")]
+            [LinkName("ImGuiWindow_GetID_Ptr")]
             private static extern ID GetIDImpl(Window* self, void* ptr);
             public ID GetID(void* ptr) mut=> GetIDImpl(&this, ptr);
             
-            [LinkName("ImGuiWindow_GetIDInt")]
+            [LinkName("ImGuiWindow_GetID_Int")]
             private static extern ID GetIDImpl(Window* self, int32 n);
             public ID GetID(int32 n) mut=> GetIDImpl(&this, n);
             
@@ -4274,15 +4274,15 @@ namespace ImGui
             private static extern ID GetIDFromRectangleImpl(Window* self, Rect r_abs);
             public ID GetIDFromRectangle(Rect r_abs) mut=> GetIDFromRectangleImpl(&this, r_abs);
             
-            [LinkName("ImGuiWindow_GetIDNoKeepAliveStr")]
+            [LinkName("ImGuiWindow_GetIDNoKeepAlive_Str")]
             private static extern ID GetIDNoKeepAliveImpl(Window* self, char* str, char* str_end);
             public ID GetIDNoKeepAlive(char* str, char* str_end = null) mut=> GetIDNoKeepAliveImpl(&this, str, str_end);
             
-            [LinkName("ImGuiWindow_GetIDNoKeepAlivePtr")]
+            [LinkName("ImGuiWindow_GetIDNoKeepAlive_Ptr")]
             private static extern ID GetIDNoKeepAliveImpl(Window* self, void* ptr);
             public ID GetIDNoKeepAlive(void* ptr) mut=> GetIDNoKeepAliveImpl(&this, ptr);
             
-            [LinkName("ImGuiWindow_GetIDNoKeepAliveInt")]
+            [LinkName("ImGuiWindow_GetIDNoKeepAlive_Int")]
             private static extern ID GetIDNoKeepAliveImpl(Window* self, int32 n);
             public ID GetIDNoKeepAlive(int32 n) mut=> GetIDNoKeepAliveImpl(&this, n);
             
@@ -4434,39 +4434,39 @@ namespace ImGui
             public Vec2 Min;
             public Vec2 Max;
         
-            [LinkName("ImRect_ImRectNil")]
+            [LinkName("ImRect_ImRect_Nil")]
             private static extern Rect* CtorImpl();
             public this()
             {
                 this = *CtorImpl();
             }
             
-            [LinkName("ImRect_ImRectVec2")]
+            [LinkName("ImRect_ImRect_Vec2")]
             private static extern Rect* CtorImpl(Vec2 min, Vec2 max);
             public this(Vec2 min, Vec2 max)
             {
                 this = *CtorImpl(min, max);
             }
             
-            [LinkName("ImRect_ImRectVec4")]
+            [LinkName("ImRect_ImRect_Vec4")]
             private static extern Rect* CtorImpl(Vec4 v);
             public this(Vec4 v)
             {
                 this = *CtorImpl(v);
             }
             
-            [LinkName("ImRect_ImRectFloat")]
+            [LinkName("ImRect_ImRect_Float")]
             private static extern Rect* CtorImpl(float x1, float y1, float x2, float y2);
             public this(float x1, float y1, float x2, float y2)
             {
                 this = *CtorImpl(x1, y1, x2, y2);
             }
             
-            [LinkName("ImRect_AddVec2")]
+            [LinkName("ImRect_Add_Vec2")]
             private static extern void AddImpl(Rect* self, Vec2 p);
             public void Add(Vec2 p) mut=> AddImpl(&this, p);
             
-            [LinkName("ImRect_AddRect")]
+            [LinkName("ImRect_Add_Rect")]
             private static extern void AddImpl(Rect* self, Rect r);
             public void Add(Rect r) mut=> AddImpl(&this, r);
             
@@ -4478,19 +4478,19 @@ namespace ImGui
             private static extern void ClipWithFullImpl(Rect* self, Rect r);
             public void ClipWithFull(Rect r) mut=> ClipWithFullImpl(&this, r);
             
-            [LinkName("ImRect_ContainsVec2")]
+            [LinkName("ImRect_Contains_Vec2")]
             private static extern bool ContainsImpl(Rect* self, Vec2 p);
             public bool Contains(Vec2 p) mut=> ContainsImpl(&this, p);
             
-            [LinkName("ImRect_ContainsRect")]
+            [LinkName("ImRect_Contains_Rect")]
             private static extern bool ContainsImpl(Rect* self, Rect r);
             public bool Contains(Rect r) mut=> ContainsImpl(&this, r);
             
-            [LinkName("ImRect_ExpandFloat")]
+            [LinkName("ImRect_Expand_Float")]
             private static extern void ExpandImpl(Rect* self, float amount);
             public void Expand(float amount) mut=> ExpandImpl(&this, amount);
             
-            [LinkName("ImRect_ExpandVec2")]
+            [LinkName("ImRect_Expand_Vec2")]
             private static extern void ExpandImpl(Rect* self, Vec2 amount);
             public void Expand(Vec2 amount) mut=> ExpandImpl(&this, amount);
             
@@ -4600,14 +4600,14 @@ namespace ImGui
         {
             public float x;
         
-            [LinkName("ImVec1_ImVec1Nil")]
+            [LinkName("ImVec1_ImVec1_Nil")]
             private static extern Vec1* CtorImpl();
             public this()
             {
                 this = *CtorImpl();
             }
             
-            [LinkName("ImVec1_ImVec1Float")]
+            [LinkName("ImVec1_ImVec1_Float")]
             private static extern Vec1* CtorImpl(float _x);
             public this(float _x)
             {
@@ -4622,20 +4622,16 @@ namespace ImGui
             public float x;
             public float y;
         
-            [LinkName("ImVec2_ImVec2Nil")]
-            private static extern Vec2* CtorImpl();
             public this()
             {
-                this = *CtorImpl();
+                x = 0;
+                y = 0;
             }
             
-            [LinkName("ImVec2_ImVec2Float")]
-            private static extern Vec2* CtorImpl(float _x, float _y);
-            public this(float _x, float _y)
+            public this(float x, float y)
             {
-				x = _x;
-				y = _y;
-                //this = *CtorImpl(_x, _y);
+                this.x = x;
+                this.y = y;
             }
             
         }
@@ -4646,21 +4642,21 @@ namespace ImGui
             public short x;
             public short y;
         
-            [LinkName("ImVec2ih_ImVec2ihNil")]
+            [LinkName("ImVec2ih_ImVec2ih_Nil")]
             private static extern Vec2ih* CtorImpl();
             public this()
             {
                 this = *CtorImpl();
             }
             
-            [LinkName("ImVec2ih_ImVec2ihshort")]
+            [LinkName("ImVec2ih_ImVec2ih_short")]
             private static extern Vec2ih* CtorImpl(short _x, short _y);
             public this(short _x, short _y)
             {
                 this = *CtorImpl(_x, _y);
             }
             
-            [LinkName("ImVec2ih_ImVec2ihVec2")]
+            [LinkName("ImVec2ih_ImVec2ih_Vec2")]
             private static extern Vec2ih* CtorImpl(Vec2 rhs);
             public this(Vec2 rhs)
             {
@@ -4677,18 +4673,20 @@ namespace ImGui
             public float z;
             public float w;
         
-            [LinkName("ImVec4_ImVec4Nil")]
-            private static extern Vec4* CtorImpl();
             public this()
             {
-                this = *CtorImpl();
+            	x = 0;
+            	y = 0;
+            	z = 0;
+            	w = 0;
             }
             
-            [LinkName("ImVec4_ImVec4Float")]
-            private static extern Vec4* CtorImpl(float _x, float _y, float _z, float _w);
-            public this(float _x, float _y, float _z, float _w)
+            public this(float x, float y, float z, float w)
             {
-                this = *CtorImpl(_x, _y, _z, _w);
+            	this.x = x;
+            	this.y = y;
+            	this.z = z;
+            	this.w = w;
             }
             
         }
@@ -4754,14 +4752,14 @@ namespace ImGui
             public int32 Capacity;
             public T* Data;
         
-            [LinkName("ImVector_ImVectorNil")]
+            [LinkName("ImVector_ImVector_Nil")]
             private static extern Vector<T>* CtorImpl();
             public this()
             {
                 this = *CtorImpl();
             }
             
-            [LinkName("ImVector_ImVectorVector")]
+            [LinkName("ImVector_ImVector_Vector")]
             private static extern Vector<T>* CtorImpl(Vector<T> src);
             public this(Vector<T> src)
             {
@@ -4772,11 +4770,11 @@ namespace ImGui
             private static extern int32 GrowCapacityImpl(Vector<T>* self, int32 sz);
             public int32 GrowCapacity(int32 sz) mut=> GrowCapacityImpl(&this, sz);
             
-            [LinkName("ImVector_backNil")]
+            [LinkName("ImVector_back_Nil")]
             private static extern T* BackImpl(Vector<T>* self);
             public T* Back() mut=> BackImpl(&this);
             
-            [LinkName("ImVector_beginNil")]
+            [LinkName("ImVector_begin_Nil")]
             private static extern T* BeginImpl(Vector<T>* self);
             public T* Begin() mut=> BeginImpl(&this);
             
@@ -4804,15 +4802,15 @@ namespace ImGui
             private static extern bool EmptyImpl(Vector<T>* self);
             public bool Empty() mut=> EmptyImpl(&this);
             
-            [LinkName("ImVector_endNil")]
+            [LinkName("ImVector_end_Nil")]
             private static extern T* EndImpl(Vector<T>* self);
             public T* End() mut=> EndImpl(&this);
             
-            [LinkName("ImVector_eraseNil")]
+            [LinkName("ImVector_erase_Nil")]
             private static extern T* EraseImpl(Vector<T>* self, T* it);
             public T* Erase(T* it) mut=> EraseImpl(&this, it);
             
-            [LinkName("ImVector_eraseTPtr")]
+            [LinkName("ImVector_erase_TPtr")]
             private static extern T* EraseImpl(Vector<T>* self, T* it, T* it_last);
             public T* Erase(T* it, T* it_last) mut=> EraseImpl(&this, it, it_last);
             
@@ -4820,7 +4818,7 @@ namespace ImGui
             private static extern T* EraseUnsortedImpl(Vector<T>* self, T* it);
             public T* EraseUnsorted(T* it) mut=> EraseUnsortedImpl(&this, it);
             
-            [LinkName("ImVector_findNil")]
+            [LinkName("ImVector_find_Nil")]
             private static extern T* FindImpl(Vector<T>* self, T v);
             public T* Find(T v) mut=> FindImpl(&this, v);
             
@@ -4832,7 +4830,7 @@ namespace ImGui
             private static extern bool FindEraseUnsortedImpl(Vector<T>* self, T v);
             public bool FindEraseUnsorted(T v) mut=> FindEraseUnsortedImpl(&this, v);
             
-            [LinkName("ImVector_frontNil")]
+            [LinkName("ImVector_front_Nil")]
             private static extern T* FrontImpl(Vector<T>* self);
             public T* Front() mut=> FrontImpl(&this);
             
@@ -4864,11 +4862,11 @@ namespace ImGui
             private static extern void ReserveImpl(Vector<T>* self, int32 new_capacity);
             public void Reserve(int32 new_capacity) mut=> ReserveImpl(&this, new_capacity);
             
-            [LinkName("ImVector_resizeNil")]
+            [LinkName("ImVector_resize_Nil")]
             private static extern void ResizeImpl(Vector<T>* self, int32 new_size);
             public void Resize(int32 new_size) mut=> ResizeImpl(&this, new_size);
             
-            [LinkName("ImVector_resizeT")]
+            [LinkName("ImVector_resize_T")]
             private static extern void ResizeImpl(Vector<T>* self, int32 new_size, T v);
             public void Resize(int32 new_size, T v) mut=> ResizeImpl(&this, new_size, v);
             
@@ -5014,11 +5012,11 @@ namespace ImGui
             private static extern T* GetOrAddByKeyImpl(Pool<T>* self, ID key);
             public T* GetOrAddByKey(ID key) mut=> GetOrAddByKeyImpl(&this, key);
             
-            [LinkName("ImPool_RemoveTPtr")]
+            [LinkName("ImPool_Remove_TPtr")]
             private static extern void RemoveImpl(Pool<T>* self, ID key, T* p);
             public void Remove(ID key, T* p) mut=> RemoveImpl(&this, key, p);
             
-            [LinkName("ImPool_RemovePoolIdx")]
+            [LinkName("ImPool_Remove_PoolIdx")]
             private static extern void RemoveImpl(Pool<T>* self, ID key, PoolIdx idx);
             public void Remove(ID key, PoolIdx idx) mut=> RemoveImpl(&this, key, idx);
             
@@ -5062,11 +5060,11 @@ namespace ImGui
         public struct Span<T>
         {
         
-            [LinkName("ImSpan_beginNil")]
+            [LinkName("ImSpan_begin_Nil")]
             private static extern T* BeginImpl(Span<T>* self);
             public T* Begin() mut=> BeginImpl(&this);
             
-            [LinkName("ImSpan_endNil")]
+            [LinkName("ImSpan_end_Nil")]
             private static extern T* EndImpl(Span<T>* self);
             public T* End() mut=> EndImpl(&this);
             
@@ -5074,11 +5072,11 @@ namespace ImGui
             private static extern int32 IndexFromPtrImpl(Span<T>* self, T* it);
             public int32 IndexFromPtr(T* it) mut=> IndexFromPtrImpl(&this, it);
             
-            [LinkName("ImSpan_setInt")]
+            [LinkName("ImSpan_set_Int")]
             private static extern void SetImpl(Span<T>* self, T* data, int32 size);
             public void Set(T* data, int32 size) mut=> SetImpl(&this, data, size);
             
-            [LinkName("ImSpan_setTPtr")]
+            [LinkName("ImSpan_set_TPtr")]
             private static extern void SetImpl(Span<T>* self, T* data, T* data_end);
             public void Set(T* data, T* data_end) mut=> SetImpl(&this, data, data_end);
             
@@ -5124,11 +5122,11 @@ namespace ImGui
         private static extern bool BeginImpl(char* name, bool* p_open, WindowFlags flags);
         public static bool Begin(char* name, bool* p_open = null, WindowFlags flags = (WindowFlags) 0) => BeginImpl(name, p_open, flags);
         
-        [LinkName("igBeginChildStr")]
+        [LinkName("igBeginChild_Str")]
         private static extern bool BeginChildImpl(char* str_id, Vec2 size, bool border, WindowFlags flags);
         public static bool BeginChild(char* str_id, Vec2 size = Vec2.Zero, bool border = false, WindowFlags flags = (WindowFlags) 0) => BeginChildImpl(str_id, size, border, flags);
         
-        [LinkName("igBeginChildID")]
+        [LinkName("igBeginChild_ID")]
         private static extern bool BeginChildImpl(ID id, Vec2 size, bool border, WindowFlags flags);
         public static bool BeginChild(ID id, Vec2 size = Vec2.Zero, bool border = false, WindowFlags flags = (WindowFlags) 0) => BeginChildImpl(id, size, border, flags);
         
@@ -5364,19 +5362,19 @@ namespace ImGui
         private static extern bool CheckboxImpl(char* label, bool* v);
         public static bool Checkbox(char* label, bool* v) => CheckboxImpl(label, v);
         
-        [LinkName("igCheckboxFlagsIntPtr")]
+        [LinkName("igCheckboxFlags_IntPtr")]
         private static extern bool CheckboxFlagsImpl(char* label, int32* flags, int32 flags_value);
         public static bool CheckboxFlags(char* label, int32* flags, int32 flags_value) => CheckboxFlagsImpl(label, flags, flags_value);
         
-        [LinkName("igCheckboxFlagsUintPtr")]
+        [LinkName("igCheckboxFlags_UintPtr")]
         private static extern bool CheckboxFlagsImpl(char* label, uint32* flags, uint32 flags_value);
         public static bool CheckboxFlags(char* label, uint32* flags, uint32 flags_value) => CheckboxFlagsImpl(label, flags, flags_value);
         
-        [LinkName("igCheckboxFlagsS64Ptr")]
+        [LinkName("igCheckboxFlags_S64Ptr")]
         private static extern bool CheckboxFlagsImpl(char* label, S64* flags, S64 flags_value);
         public static bool CheckboxFlags(char* label, S64* flags, S64 flags_value) => CheckboxFlagsImpl(label, flags, flags_value);
         
-        [LinkName("igCheckboxFlagsU64Ptr")]
+        [LinkName("igCheckboxFlags_U64Ptr")]
         private static extern bool CheckboxFlagsImpl(char* label, U64* flags, U64 flags_value);
         public static bool CheckboxFlags(char* label, U64* flags, U64 flags_value) => CheckboxFlagsImpl(label, flags, flags_value);
         
@@ -5412,11 +5410,11 @@ namespace ImGui
         private static extern bool CollapseButtonImpl(ID id, Vec2 pos, DockNode* dock_node);
         public static bool CollapseButton(ID id, Vec2 pos, DockNode* dock_node) => CollapseButtonImpl(id, pos, dock_node);
         
-        [LinkName("igCollapsingHeaderTreeNodeFlags")]
+        [LinkName("igCollapsingHeader_TreeNodeFlags")]
         private static extern bool CollapsingHeaderImpl(char* label, TreeNodeFlags flags);
         public static bool CollapsingHeader(char* label, TreeNodeFlags flags = (TreeNodeFlags) 0) => CollapsingHeaderImpl(label, flags);
         
-        [LinkName("igCollapsingHeaderBoolPtr")]
+        [LinkName("igCollapsingHeader_BoolPtr")]
         private static extern bool CollapsingHeaderImpl(char* label, bool* p_visible, TreeNodeFlags flags);
         public static bool CollapsingHeader(char* label, bool* p_visible, TreeNodeFlags flags = (TreeNodeFlags) 0) => CollapsingHeaderImpl(label, p_visible, flags);
         
@@ -5487,15 +5485,15 @@ namespace ImGui
         private static extern void ColumnsImpl(int32 count, char* id, bool border);
         public static void Columns(int32 count = (int32) 1, char* id = null, bool border = true) => ColumnsImpl(count, id, border);
         
-        [LinkName("igComboStr_arr")]
+        [LinkName("igCombo_Str_arr")]
         private static extern bool ComboImpl(char* label, int32* current_item, char** items, int32 items_count, int32 popup_max_height_in_items);
         public static bool Combo(char* label, int32* current_item, char** items, int32 items_count, int32 popup_max_height_in_items = -1) => ComboImpl(label, current_item, items, items_count, popup_max_height_in_items);
         
-        [LinkName("igComboStr")]
+        [LinkName("igCombo_Str")]
         private static extern bool ComboImpl(char* label, int32* current_item, char* items_separated_by_zeros, int32 popup_max_height_in_items);
         public static bool Combo(char* label, int32* current_item, char* items_separated_by_zeros, int32 popup_max_height_in_items = -1) => ComboImpl(label, current_item, items_separated_by_zeros, popup_max_height_in_items);
         
-        [LinkName("igComboFnBoolPtr")]
+        [LinkName("igCombo_FnBoolPtr")]
         private static extern bool ComboImpl(char* label, int32* current_item, function bool(void* data, int32 idx, char** outext) items_getter, void* data, int32 items_count, int32 popup_max_height_in_items);
         public static bool Combo(char* label, int32* current_item, function bool(void* data, int32 idx, char** outext) items_getter, void* data, int32 items_count, int32 popup_max_height_in_items = -1) => ComboImpl(label, current_item, items_getter, data, items_count, popup_max_height_in_items);
         
@@ -6033,7 +6031,7 @@ namespace ImGui
         private static extern void GetAllocatorFunctionsImpl(MemAllocFunc* p_alloc_func, MemFreeFunc* p_free_func, void** p_user_data);
         public static void GetAllocatorFunctions(MemAllocFunc* p_alloc_func, MemFreeFunc* p_free_func, void** p_user_data) => GetAllocatorFunctionsImpl(p_alloc_func, p_free_func, p_user_data);
         
-        [LinkName("igGetBackgroundDrawListNil")]
+        [LinkName("igGetBackgroundDrawList_Nil")]
         private static extern DrawList* GetBackgroundDrawListImpl();
         #if IMGUI_USE_REF
         public static ref DrawList GetBackgroundDrawList() { return ref *GetBackgroundDrawListImpl(); }
@@ -6041,7 +6039,7 @@ namespace ImGui
         public static DrawList* GetBackgroundDrawList() => GetBackgroundDrawListImpl();
         #endif
         
-        [LinkName("igGetBackgroundDrawListViewportPtr")]
+        [LinkName("igGetBackgroundDrawList_ViewportPtr")]
         private static extern DrawList* GetBackgroundDrawListImpl(Viewport* viewport);
         #if IMGUI_USE_REF
         public static ref DrawList GetBackgroundDrawList(Viewport* viewport) { return ref *GetBackgroundDrawListImpl(viewport); }
@@ -6057,15 +6055,15 @@ namespace ImGui
         public static char* GetClipboardText() => GetClipboardTextImpl();
         #endif
         
-        [LinkName("igGetColorU32Col")]
+        [LinkName("igGetColorU32_Col")]
         private static extern U32 GetColorU32Impl(Col idx, float alpha_mul);
         public static U32 GetColorU32(Col idx, float alpha_mul = (float) 1.0f) => GetColorU32Impl(idx, alpha_mul);
         
-        [LinkName("igGetColorU32Vec4")]
+        [LinkName("igGetColorU32_Vec4")]
         private static extern U32 GetColorU32Impl(Vec4 col);
         public static U32 GetColorU32(Vec4 col) => GetColorU32Impl(col);
         
-        [LinkName("igGetColorU32U32")]
+        [LinkName("igGetColorU32_U32")]
         private static extern U32 GetColorU32Impl(U32 col);
         public static U32 GetColorU32(U32 col) => GetColorU32Impl(col);
         
@@ -6256,7 +6254,7 @@ namespace ImGui
             return pOut;
         }
         
-        [LinkName("igGetForegroundDrawListNil")]
+        [LinkName("igGetForegroundDrawList_Nil")]
         private static extern DrawList* GetForegroundDrawListImpl();
         #if IMGUI_USE_REF
         public static ref DrawList GetForegroundDrawList() { return ref *GetForegroundDrawListImpl(); }
@@ -6264,7 +6262,7 @@ namespace ImGui
         public static DrawList* GetForegroundDrawList() => GetForegroundDrawListImpl();
         #endif
         
-        [LinkName("igGetForegroundDrawListViewportPtr")]
+        [LinkName("igGetForegroundDrawList_ViewportPtr")]
         private static extern DrawList* GetForegroundDrawListImpl(Viewport* viewport);
         #if IMGUI_USE_REF
         public static ref DrawList GetForegroundDrawList(Viewport* viewport) { return ref *GetForegroundDrawListImpl(viewport); }
@@ -6272,7 +6270,7 @@ namespace ImGui
         public static DrawList* GetForegroundDrawList(Viewport* viewport) => GetForegroundDrawListImpl(viewport);
         #endif
         
-        [LinkName("igGetForegroundDrawListWindowPtr")]
+        [LinkName("igGetForegroundDrawList_WindowPtr")]
         private static extern DrawList* GetForegroundDrawListImpl(Window* window);
         #if IMGUI_USE_REF
         public static ref DrawList GetForegroundDrawList(Window* window) { return ref *GetForegroundDrawListImpl(window); }
@@ -6296,15 +6294,15 @@ namespace ImGui
         private static extern ID GetHoveredIDImpl();
         public static ID GetHoveredID() => GetHoveredIDImpl();
         
-        [LinkName("igGetIDStr")]
+        [LinkName("igGetID_Str")]
         private static extern ID GetIDImpl(char* str_id);
         public static ID GetID(char* str_id) => GetIDImpl(str_id);
         
-        [LinkName("igGetIDStrStr")]
+        [LinkName("igGetID_StrStr")]
         private static extern ID GetIDImpl(char* str_id_begin, char* str_id_end);
         public static ID GetID(char* str_id_begin, char* str_id_end) => GetIDImpl(str_id_begin, str_id_end);
         
-        [LinkName("igGetIDPtr")]
+        [LinkName("igGetID_Ptr")]
         private static extern ID GetIDImpl(void* ptr_id);
         public static ID GetID(void* ptr_id) => GetIDImpl(ptr_id);
         
@@ -6637,15 +6635,15 @@ namespace ImGui
         private static extern float GetWindowWidthImpl();
         public static float GetWindowWidth() => GetWindowWidthImpl();
         
-        [LinkName("igImAbsInt")]
+        [LinkName("igImAbs_Int")]
         private static extern int32 ImAbsImpl(int32 x);
         public static int32 ImAbs(int32 x) => ImAbsImpl(x);
         
-        [LinkName("igImAbsFloat")]
+        [LinkName("igImAbs_Float")]
         private static extern float ImAbsImpl(float x);
         public static float ImAbs(float x) => ImAbsImpl(x);
         
-        [LinkName("igImAbsdouble")]
+        [LinkName("igImAbs_double")]
         private static extern double ImAbsImpl(double x);
         public static double ImAbs(double x) => ImAbsImpl(x);
         
@@ -6754,11 +6752,11 @@ namespace ImGui
         private static extern U64 ImFileWriteImpl(void* data, U64 size, U64 count, FileHandle file);
         public static U64 ImFileWrite(void* data, U64 size, U64 count, FileHandle file) => ImFileWriteImpl(data, size, count, file);
         
-        [LinkName("igImFloorFloat")]
+        [LinkName("igImFloor_Float")]
         private static extern float ImFloorImpl(float f);
         public static float ImFloor(float f) => ImFloorImpl(f);
         
-        [LinkName("igImFloorVec2")]
+        [LinkName("igImFloor_Vec2")]
         private static extern Vec2 ImFloorImpl(Vec2* pOut, Vec2 v);
         public static Vec2 ImFloor(Vec2 v)
         {
@@ -6831,23 +6829,23 @@ namespace ImGui
         private static extern float ImInvLengthImpl(Vec2 lhs, float fail_value);
         public static float ImInvLength(Vec2 lhs, float fail_value) => ImInvLengthImpl(lhs, fail_value);
         
-        [LinkName("igImIsPowerOfTwoInt")]
+        [LinkName("igImIsPowerOfTwo_Int")]
         private static extern bool ImIsPowerOfTwoImpl(int32 v);
         public static bool ImIsPowerOfTwo(int32 v) => ImIsPowerOfTwoImpl(v);
         
-        [LinkName("igImIsPowerOfTwoU64")]
+        [LinkName("igImIsPowerOfTwo_U64")]
         private static extern bool ImIsPowerOfTwoImpl(U64 v);
         public static bool ImIsPowerOfTwo(U64 v) => ImIsPowerOfTwoImpl(v);
         
-        [LinkName("igImLengthSqrVec2")]
+        [LinkName("igImLengthSqr_Vec2")]
         private static extern float ImLengthSqrImpl(Vec2 lhs);
         public static float ImLengthSqr(Vec2 lhs) => ImLengthSqrImpl(lhs);
         
-        [LinkName("igImLengthSqrVec4")]
+        [LinkName("igImLengthSqr_Vec4")]
         private static extern float ImLengthSqrImpl(Vec4 lhs);
         public static float ImLengthSqr(Vec4 lhs) => ImLengthSqrImpl(lhs);
         
-        [LinkName("igImLerpVec2Float")]
+        [LinkName("igImLerp_Vec2Float")]
         private static extern Vec2 ImLerpImpl(Vec2* pOut, Vec2 a, Vec2 b, float t);
         public static Vec2 ImLerp(Vec2 a, Vec2 b, float t)
         {
@@ -6856,7 +6854,7 @@ namespace ImGui
             return pOut;
         }
         
-        [LinkName("igImLerpVec2Vec2")]
+        [LinkName("igImLerp_Vec2Vec2")]
         private static extern Vec2 ImLerpImpl(Vec2* pOut, Vec2 a, Vec2 b, Vec2 t);
         public static Vec2 ImLerp(Vec2 a, Vec2 b, Vec2 t)
         {
@@ -6865,7 +6863,7 @@ namespace ImGui
             return pOut;
         }
         
-        [LinkName("igImLerpVec4")]
+        [LinkName("igImLerp_Vec4")]
         private static extern Vec4 ImLerpImpl(Vec4* pOut, Vec4 a, Vec4 b, float t);
         public static Vec4 ImLerp(Vec4 a, Vec4 b, float t)
         {
@@ -6887,11 +6885,11 @@ namespace ImGui
         private static extern float ImLinearSweepImpl(float current, float target, float speed);
         public static float ImLinearSweep(float current, float target, float speed) => ImLinearSweepImpl(current, target, speed);
         
-        [LinkName("igImLogFloat")]
+        [LinkName("igImLog_Float")]
         private static extern float ImLogImpl(float x);
         public static float ImLog(float x) => ImLogImpl(x);
         
-        [LinkName("igImLogdouble")]
+        [LinkName("igImLog_double")]
         private static extern double ImLogImpl(double x);
         public static double ImLog(double x) => ImLogImpl(x);
         
@@ -6954,11 +6952,11 @@ namespace ImGui
         public static char* ImParseFormatTrimDecorations(char* format, char* buf, size buf_size) => ImParseFormatTrimDecorationsImpl(format, buf, buf_size);
         #endif
         
-        [LinkName("igImPowFloat")]
+        [LinkName("igImPow_Float")]
         private static extern float ImPowImpl(float x, float y);
         public static float ImPow(float x, float y) => ImPowImpl(x, y);
         
-        [LinkName("igImPowdouble")]
+        [LinkName("igImPow_double")]
         private static extern double ImPowImpl(double x, double y);
         public static double ImPow(double x, double y) => ImPowImpl(x, y);
         
@@ -6971,11 +6969,11 @@ namespace ImGui
             return pOut;
         }
         
-        [LinkName("igImRsqrtFloat")]
+        [LinkName("igImRsqrt_Float")]
         private static extern float ImRsqrtImpl(float x);
         public static float ImRsqrt(float x) => ImRsqrtImpl(x);
         
-        [LinkName("igImRsqrtdouble")]
+        [LinkName("igImRsqrt_double")]
         private static extern double ImRsqrtImpl(double x);
         public static double ImRsqrt(double x) => ImRsqrtImpl(x);
         
@@ -6983,11 +6981,11 @@ namespace ImGui
         private static extern float ImSaturateImpl(float f);
         public static float ImSaturate(float f) => ImSaturateImpl(f);
         
-        [LinkName("igImSignFloat")]
+        [LinkName("igImSign_Float")]
         private static extern float ImSignImpl(float x);
         public static float ImSign(float x) => ImSignImpl(x);
         
-        [LinkName("igImSigndouble")]
+        [LinkName("igImSign_double")]
         private static extern double ImSignImpl(double x);
         public static double ImSign(double x) => ImSignImpl(x);
         
@@ -7361,19 +7359,19 @@ namespace ImGui
         private static extern bool IsNavInputTestImpl(NavInput n, InputReadMode rm);
         public static bool IsNavInputTest(NavInput n, InputReadMode rm) => IsNavInputTestImpl(n, rm);
         
-        [LinkName("igIsPopupOpenStr")]
+        [LinkName("igIsPopupOpen_Str")]
         private static extern bool IsPopupOpenImpl(char* str_id, PopupFlags flags);
         public static bool IsPopupOpen(char* str_id, PopupFlags flags = (PopupFlags) 0) => IsPopupOpenImpl(str_id, flags);
         
-        [LinkName("igIsPopupOpenID")]
+        [LinkName("igIsPopupOpen_ID")]
         private static extern bool IsPopupOpenImpl(ID id, PopupFlags popup_flags);
         public static bool IsPopupOpen(ID id, PopupFlags popup_flags) => IsPopupOpenImpl(id, popup_flags);
         
-        [LinkName("igIsRectVisibleNil")]
+        [LinkName("igIsRectVisible_Nil")]
         private static extern bool IsRectVisibleImpl(Vec2 size);
         public static bool IsRectVisible(Vec2 size) => IsRectVisibleImpl(size);
         
-        [LinkName("igIsRectVisibleVec2")]
+        [LinkName("igIsRectVisible_Vec2")]
         private static extern bool IsRectVisibleImpl(Vec2 rect_min, Vec2 rect_max);
         public static bool IsRectVisible(Vec2 rect_min, Vec2 rect_max) => IsRectVisibleImpl(rect_min, rect_max);
         
@@ -7421,11 +7419,11 @@ namespace ImGui
         private static extern void ItemInputableImpl(Window* window, ID id);
         public static void ItemInputable(Window* window, ID id) => ItemInputableImpl(window, id);
         
-        [LinkName("igItemSizeVec2")]
+        [LinkName("igItemSize_Vec2")]
         private static extern void ItemSizeImpl(Vec2 size, float text_baseline_y);
         public static void ItemSize(Vec2 size, float text_baseline_y = -1.0f) => ItemSizeImpl(size, text_baseline_y);
         
-        [LinkName("igItemSizeRect")]
+        [LinkName("igItemSize_Rect")]
         private static extern void ItemSizeImpl(Rect bb, float text_baseline_y);
         public static void ItemSize(Rect bb, float text_baseline_y = -1.0f) => ItemSizeImpl(bb, text_baseline_y);
         
@@ -7437,11 +7435,11 @@ namespace ImGui
         private static extern void LabelTextImpl(char* label, char* fmt, ...);
         public static void LabelText(char* label, char* fmt, params Object[] args) => LabelTextImpl(label, scope String()..AppendF(StringView(fmt), params args));
         
-        [LinkName("igListBoxStr_arr")]
+        [LinkName("igListBox_Str_arr")]
         private static extern bool ListBoxImpl(char* label, int32* current_item, char** items, int32 items_count, int32 height_in_items);
         public static bool ListBox(char* label, int32* current_item, char** items, int32 items_count, int32 height_in_items = -1) => ListBoxImpl(label, current_item, items, items_count, height_in_items);
         
-        [LinkName("igListBoxFnBoolPtr")]
+        [LinkName("igListBox_FnBoolPtr")]
         private static extern bool ListBoxImpl(char* label, int32* current_item, function bool(void* data, int32 idx, char** outext) items_getter, void* data, int32 items_count, int32 height_in_items);
         public static bool ListBox(char* label, int32* current_item, function bool(void* data, int32 idx, char** outext) items_getter, void* data, int32 items_count, int32 height_in_items = -1) => ListBoxImpl(label, current_item, items_getter, data, items_count, height_in_items);
         
@@ -7493,11 +7491,11 @@ namespace ImGui
         private static extern void LogToTTYImpl(int32 auto_open_depth);
         public static void LogToTTY(int32 auto_open_depth = -1) => LogToTTYImpl(auto_open_depth);
         
-        [LinkName("igMarkIniSettingsDirtyNil")]
+        [LinkName("igMarkIniSettingsDirty_Nil")]
         private static extern void MarkIniSettingsDirtyImpl();
         public static void MarkIniSettingsDirty() => MarkIniSettingsDirtyImpl();
         
-        [LinkName("igMarkIniSettingsDirtyWindowPtr")]
+        [LinkName("igMarkIniSettingsDirty_WindowPtr")]
         private static extern void MarkIniSettingsDirtyImpl(Window* window);
         public static void MarkIniSettingsDirty(Window* window) => MarkIniSettingsDirtyImpl(window);
         
@@ -7517,11 +7515,11 @@ namespace ImGui
         private static extern void MemFreeImpl(void* ptr);
         public static void MemFree(void* ptr) => MemFreeImpl(ptr);
         
-        [LinkName("igMenuItemBool")]
+        [LinkName("igMenuItem_Bool")]
         private static extern bool MenuItemImpl(char* label, char* shortcut, bool selected, bool enabled);
         public static bool MenuItem(char* label, char* shortcut = null, bool selected = false, bool enabled = true) => MenuItemImpl(label, shortcut, selected, enabled);
         
-        [LinkName("igMenuItemBoolPtr")]
+        [LinkName("igMenuItem_BoolPtr")]
         private static extern bool MenuItemImpl(char* label, char* shortcut, bool* p_selected, bool enabled);
         public static bool MenuItem(char* label, char* shortcut, bool* p_selected, bool enabled = true) => MenuItemImpl(label, shortcut, p_selected, enabled);
         
@@ -7573,11 +7571,11 @@ namespace ImGui
         private static extern void NextColumnImpl();
         public static void NextColumn() => NextColumnImpl();
         
-        [LinkName("igOpenPopupStr")]
+        [LinkName("igOpenPopup_Str")]
         private static extern void OpenPopupImpl(char* str_id, PopupFlags popup_flags);
         public static void OpenPopup(char* str_id, PopupFlags popup_flags = (PopupFlags) 0) => OpenPopupImpl(str_id, popup_flags);
         
-        [LinkName("igOpenPopupID")]
+        [LinkName("igOpenPopup_ID")]
         private static extern void OpenPopupImpl(ID id, PopupFlags popup_flags);
         public static void OpenPopup(ID id, PopupFlags popup_flags = (PopupFlags) 0) => OpenPopupImpl(id, popup_flags);
         
@@ -7593,19 +7591,19 @@ namespace ImGui
         private static extern int32 PlotExImpl(PlotType plot_type, char* label, function float(void* data, int32 idx) values_getter, void* data, int32 values_count, int32 values_offset, char* overlay_text, float scale_min, float scale_max, Vec2 frame_size);
         public static int32 PlotEx(PlotType plot_type, char* label, function float(void* data, int32 idx) values_getter, void* data, int32 values_count, int32 values_offset, char* overlay_text, float scale_min, float scale_max, Vec2 frame_size) => PlotExImpl(plot_type, label, values_getter, data, values_count, values_offset, overlay_text, scale_min, scale_max, frame_size);
         
-        [LinkName("igPlotHistogramFloatPtr")]
+        [LinkName("igPlotHistogram_FloatPtr")]
         private static extern void PlotHistogramImpl(char* label, float* values, int32 values_count, int32 values_offset, char* overlay_text, float scale_min, float scale_max, Vec2 graph_size, int32 stride);
         public static void PlotHistogram(char* label, float* values, int32 values_count, int32 values_offset = (int32) 0, char* overlay_text = null, float scale_min = float.MaxValue, float scale_max = float.MaxValue, Vec2 graph_size = Vec2.Zero, int32 stride = sizeof(float)) => PlotHistogramImpl(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_size, stride);
         
-        [LinkName("igPlotHistogramFnFloatPtr")]
+        [LinkName("igPlotHistogram_FnFloatPtr")]
         private static extern void PlotHistogramImpl(char* label, function float(void* data, int32 idx) values_getter, void* data, int32 values_count, int32 values_offset, char* overlay_text, float scale_min, float scale_max, Vec2 graph_size);
         public static void PlotHistogram(char* label, function float(void* data, int32 idx) values_getter, void* data, int32 values_count, int32 values_offset = (int32) 0, char* overlay_text = null, float scale_min = float.MaxValue, float scale_max = float.MaxValue, Vec2 graph_size = Vec2.Zero) => PlotHistogramImpl(label, values_getter, data, values_count, values_offset, overlay_text, scale_min, scale_max, graph_size);
         
-        [LinkName("igPlotLinesFloatPtr")]
+        [LinkName("igPlotLines_FloatPtr")]
         private static extern void PlotLinesImpl(char* label, float* values, int32 values_count, int32 values_offset, char* overlay_text, float scale_min, float scale_max, Vec2 graph_size, int32 stride);
         public static void PlotLines(char* label, float* values, int32 values_count, int32 values_offset = (int32) 0, char* overlay_text = null, float scale_min = float.MaxValue, float scale_max = float.MaxValue, Vec2 graph_size = Vec2.Zero, int32 stride = sizeof(float)) => PlotLinesImpl(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_size, stride);
         
-        [LinkName("igPlotLinesFnFloatPtr")]
+        [LinkName("igPlotLines_FnFloatPtr")]
         private static extern void PlotLinesImpl(char* label, function float(void* data, int32 idx) values_getter, void* data, int32 values_count, int32 values_offset, char* overlay_text, float scale_min, float scale_max, Vec2 graph_size);
         public static void PlotLines(char* label, function float(void* data, int32 idx) values_getter, void* data, int32 values_count, int32 values_offset = (int32) 0, char* overlay_text = null, float scale_min = float.MaxValue, float scale_max = float.MaxValue, Vec2 graph_size = Vec2.Zero) => PlotLinesImpl(label, values_getter, data, values_count, values_offset, overlay_text, scale_min, scale_max, graph_size);
         
@@ -7659,7 +7657,7 @@ namespace ImGui
         
         [LinkName("igProgressBar")]
         private static extern void ProgressBarImpl(float fraction, Vec2 size_arg, char* overlay);
-        public static void ProgressBar(float fraction, Vec2 size_arg = .(-1.17549435e-38F,0), char* overlay = null) => ProgressBarImpl(fraction, size_arg, overlay);
+        public static void ProgressBar(float fraction, Vec2 size_arg = .(-float.MinValue,0), char* overlay = null) => ProgressBarImpl(fraction, size_arg, overlay);
         
         [LinkName("igPushAllowKeyboardFocus")]
         private static extern void PushAllowKeyboardFocusImpl(bool allow_keyboard_focus);
@@ -7689,19 +7687,19 @@ namespace ImGui
         private static extern void PushFontImpl(Font* font);
         public static void PushFont(Font* font) => PushFontImpl(font);
         
-        [LinkName("igPushIDStr")]
+        [LinkName("igPushID_Str")]
         private static extern void PushIDImpl(char* str_id);
         public static void PushID(char* str_id) => PushIDImpl(str_id);
         
-        [LinkName("igPushIDStrStr")]
+        [LinkName("igPushID_StrStr")]
         private static extern void PushIDImpl(char* str_id_begin, char* str_id_end);
         public static void PushID(char* str_id_begin, char* str_id_end) => PushIDImpl(str_id_begin, str_id_end);
         
-        [LinkName("igPushIDPtr")]
+        [LinkName("igPushID_Ptr")]
         private static extern void PushIDImpl(void* ptr_id);
         public static void PushID(void* ptr_id) => PushIDImpl(ptr_id);
         
-        [LinkName("igPushIDInt")]
+        [LinkName("igPushID_Int")]
         private static extern void PushIDImpl(int32 int_id);
         public static void PushID(int32 int_id) => PushIDImpl(int_id);
         
@@ -7721,19 +7719,19 @@ namespace ImGui
         private static extern void PushOverrideIDImpl(ID id);
         public static void PushOverrideID(ID id) => PushOverrideIDImpl(id);
         
-        [LinkName("igPushStyleColorU32")]
+        [LinkName("igPushStyleColor_U32")]
         private static extern void PushStyleColorImpl(Col idx, U32 col);
         public static void PushStyleColor(Col idx, U32 col) => PushStyleColorImpl(idx, col);
         
-        [LinkName("igPushStyleColorVec4")]
+        [LinkName("igPushStyleColor_Vec4")]
         private static extern void PushStyleColorImpl(Col idx, Vec4 col);
         public static void PushStyleColor(Col idx, Vec4 col) => PushStyleColorImpl(idx, col);
         
-        [LinkName("igPushStyleVarFloat")]
+        [LinkName("igPushStyleVar_Float")]
         private static extern void PushStyleVarImpl(StyleVar idx, float val);
         public static void PushStyleVar(StyleVar idx, float val) => PushStyleVarImpl(idx, val);
         
-        [LinkName("igPushStyleVarVec2")]
+        [LinkName("igPushStyleVar_Vec2")]
         private static extern void PushStyleVarImpl(StyleVar idx, Vec2 val);
         public static void PushStyleVar(StyleVar idx, Vec2 val) => PushStyleVarImpl(idx, val);
         
@@ -7741,11 +7739,11 @@ namespace ImGui
         private static extern void PushTextWrapPosImpl(float wrap_local_pos_x);
         public static void PushTextWrapPos(float wrap_local_pos_x = (float) 0.0f) => PushTextWrapPosImpl(wrap_local_pos_x);
         
-        [LinkName("igRadioButtonBool")]
+        [LinkName("igRadioButton_Bool")]
         private static extern bool RadioButtonImpl(char* label, bool active);
         public static bool RadioButton(char* label, bool active) => RadioButtonImpl(label, active);
         
-        [LinkName("igRadioButtonIntPtr")]
+        [LinkName("igRadioButton_IntPtr")]
         private static extern bool RadioButtonImpl(char* label, int32* v, int32 v_button);
         public static bool RadioButton(char* label, int32* v, int32 v_button) => RadioButtonImpl(label, v, v_button);
         
@@ -7870,11 +7868,11 @@ namespace ImGui
         private static extern bool ScrollbarExImpl(Rect bb, ID id, Axis axis, float* p_scroll_v, float avail_v, float contents_v, DrawFlags flags);
         public static bool ScrollbarEx(Rect bb, ID id, Axis axis, float* p_scroll_v, float avail_v, float contents_v, DrawFlags flags) => ScrollbarExImpl(bb, id, axis, p_scroll_v, avail_v, contents_v, flags);
         
-        [LinkName("igSelectableBool")]
+        [LinkName("igSelectable_Bool")]
         private static extern bool SelectableImpl(char* label, bool selected, SelectableFlags flags, Vec2 size);
         public static bool Selectable(char* label, bool selected = false, SelectableFlags flags = (SelectableFlags) 0, Vec2 size = Vec2.Zero) => SelectableImpl(label, selected, flags, size);
         
-        [LinkName("igSelectableBoolPtr")]
+        [LinkName("igSelectable_BoolPtr")]
         private static extern bool SelectableImpl(char* label, bool* p_selected, SelectableFlags flags, Vec2 size);
         public static bool Selectable(char* label, bool* p_selected, SelectableFlags flags = (SelectableFlags) 0, Vec2 size = Vec2.Zero) => SelectableImpl(label, p_selected, flags, size);
         
@@ -8034,19 +8032,19 @@ namespace ImGui
         private static extern void SetNextWindowViewportImpl(ID viewport_id);
         public static void SetNextWindowViewport(ID viewport_id) => SetNextWindowViewportImpl(viewport_id);
         
-        [LinkName("igSetScrollFromPosXFloat")]
+        [LinkName("igSetScrollFromPosX_Float")]
         private static extern void SetScrollFromPosXImpl(float local_x, float center_x_ratio);
         public static void SetScrollFromPosX(float local_x, float center_x_ratio = (float) 0.5f) => SetScrollFromPosXImpl(local_x, center_x_ratio);
         
-        [LinkName("igSetScrollFromPosXWindowPtr")]
+        [LinkName("igSetScrollFromPosX_WindowPtr")]
         private static extern void SetScrollFromPosXImpl(Window* window, float local_x, float center_x_ratio);
         public static void SetScrollFromPosX(Window* window, float local_x, float center_x_ratio) => SetScrollFromPosXImpl(window, local_x, center_x_ratio);
         
-        [LinkName("igSetScrollFromPosYFloat")]
+        [LinkName("igSetScrollFromPosY_Float")]
         private static extern void SetScrollFromPosYImpl(float local_y, float center_y_ratio);
         public static void SetScrollFromPosY(float local_y, float center_y_ratio = (float) 0.5f) => SetScrollFromPosYImpl(local_y, center_y_ratio);
         
-        [LinkName("igSetScrollFromPosYWindowPtr")]
+        [LinkName("igSetScrollFromPosY_WindowPtr")]
         private static extern void SetScrollFromPosYImpl(Window* window, float local_y, float center_y_ratio);
         public static void SetScrollFromPosY(Window* window, float local_y, float center_y_ratio) => SetScrollFromPosYImpl(window, local_y, center_y_ratio);
         
@@ -8058,19 +8056,19 @@ namespace ImGui
         private static extern void SetScrollHereYImpl(float center_y_ratio);
         public static void SetScrollHereY(float center_y_ratio = (float) 0.5f) => SetScrollHereYImpl(center_y_ratio);
         
-        [LinkName("igSetScrollXFloat")]
+        [LinkName("igSetScrollX_Float")]
         private static extern void SetScrollXImpl(float scroll_x);
         public static void SetScrollX(float scroll_x) => SetScrollXImpl(scroll_x);
         
-        [LinkName("igSetScrollXWindowPtr")]
+        [LinkName("igSetScrollX_WindowPtr")]
         private static extern void SetScrollXImpl(Window* window, float scroll_x);
         public static void SetScrollX(Window* window, float scroll_x) => SetScrollXImpl(window, scroll_x);
         
-        [LinkName("igSetScrollYFloat")]
+        [LinkName("igSetScrollY_Float")]
         private static extern void SetScrollYImpl(float scroll_y);
         public static void SetScrollY(float scroll_y) => SetScrollYImpl(scroll_y);
         
-        [LinkName("igSetScrollYWindowPtr")]
+        [LinkName("igSetScrollY_WindowPtr")]
         private static extern void SetScrollYImpl(Window* window, float scroll_y);
         public static void SetScrollY(Window* window, float scroll_y) => SetScrollYImpl(window, scroll_y);
         
@@ -8090,15 +8088,15 @@ namespace ImGui
         private static extern void SetWindowClipRectBeforeSetChannelImpl(Window* window, Rect clip_rect);
         public static void SetWindowClipRectBeforeSetChannel(Window* window, Rect clip_rect) => SetWindowClipRectBeforeSetChannelImpl(window, clip_rect);
         
-        [LinkName("igSetWindowCollapsedBool")]
+        [LinkName("igSetWindowCollapsed_Bool")]
         private static extern void SetWindowCollapsedImpl(bool collapsed, Cond cond);
         public static void SetWindowCollapsed(bool collapsed, Cond cond = (Cond) 0) => SetWindowCollapsedImpl(collapsed, cond);
         
-        [LinkName("igSetWindowCollapsedStr")]
+        [LinkName("igSetWindowCollapsed_Str")]
         private static extern void SetWindowCollapsedImpl(char* name, bool collapsed, Cond cond);
         public static void SetWindowCollapsed(char* name, bool collapsed, Cond cond = (Cond) 0) => SetWindowCollapsedImpl(name, collapsed, cond);
         
-        [LinkName("igSetWindowCollapsedWindowPtr")]
+        [LinkName("igSetWindowCollapsed_WindowPtr")]
         private static extern void SetWindowCollapsedImpl(Window* window, bool collapsed, Cond cond);
         public static void SetWindowCollapsed(Window* window, bool collapsed, Cond cond = (Cond) 0) => SetWindowCollapsedImpl(window, collapsed, cond);
         
@@ -8106,11 +8104,11 @@ namespace ImGui
         private static extern void SetWindowDockImpl(Window* window, ID dock_id, Cond cond);
         public static void SetWindowDock(Window* window, ID dock_id, Cond cond) => SetWindowDockImpl(window, dock_id, cond);
         
-        [LinkName("igSetWindowFocusNil")]
+        [LinkName("igSetWindowFocus_Nil")]
         private static extern void SetWindowFocusImpl();
         public static void SetWindowFocus() => SetWindowFocusImpl();
         
-        [LinkName("igSetWindowFocusStr")]
+        [LinkName("igSetWindowFocus_Str")]
         private static extern void SetWindowFocusImpl(char* name);
         public static void SetWindowFocus(char* name) => SetWindowFocusImpl(name);
         
@@ -8122,27 +8120,27 @@ namespace ImGui
         private static extern void SetWindowHitTestHoleImpl(Window* window, Vec2 pos, Vec2 size);
         public static void SetWindowHitTestHole(Window* window, Vec2 pos, Vec2 size) => SetWindowHitTestHoleImpl(window, pos, size);
         
-        [LinkName("igSetWindowPosVec2")]
+        [LinkName("igSetWindowPos_Vec2")]
         private static extern void SetWindowPosImpl(Vec2 pos, Cond cond);
         public static void SetWindowPos(Vec2 pos, Cond cond = (Cond) 0) => SetWindowPosImpl(pos, cond);
         
-        [LinkName("igSetWindowPosStr")]
+        [LinkName("igSetWindowPos_Str")]
         private static extern void SetWindowPosImpl(char* name, Vec2 pos, Cond cond);
         public static void SetWindowPos(char* name, Vec2 pos, Cond cond = (Cond) 0) => SetWindowPosImpl(name, pos, cond);
         
-        [LinkName("igSetWindowPosWindowPtr")]
+        [LinkName("igSetWindowPos_WindowPtr")]
         private static extern void SetWindowPosImpl(Window* window, Vec2 pos, Cond cond);
         public static void SetWindowPos(Window* window, Vec2 pos, Cond cond = (Cond) 0) => SetWindowPosImpl(window, pos, cond);
         
-        [LinkName("igSetWindowSizeVec2")]
+        [LinkName("igSetWindowSize_Vec2")]
         private static extern void SetWindowSizeImpl(Vec2 size, Cond cond);
         public static void SetWindowSize(Vec2 size, Cond cond = (Cond) 0) => SetWindowSizeImpl(size, cond);
         
-        [LinkName("igSetWindowSizeStr")]
+        [LinkName("igSetWindowSize_Str")]
         private static extern void SetWindowSizeImpl(char* name, Vec2 size, Cond cond);
         public static void SetWindowSize(char* name, Vec2 size, Cond cond = (Cond) 0) => SetWindowSizeImpl(name, size, cond);
         
-        [LinkName("igSetWindowSizeWindowPtr")]
+        [LinkName("igSetWindowSize_WindowPtr")]
         private static extern void SetWindowSizeImpl(Window* window, Vec2 size, Cond cond);
         public static void SetWindowSize(Window* window, Vec2 size, Cond cond = (Cond) 0) => SetWindowSizeImpl(window, size, cond);
         
@@ -8395,11 +8393,11 @@ namespace ImGui
         private static extern void TableGcCompactSettingsImpl();
         public static void TableGcCompactSettings() => TableGcCompactSettingsImpl();
         
-        [LinkName("igTableGcCompactTransientBuffersTablePtr")]
+        [LinkName("igTableGcCompactTransientBuffers_TablePtr")]
         private static extern void TableGcCompactTransientBuffersImpl(Table* table);
         public static void TableGcCompactTransientBuffers(Table* table) => TableGcCompactTransientBuffersImpl(table);
         
-        [LinkName("igTableGcCompactTransientBuffersTableTempDataPtr")]
+        [LinkName("igTableGcCompactTransientBuffers_TableTempDataPtr")]
         private static extern void TableGcCompactTransientBuffersImpl(TableTempData* table);
         public static void TableGcCompactTransientBuffers(TableTempData* table) => TableGcCompactTransientBuffersImpl(table);
         
@@ -8432,7 +8430,7 @@ namespace ImGui
         private static extern int32 TableGetColumnIndexImpl();
         public static int32 TableGetColumnIndex() => TableGetColumnIndexImpl();
         
-        [LinkName("igTableGetColumnNameInt")]
+        [LinkName("igTableGetColumnName_Int")]
         private static extern char* TableGetColumnNameImpl(int32 column_n);
         #if IMGUI_USE_REF
         public static ref char TableGetColumnName(int32 column_n = -1) { return ref *TableGetColumnNameImpl(column_n); }
@@ -8440,7 +8438,7 @@ namespace ImGui
         public static char* TableGetColumnName(int32 column_n = -1) => TableGetColumnNameImpl(column_n);
         #endif
         
-        [LinkName("igTableGetColumnNameTablePtr")]
+        [LinkName("igTableGetColumnName_TablePtr")]
         private static extern char* TableGetColumnNameImpl(Table* table, int32 column_n);
         #if IMGUI_USE_REF
         public static ref char TableGetColumnName(Table* table, int32 column_n) { return ref *TableGetColumnNameImpl(table, column_n); }
@@ -8652,15 +8650,15 @@ namespace ImGui
         private static extern void TranslateWindowsInViewportImpl(ViewportP* viewport, Vec2 old_pos, Vec2 new_pos);
         public static void TranslateWindowsInViewport(ViewportP* viewport, Vec2 old_pos, Vec2 new_pos) => TranslateWindowsInViewportImpl(viewport, old_pos, new_pos);
         
-        [LinkName("igTreeNodeStr")]
+        [LinkName("igTreeNode_Str")]
         private static extern bool TreeNodeImpl(char* label);
         public static bool TreeNode(char* label) => TreeNodeImpl(label);
         
-        [LinkName("igTreeNodeStrStr")]
+        [LinkName("igTreeNode_StrStr")]
         private static extern bool TreeNodeImpl(char* str_id, char* fmt, ...);
         public static bool TreeNode(char* str_id, char* fmt, params Object[] args) => TreeNodeImpl(str_id, scope String()..AppendF(StringView(fmt), params args));
         
-        [LinkName("igTreeNodePtr")]
+        [LinkName("igTreeNode_Ptr")]
         private static extern bool TreeNodeImpl(void* ptr_id, char* fmt, ...);
         public static bool TreeNode(void* ptr_id, char* fmt, params Object[] args) => TreeNodeImpl(ptr_id, scope String()..AppendF(StringView(fmt), params args));
         
@@ -8672,15 +8670,15 @@ namespace ImGui
         private static extern bool TreeNodeBehaviorIsOpenImpl(ID id, TreeNodeFlags flags);
         public static bool TreeNodeBehaviorIsOpen(ID id, TreeNodeFlags flags = (TreeNodeFlags) 0) => TreeNodeBehaviorIsOpenImpl(id, flags);
         
-        [LinkName("igTreeNodeExStr")]
+        [LinkName("igTreeNodeEx_Str")]
         private static extern bool TreeNodeExImpl(char* label, TreeNodeFlags flags);
         public static bool TreeNodeEx(char* label, TreeNodeFlags flags = (TreeNodeFlags) 0) => TreeNodeExImpl(label, flags);
         
-        [LinkName("igTreeNodeExStrStr")]
+        [LinkName("igTreeNodeEx_StrStr")]
         private static extern bool TreeNodeExImpl(char* str_id, TreeNodeFlags flags, char* fmt, ...);
         public static bool TreeNodeEx(char* str_id, TreeNodeFlags flags, char* fmt, params Object[] args) => TreeNodeExImpl(str_id, flags, scope String()..AppendF(StringView(fmt), params args));
         
-        [LinkName("igTreeNodeExPtr")]
+        [LinkName("igTreeNodeEx_Ptr")]
         private static extern bool TreeNodeExImpl(void* ptr_id, TreeNodeFlags flags, char* fmt, ...);
         public static bool TreeNodeEx(void* ptr_id, TreeNodeFlags flags, char* fmt, params Object[] args) => TreeNodeExImpl(ptr_id, flags, scope String()..AppendF(StringView(fmt), params args));
         
@@ -8688,11 +8686,11 @@ namespace ImGui
         private static extern void TreePopImpl();
         public static void TreePop() => TreePopImpl();
         
-        [LinkName("igTreePushStr")]
+        [LinkName("igTreePush_Str")]
         private static extern void TreePushImpl(char* str_id);
         public static void TreePush(char* str_id) => TreePushImpl(str_id);
         
-        [LinkName("igTreePushPtr")]
+        [LinkName("igTreePush_Ptr")]
         private static extern void TreePushImpl(void* ptr_id);
         public static void TreePush(void* ptr_id = null) => TreePushImpl(ptr_id);
         
@@ -8736,19 +8734,19 @@ namespace ImGui
         private static extern bool VSliderScalarImpl(char* label, Vec2 size, DataType data_type, void* p_data, void* p_min, void* p_max, char* format, SliderFlags flags);
         public static bool VSliderScalar(char* label, Vec2 size, DataType data_type, void* p_data, void* p_min, void* p_max, char* format = null, SliderFlags flags = (SliderFlags) 0) => VSliderScalarImpl(label, size, data_type, p_data, p_min, p_max, format, flags);
         
-        [LinkName("igValueBool")]
+        [LinkName("igValue_Bool")]
         private static extern void ValueImpl(char* prefix, bool b);
         public static void Value(char* prefix, bool b) => ValueImpl(prefix, b);
         
-        [LinkName("igValueInt")]
+        [LinkName("igValue_Int")]
         private static extern void ValueImpl(char* prefix, int32 v);
         public static void Value(char* prefix, int32 v) => ValueImpl(prefix, v);
         
-        [LinkName("igValueUint")]
+        [LinkName("igValue_Uint")]
         private static extern void ValueImpl(char* prefix, uint32 v);
         public static void Value(char* prefix, uint32 v) => ValueImpl(prefix, v);
         
-        [LinkName("igValueFloat")]
+        [LinkName("igValue_Float")]
         private static extern void ValueImpl(char* prefix, float v, char* float_format);
         public static void Value(char* prefix, float v, char* float_format = null) => ValueImpl(prefix, v, float_format);
     }

@@ -1,5 +1,6 @@
-using System;
 using DirectX.D3D11;
+using static ImGui.ImGui;
+using System;
 
 namespace ImGui
 {
@@ -22,8 +23,8 @@ namespace ImGui
         public static void NewFrame() => NewFrameImpl();
         
         [LinkName("ImGui_ImplDX11_RenderDrawData")]
-        private static extern void RenderDrawDataImpl(ImGui.DrawData* draw_data);
-        public static void RenderDrawData(ImGui.DrawData* draw_data) => RenderDrawDataImpl(draw_data);
+        private static extern void RenderDrawDataImpl(DrawData* draw_data);
+        public static void RenderDrawData(DrawData* draw_data) => RenderDrawDataImpl(draw_data);
         
         [LinkName("ImGui_ImplDX11_Shutdown")]
         private static extern void ShutdownImpl();

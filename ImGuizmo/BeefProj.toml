@@ -1,0 +1,6 @@
+FileVersion = 1
+Dependencies = {corlib = "*", ImGui = "*"}
+
+[Project]
+Name = "ImGuizmo"
+DefaultNamespace = "ImGuizmo"

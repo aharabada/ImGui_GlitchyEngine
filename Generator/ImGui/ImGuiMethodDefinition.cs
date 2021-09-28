@@ -74,7 +74,7 @@ namespace ImGuiBeefGenerator.ImGui
                     defaults
                 );
             }
-            else if ((string) variation["stname"] == "" && variation["ov_cimguiname"].ToString().StartsWith("ig"))
+            else if ((string) variation["stname"] == "" && (variation["ov_cimguiname"].ToString().StartsWith("ig") || variation["ov_cimguiname"].ToString().StartsWith("ImGuizmo")))
             {
                 return new ImGuiGlobalMethodDefinition(
                     (string) variation["funcname"],

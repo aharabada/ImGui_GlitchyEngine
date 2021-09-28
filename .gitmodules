@@ -2,3 +2,6 @@
 	path = cimgui
 	url = https://github.com/cimgui/cimgui.git
 	branch = docking_inter
+[submodule "cimguizmo"]
+	path = cimguizmo
+	url = https://github.com/cimgui/cimguizmo.git

@@ -12,24 +12,51 @@ namespace ImGuiBeefGenerator
     {
         private readonly List<IBinding> Bindings = new List<IBinding>();
 
-        public void Initialize()
+		private readonly List<IBinding> ImGuizmoBindings = new List<IBinding>();
+
+		public void Initialize()
         {
             Console.WriteLine("Initializing");
 
-            var structs_and_enums = ReadBindingData("structs_and_enums.json");
+            string cimguiFolder = "../cimgui/generator/output/";
 
-            List<ImGuiTypeDef> typedefs = ImGuiTypeDef.From(ReadBindingData("typedefs_dict.json"));
+            var structs_and_enums = ReadBindingData(cimguiFolder, "structs_and_enums.json");
+
+			List<ImGuiTypeDef> typedefs = ImGuiTypeDef.From(ReadBindingData(cimguiFolder, "typedefs_dict.json"));
+
             List<ImGuiEnum> enums = ImGuiEnum.From(structs_and_enums["enums"], ref typedefs);
             Bindings.AddRange(typedefs);
             Bindings.AddRange(enums);
 
-            List<ImGuiMethodDefinition> methods = ImGuiMethodDefinition.From(ReadBindingData("definitions.json"));
+            List<ImGuiMethodDefinition> methods = ImGuiMethodDefinition.From(ReadBindingData(cimguiFolder, "definitions.json"));
+
 			Bindings.AddRange(ImGuiStruct.From(structs_and_enums["structs"], ref methods));
 			Bindings.AddRange(methods);
-            Bindings.AddRange(ImGuiImplStruct.From(ReadBindingData("impl_definitions.json")));
-        }
+            Bindings.AddRange(ImGuiImplStruct.From(ReadBindingData(cimguiFolder, "impl_definitions.json")));
 
-        public Dictionary<string, string> Generate(bool includeGenerationInfo = false)
+			InitImGuizmo();
+		}
+
+		private void InitImGuizmo()
+		{
+			Console.WriteLine("Initializing Cimguizmo");
+
+			string cimguizmoFolder = "../cimguizmo/generator/output/";
+
+			var structs_and_enums = ReadBindingData(cimguizmoFolder, "structs_and_enums.json");
+
+			List<ImGuiTypeDef> typedefs = ImGuiTypeDef.From(ReadBindingData(cimguizmoFolder, "typedefs_dict.json"));
+			List<ImGuiEnum> enums = ImGuiEnum.From(structs_and_enums["enums"], ref typedefs);
+			ImGuizmoBindings.AddRange(typedefs);
+			ImGuizmoBindings.AddRange(enums);
+
+			List<ImGuiMethodDefinition> methods = ImGuiMethodDefinition.From(ReadBindingData(cimguizmoFolder, "definitions.json"));
+
+			//Bindings.AddRange(ImGuiStruct.From(structs_and_enums["structs"], ref methods));
+			ImGuizmoBindings.AddRange(methods);
+		}
+
+		public Dictionary<string, string> Generate(bool includeGenerationInfo = false)
         {
             Console.WriteLine("Generating");
 
@@ -196,21 +223,53 @@ namespace ImGui
 
 			files.Add("ImGui.bf", imguiFile);
 
+			// Generate ImGuizmo
 
-			files["ImGuiImplGlfw.bf"] = GenerateImplFile("ImGuiImplGlfw", Bindings);
-			files["ImGuiImplOpenGL2.bf"] = GenerateImplFile("ImGuiImplOpenGL2", Bindings);
-			files["ImGuiImplOpenGL3.bf"] = GenerateImplFile("ImGuiImplOpenGL3", Bindings);
-			files["ImGuiImplSDL.bf"] = GenerateImplFile("ImGuiImplSDL2", Bindings);
-			files["ImGuiImplDX11.bf"] = GenerateImplFile("ImGuiImplDX11", Bindings);
-			files["ImGuiImplWin32.bf"] = GenerateImplFile("ImGuiImplWin32", Bindings);
+			string imGuizmoFile =
+$@"using System;
+using ImGui;
+
+namespace ImGuizmo
+{{
+	public static class ImGuizmo
+	{{
+		// -- Auto-Generated --
+";
+
+			foreach (var binding in ImGuizmoBindings.Where(b => !(b is ImGuiImplStruct)))
+				imGuizmoFile += binding.Serialize().Replace("\n", "\n        ");
+
+			imGuizmoFile = imGuizmoFile.Remove(imGuizmoFile.Length - 4);
+			imGuizmoFile += "}\n}";
+
+			files.Add("ImGuizmo.bf", imGuizmoFile);
+
+
+
+			//files["ImGuiImplGlfw.bf"] = GenerateImplFile("ImGuiImplGlfw", Bindings);
+			//files["ImGuiImplOpenGL2.bf"] = GenerateImplFile("ImGuiImplOpenGL2", Bindings);
+			//files["ImGuiImplOpenGL3.bf"] = GenerateImplFile("ImGuiImplOpenGL3", Bindings);
+			//files["ImGuiImplSDL.bf"] = GenerateImplFile("ImGuiImplSDL2", Bindings);
+
+			string dx11File = "using DirectX.D3D11;\nusing static ImGui.ImGui;\n";
+
+            dx11File += GenerateImplFile("ImGuiImplDX11", Bindings);
+			files["ImGuiImplDX11.bf"] = dx11File;
+
+            files["ImGuiImplWin32.bf"] = GenerateImplFile("ImGuiImplWin32", Bindings);
+
+            //files["ImGuizmo.bf"] = GenerateImplFile("ImGuizmo", Bindings);
 
 			return files;
         }
 
-        private dynamic ReadBindingData(string file)
+        private dynamic ReadBindingData(string folder, string file)
         {
-            var stream = new FileStream($"../cimgui/generator/output/{file}", FileMode.Open);
-            return JsonSerializer.Deserialize<dynamic>(stream);
+			dynamic output;
+            var stream = new FileStream($"{folder}{file}", FileMode.Open);
+            output = JsonSerializer.Deserialize<dynamic>(stream);
+			
+            return output;
         }
 
 		private static string GenerateImplFile(string implName, List<IBinding> bindings)

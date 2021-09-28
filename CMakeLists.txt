@@ -21,14 +21,18 @@ file(GLOB IMGUI_SOURCES
     cimgui/imgui/imgui_draw.cpp
     cimgui/imgui/imgui_demo.cpp
     cimgui/imgui/imgui_widgets.cpp
-	${TABLES_SOURCE}
+    ${TABLES_SOURCE}
 )
 
 #DX11 backend
-list(APPEND IMGUI_SOURCES ${BAKENDS_FOLDER}imgui_impl_dx11.cpp)
+list(APPEND IMGUI_SOURCES ${BAKENDS_FOLDER}/imgui_impl_dx11.cpp)
 
 #WIN32 backend
-list(APPEND IMGUI_SOURCES ${BAKENDS_FOLDER}imgui_impl_win32.cpp)
+list(APPEND IMGUI_SOURCES ${BAKENDS_FOLDER}/imgui_impl_win32.cpp)
+
+#ImGuizmo
+list(APPEND IMGUI_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/cimguizmo/cimguizmo.cpp)
+list(APPEND IMGUI_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/cimguizmo/imguizmo/imGuizmo.cpp)
 
 set(IMGUI_STATIC "no" CACHE STRING "Build as a static library")
 set(IMGUI_FREETYPE "no" CACHE STRING "Build with freetype library")
@@ -61,6 +65,8 @@ endif (WIN32)
 
 target_include_directories(cimgui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/cimgui)
 target_include_directories(cimgui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/cimgui/imgui)
+target_include_directories(cimgui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/cimguizmo/)
+target_include_directories(cimgui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/cimguizmo/imguizmo)
 set_target_properties(cimgui PROPERTIES PREFIX "")
 target_link_libraries(cimgui ${IMGUI_LIBRARIES})
 

@@ -27,6 +27,20 @@ namespace ImGuiBeefGenerator.ImGui
             return $".{value.Substring(value.IndexOf("("))}";
         }
 
+        private static (bool IsPointer, int StarIndex) IsPointer(string type)
+        {
+            for (int i = type.Length - 1; i >= 0; i--)
+            {
+                if (!char.IsWhiteSpace(type[i]))
+                {
+                    bool isPointer = type[i] == '*';
+                    return (isPointer, isPointer ? i : -1);
+                }
+            }
+
+            return (false, -1);
+        }
+
         public static string FixType(string type)
         {
             if (type.Contains("_") && !IsFunctionPointer(type) && !type.EndsWith("_t") && !type.EndsWith("_t*"))
@@ -59,6 +73,13 @@ namespace ImGuiBeefGenerator.ImGui
 
         public static string FixTemplate(string template)
         {
+            (bool isPointer, int starIndex) = IsPointer(template);
+
+            if (isPointer)
+            {
+                template = template.Substring(0, starIndex);
+            }
+
             var fixedTemplate = template.Replace("const ", "");
 
             if (fixedTemplate == "STB_TexteditState" || fixedTemplate.StartsWith("SDL_"))
@@ -70,10 +91,16 @@ namespace ImGuiBeefGenerator.ImGui
             {
                 var newTemplate = FixType(fixedTemplate.Substring(0, fixedTemplate.IndexOf('_')));
                 newTemplate += "<";
+
                 fixedTemplate = newTemplate + FixType(fixedTemplate.Substring(fixedTemplate.IndexOf('_') + 1));
             }
-            
-            if (fixedTemplate.EndsWith("Ptr"))
+
+            if (fixedTemplate.EndsWith('*'))
+            {
+                fixedTemplate = fixedTemplate.Remove(fixedTemplate.Length - 1, 1);
+                fixedTemplate += "*";
+            }
+            else if (fixedTemplate.EndsWith("Ptr"))
             {
                 fixedTemplate = fixedTemplate.Remove(fixedTemplate.Length - 3, 3);
                 fixedTemplate += "*";
@@ -85,6 +112,10 @@ namespace ImGuiBeefGenerator.ImGui
             }
 
             fixedTemplate += ">";
+
+            if (isPointer)
+                fixedTemplate += "*";
+
             return fixedTemplate;
         }
 

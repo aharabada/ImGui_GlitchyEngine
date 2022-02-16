@@ -2,6 +2,8 @@
 	path = cimgui
 	url = https://github.com/cimgui/cimgui.git
 	branch = docking_inter
+	ignore = dirty
 [submodule "cimguizmo"]
 	path = cimguizmo
 	url = https://github.com/cimgui/cimguizmo.git
+	ignore = dirty

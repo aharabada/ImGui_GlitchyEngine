@@ -2,7 +2,7 @@
   "profiles": {
     "Generator": {
       "commandName": "Project",
-      "workingDirectory": "C:\\dev\\Beef\\imgui-beef\\Generator"
+      "workingDirectory": "D:\\Development\\Projects\\Beef\\GlitchyEngine\\GlitchyEngine\\vendor\\imgui\\Generator"
     }
   }
 }

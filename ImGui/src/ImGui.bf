@@ -1,11 +1,11 @@
 // -- GENERATION INFORMATION --
-// Date: 21.09.2021 23:23:10
+// Date: 17.02.2022 00:35:59
 // Constructors: 0
 // Destructors: 0
-// Enums: 70
-// Global methods: 777
+// Enums: 71
+// Global methods: 797
 // Instance methods: 0
-// Structs: 89
+// Structs: 93
 // Typedefs: 25
 
 using System;
@@ -32,8 +32,8 @@ namespace ImGui
 
 	public static class ImGui
     {
-		public static char8* VERSION = "1.85 WIP";
-		public static int VERSION_NUM = 18500;
+		public static char8* VERSION = "1.86";
+		public static int VERSION_NUM = 18600;
 		public static bool CHECKVERSION()
 		{
 			bool result = DebugCheckVersionAndDataLayout(VERSION, sizeof(IO), sizeof(Style), sizeof(Vec2), sizeof(Vec4), sizeof(DrawVert), sizeof(DrawIdx));
@@ -549,7 +549,8 @@ namespace ImGui
             ChildWindows = 1,
             RootWindow = 2,
             AnyWindow = 4,
-            DockHierarchy = 8,
+            NoPopupHierarchy = 8,
+            DockHierarchy = 16,
             RootAndChildWindows = 3,
         
         }
@@ -561,12 +562,13 @@ namespace ImGui
             ChildWindows = 1,
             RootWindow = 2,
             AnyWindow = 4,
-            DockHierarchy = 8,
-            AllowWhenBlockedByPopup = 16,
-            AllowWhenBlockedByActiveItem = 32,
-            AllowWhenOverlapped = 64,
-            AllowWhenDisabled = 128,
-            RectOnly = 112,
+            NoPopupHierarchy = 8,
+            DockHierarchy = 16,
+            AllowWhenBlockedByPopup = 32,
+            AllowWhenBlockedByActiveItem = 128,
+            AllowWhenOverlapped = 256,
+            AllowWhenDisabled = 512,
+            RectOnly = 416,
             RootAndChildWindows = 3,
         
         }
@@ -660,9 +662,7 @@ namespace ImGui
             HasDeactivated = 32,
             Deactivated = 64,
             HoveredWindow = 128,
-            FocusedByCode = 256,
-            FocusedByTabbing = 512,
-            Focused = 768,
+            FocusedByTabbing = 256,
         
         }
         
@@ -756,9 +756,10 @@ namespace ImGui
         public enum NavDirSourceFlags : int32
         {
             None = 0,
-            Keyboard = 1,
-            PadDPad = 2,
-            PadLStick = 4,
+            RawKeyboard = 1,
+            Keyboard = 2,
+            PadDPad = 4,
+            PadLStick = 8,
         
         }
         
@@ -820,9 +821,13 @@ namespace ImGui
             WrapY = 8,
             AllowCurrentNavId = 16,
             AlsoScoreVisibleSet = 32,
-            ScrollToEdge = 64,
+            ScrollToEdgeY = 64,
             Forwarded = 128,
             DebugNoResult = 256,
+            FocusApi = 512,
+            Tabbing = 1024,
+            Activate = 2048,
+            DontSetNavHighlight = 4096,
         
         }
         
@@ -896,6 +901,22 @@ namespace ImGui
             Default = 0,
             ComboBox = 1,
             Tooltip = 2,
+        
+        }
+        
+        [AllowDuplicates]
+        public enum ScrollFlags : int32
+        {
+            None = 0,
+            KeepVisibleEdgeX = 1,
+            KeepVisibleEdgeY = 2,
+            KeepVisibleCenterX = 4,
+            KeepVisibleCenterY = 8,
+            AlwaysCenterX = 16,
+            AlwaysCenterY = 32,
+            NoScrollParent = 64,
+            MaskX_ = 21,
+            MaskY_ = 42,
         
         }
         
@@ -2162,8 +2183,8 @@ namespace ImGui
             public void AddText(char* text, char* text_end = null) mut=> AddTextImpl(&this, text, text_end);
             
             [LinkName("ImFontGlyphRangesBuilder_BuildRanges")]
-            private static extern void BuildRangesImpl(FontGlyphRangesBuilder* self, Vector<Wchar*> out_ranges);
-            public void BuildRanges(Vector<Wchar*> out_ranges) mut=> BuildRangesImpl(&this, out_ranges);
+            private static extern void BuildRangesImpl(FontGlyphRangesBuilder* self, Vector<Wchar>* out_ranges);
+            public void BuildRanges(Vector<Wchar>* out_ranges) mut=> BuildRangesImpl(&this, out_ranges);
             
             [LinkName("ImFontGlyphRangesBuilder_Clear")]
             private static extern void ClearImpl(FontGlyphRangesBuilder* self);
@@ -2230,7 +2251,6 @@ namespace ImGui
             public bool WithinEndChild;
             public bool GcCompactAll;
             public bool TestEngineHookItems;
-            public ID TestEngineHookIdInfo;
             public void* TestEngine;
             public Vector<Window*> Windows;
             public Vector<Window*> WindowsFocusOrder;
@@ -2247,6 +2267,7 @@ namespace ImGui
             public Window* WheelingWindow;
             public Vec2 WheelingWindowRefMousePos;
             public float WheelingWindowTimer;
+            public ID DebugHookIdInfo;
             public ID HoveredId;
             public ID HoveredIdPreviousFrame;
             public bool HoveredIdAllowOverlap;
@@ -2290,6 +2311,7 @@ namespace ImGui
             public Vector<GroupData> GroupStack;
             public Vector<PopupData> OpenPopupStack;
             public Vector<PopupData> BeginPopupStack;
+            public int32 BeginMenuCount;
             public Vector<ViewportP*> Viewports;
             public float CurrentDpiScale;
             public ViewportP* CurrentViewport;
@@ -2306,7 +2328,6 @@ namespace ImGui
             public ID NavActivatePressedId;
             public ID NavActivateInputId;
             public ActivateFlags NavActivateFlags;
-            public ID NavJustTabbedId;
             public ID NavJustMovedToId;
             public ID NavJustMovedToFocusScopeId;
             public KeyModFlags NavJustMovedToKeyMods;
@@ -2314,7 +2335,6 @@ namespace ImGui
             public ActivateFlags NavNextActivateFlags;
             public InputSource NavInputSource;
             public NavLayer NavLayer;
-            public int32 NavIdTabCounter;
             public bool NavIdIsAlive;
             public bool NavMousePosDirty;
             public bool NavDisableHighlight;
@@ -2328,28 +2348,26 @@ namespace ImGui
             public bool NavMoveScoringItems;
             public bool NavMoveForwardToNextFrame;
             public NavMoveFlags NavMoveFlags;
+            public ScrollFlags NavMoveScrollFlags;
             public KeyModFlags NavMoveKeyMods;
             public Dir NavMoveDir;
             public Dir NavMoveDirForDebug;
             public Dir NavMoveClipDir;
             public Rect NavScoringRect;
+            public Rect NavScoringNoClipRect;
             public int32 NavScoringDebugCount;
+            public int32 NavTabbingDir;
+            public int32 NavTabbingCounter;
             public NavItemData NavMoveResultLocal;
             public NavItemData NavMoveResultLocalVisible;
             public NavItemData NavMoveResultOther;
+            public NavItemData NavTabbingResultFirst;
             public Window* NavWindowingTarget;
             public Window* NavWindowingTargetAnim;
             public Window* NavWindowingListWindow;
             public float NavWindowingTimer;
             public float NavWindowingHighlightAlpha;
             public bool NavWindowingToggleLayer;
-            public Window* TabFocusRequestCurrWindow;
-            public Window* TabFocusRequestNextWindow;
-            public int32 TabFocusRequestCurrCounterRegular;
-            public int32 TabFocusRequestCurrCounterTabStop;
-            public int32 TabFocusRequestNextCounterRegular;
-            public int32 TabFocusRequestNextCounterTabStop;
-            public bool TabFocusPressed;
             public float DimBgRatio;
             public MouseCursor MouseCursor;
             public bool DragDropActive;
@@ -2369,10 +2387,12 @@ namespace ImGui
             public ID DragDropHoldJustPressedId;
             public Vector<uchar> DragDropPayloadBufHeap;
             public uchar[16] DragDropPayloadBufLocal;
+            public int32 ClipperTempDataStacked;
+            public Vector<ListClipperData> ClipperTempData;
             public Table* CurrentTable;
-            public int32 CurrentTableStackIdx;
+            public int32 TablesTempDataStacked;
+            public Vector<TableTempData> TablesTempData;
             public Pool<Table> Tables;
-            public Vector<TableTempData> TablesTempDataStack;
             public Vector<float> TablesLastTimeActive;
             public Vector<DrawChannel> DrawChannelsTempMergeBuffer;
             public TabBar* CurrentTabBar;
@@ -2386,7 +2406,7 @@ namespace ImGui
             public ColorEditFlags ColorEditOptions;
             public float ColorEditLastHue;
             public float ColorEditLastSat;
-            public float[3] ColorEditLastColor;
+            public U32 ColorEditLastColor;
             public Vec4 ColorPickerRef;
             public ComboPreviewData ComboPreviewData;
             public float SliderCurrentAccum;
@@ -2394,9 +2414,10 @@ namespace ImGui
             public bool DragCurrentAccumDirty;
             public float DragCurrentAccum;
             public float DragSpeedDefaultRatio;
-            public float DisabledAlphaBackup;
             public float ScrollbarClickDeltaToGrabCenter;
-            public int32 TooltipOverrideCount;
+            public float DisabledAlphaBackup;
+            public short DisabledStackSize;
+            public short TooltipOverrideCount;
             public float TooltipSlowDelay;
             public Vector<char> ClipboardHandlerData;
             public Vector<ID> MenusIdSubmittedThisFrame;
@@ -2427,6 +2448,7 @@ namespace ImGui
             public bool DebugItemPickerActive;
             public ID DebugItemPickerBreakId;
             public MetricsConfig DebugMetricsConfig;
+            public StackTool DebugStackTool;
             public float[120] FramerateSecPerFrame;
             public int32 FramerateSecPerFrameIdx;
             public int32 FramerateSecPerFrameCount;
@@ -2515,6 +2537,7 @@ namespace ImGui
             public Vec2 SizeRef;
             public Axis SplitAxis;
             public WindowClass WindowClass;
+            public U32 LastBgColor;
             public Window* HostWindow;
             public Window* VisibleWindow;
             public DockNode* CentralNode;
@@ -2531,6 +2554,7 @@ namespace ImGui
             public DataAuthority AuthorityForViewport;
             public bool IsVisible;
             public bool IsFocused;
+            public bool IsBgDrawnThisFrame;
             public bool HasCloseButton;
             public bool HasWindowMenuButton;
             public bool HasCentralNodeChild;
@@ -2539,7 +2563,6 @@ namespace ImGui
             public bool WantMouseMove;
             public bool WantHiddenTabBarUpdate;
             public bool WantHiddenTabBarToggle;
-            public bool MarkedForPosSizeWrite;
         
             [LinkName("ImGuiDockNode_ImGuiDockNode")]
             private static extern DockNode* CtorImpl(ID id);
@@ -2643,6 +2666,7 @@ namespace ImGui
             public Font* FontDefault;
             public Vec2 DisplayFramebufferScale;
             public bool ConfigDockingNoSplit;
+            public bool ConfigDockingWithShift;
             public bool ConfigDockingAlwaysTabBar;
             public bool ConfigDockingTransparentPayload;
             public bool ConfigViewportsNoAutoMerge;
@@ -2697,10 +2721,11 @@ namespace ImGui
             public double[5] MouseClickedTime;
             public bool[5] MouseClicked;
             public bool[5] MouseDoubleClicked;
+            public U16[5] MouseClickedCount;
+            public U16[5] MouseClickedLastCount;
             public bool[5] MouseReleased;
             public bool[5] MouseDownOwned;
             public bool[5] MouseDownOwnedUnlessPopupClose;
-            public bool[5] MouseDownWasDoubleClick;
             public float[5] MouseDownDuration;
             public float[5] MouseDownDurationPrev;
             public Vec2[5] MouseDragMaxDistanceAbs;
@@ -2810,8 +2835,6 @@ namespace ImGui
             public bool SelectedAllMouseLock;
             public bool Edited;
             public InputTextFlags Flags;
-            public InputTextCallback UserCallback;
-            public void* UserCallbackData;
         
             [LinkName("ImGuiInputTextState_ImGuiInputTextState")]
             private static extern InputTextState* CtorImpl();
@@ -2899,10 +2922,9 @@ namespace ImGui
             public int32 DisplayStart;
             public int32 DisplayEnd;
             public int32 ItemsCount;
-            public int32 StepNo;
-            public int32 ItemsFrozen;
             public float ItemsHeight;
             public float StartPosY;
+            public void* TempData;
         
             [LinkName("ImGuiListClipper_ImGuiListClipper")]
             private static extern ListClipper* CtorImpl();
@@ -2919,10 +2941,47 @@ namespace ImGui
             private static extern void EndImpl(ListClipper* self);
             public void End() mut=> EndImpl(&this);
             
+            [LinkName("ImGuiListClipper_ForceDisplayRangeByIndices")]
+            private static extern void ForceDisplayRangeByIndicesImpl(ListClipper* self, int32 item_min, int32 item_max);
+            public void ForceDisplayRangeByIndices(int32 item_min, int32 item_max) mut=> ForceDisplayRangeByIndicesImpl(&this, item_min, item_max);
+            
             [LinkName("ImGuiListClipper_Step")]
             private static extern bool StepImpl(ListClipper* self);
             public bool Step() mut=> StepImpl(&this);
             
+        }
+        
+        [CRepr]
+        public struct ListClipperData
+        {
+            public ListClipper* ListClipper;
+            public float LossynessOffset;
+            public int32 StepNo;
+            public int32 ItemsFrozen;
+            public Vector<ListClipperRange> Ranges;
+        
+            [LinkName("ImGuiListClipperData_ImGuiListClipperData")]
+            private static extern ListClipperData* CtorImpl();
+            public this()
+            {
+                this = *CtorImpl();
+            }
+            
+            [LinkName("ImGuiListClipperData_Reset")]
+            private static extern void ResetImpl(ListClipperData* self, ListClipper* clipper);
+            public void Reset(ListClipper* clipper) mut=> ResetImpl(&this, clipper);
+            
+        }
+        
+        [CRepr]
+        public struct ListClipperRange
+        {
+            public int32 Min;
+            public int32 Max;
+            public bool PosToIndexConvert;
+            public S8 PosToIndexOffsetMin;
+            public S8 PosToIndexOffsetMax;
+        
         }
         
         [CRepr]
@@ -2961,6 +3020,7 @@ namespace ImGui
         [CRepr]
         public struct MetricsConfig
         {
+            public bool ShowStackTool;
             public bool ShowWindowsRects;
             public bool ShowWindowsBeginOrder;
             public bool ShowTablesRects;
@@ -2986,6 +3046,7 @@ namespace ImGui
             public ID ID;
             public ID FocusScopeId;
             public Rect RectRel;
+            public ItemFlags InFlags;
             public float DistBox;
             public float DistCenter;
             public float DistAxial;
@@ -3300,6 +3361,23 @@ namespace ImGui
         }
         
         [CRepr]
+        public struct StackLevelInfo
+        {
+            public ID ID;
+            public S8 QueryFrameCount;
+            public bool QuerySuccess;
+            public char[58] Desc;
+        
+            [LinkName("ImGuiStackLevelInfo_ImGuiStackLevelInfo")]
+            private static extern StackLevelInfo* CtorImpl();
+            public this()
+            {
+                this = *CtorImpl();
+            }
+            
+        }
+        
+        [CRepr]
         public struct StackSizes
         {
             public short SizeOfIDStack;
@@ -3308,7 +3386,9 @@ namespace ImGui
             public short SizeOfFontStack;
             public short SizeOfFocusScopeStack;
             public short SizeOfGroupStack;
+            public short SizeOfItemFlagsStack;
             public short SizeOfBeginPopupStack;
+            public short SizeOfDisabledStack;
         
             [LinkName("ImGuiStackSizes_ImGuiStackSizes")]
             private static extern StackSizes* CtorImpl();
@@ -3324,6 +3404,23 @@ namespace ImGui
             [LinkName("ImGuiStackSizes_SetToCurrentState")]
             private static extern void SetToCurrentStateImpl(StackSizes* self);
             public void SetToCurrentState() mut=> SetToCurrentStateImpl(&this);
+            
+        }
+        
+        [CRepr]
+        public struct StackTool
+        {
+            public int32 LastActiveFrame;
+            public int32 StackLevel;
+            public ID QueryId;
+            public Vector<StackLevelInfo> Results;
+        
+            [LinkName("ImGuiStackTool_ImGuiStackTool")]
+            private static extern StackTool* CtorImpl();
+            public this()
+            {
+                this = *CtorImpl();
+            }
             
         }
         
@@ -3998,8 +4095,8 @@ namespace ImGui
             public bool Empty() mut=> EmptyImpl(&this);
             
             [LinkName("ImGuiTextRange_split")]
-            private static extern void SplitImpl(TextRange* self, char separator, Vector<TextRange*> out_);
-            public void Split(char separator, Vector<TextRange*> out_) mut=> SplitImpl(&this, separator, out_);
+            private static extern void SplitImpl(TextRange* self, char separator, Vector<TextRange>* out_);
+            public void Split(char separator, Vector<TextRange>* out_) mut=> SplitImpl(&this, separator, out_);
             
         }
         
@@ -4180,6 +4277,7 @@ namespace ImGui
             public bool Appearing;
             public bool Hidden;
             public bool IsFallbackWindow;
+            public bool IsExplicitChild;
             public bool HasCloseButton;
             public char ResizeBorderHeld;
             public short BeginCount;
@@ -4225,7 +4323,9 @@ namespace ImGui
             public DrawList* DrawList;
             public DrawList DrawListInst;
             public Window* ParentWindow;
+            public Window* ParentWindowInBeginStack;
             public Window* RootWindow;
+            public Window* RootWindowPopupTree;
             public Window* RootWindowDockTree;
             public Window* RootWindowForTitleBarHighlight;
             public Window* RootWindowForNav;
@@ -4383,6 +4483,7 @@ namespace ImGui
         {
             public Window* Window;
             public LastItemData ParentLastItemDataBackup;
+            public StackSizes StackSizesOnBegin;
         
         }
         
@@ -4401,6 +4502,7 @@ namespace ImGui
             public Vec1 Indent;
             public Vec1 ColumnsOffset;
             public Vec1 GroupOffset;
+            public Vec2 CursorStartPosLossyness;
             public NavLayer NavLayerCurrent;
             public short NavLayersActiveMask;
             public short NavLayersActiveMaskNext;
@@ -4418,13 +4520,10 @@ namespace ImGui
             public int32 CurrentTableIdx;
             public LayoutType LayoutType;
             public LayoutType ParentLayoutType;
-            public int32 FocusCounterRegular;
-            public int32 FocusCounterTabStop;
             public float ItemWidth;
             public float TextWrapPos;
             public Vector<float> ItemWidthStack;
             public Vector<float> TextWrapPosStack;
-            public StackSizes StackSizesOnBegin;
         
         }
         
@@ -4759,9 +4858,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImVector_ImVector_Vector")]
-            private static extern Vector<T>* CtorImpl(Vector<T> src);
-            public this(Vector<T> src)
+            [LinkName("ImVector_ImVector_Vector_T_")]
+            private static extern Vector<T>* CtorImpl(Vector<T > src);
+            public this(Vector<T > src)
             {
                 this = *CtorImpl(src);
             }
@@ -4883,8 +4982,8 @@ namespace ImGui
             public int32 SizeInBytes() mut=> SizeInBytesImpl(&this);
             
             [LinkName("ImVector_swap")]
-            private static extern void SwapImpl(Vector<T>* self, Vector<T>* rhs);
-            public void Swap(Vector<T>* rhs) mut=> SwapImpl(&this, rhs);
+            private static extern void SwapImpl(Vector<T>* self, Vector<T >* rhs);
+            public void Swap(ref Vector<T > rhs) mut=> SwapImpl(&this, &rhs);
             
         }
         
@@ -4963,8 +5062,8 @@ namespace ImGui
             public int32 Size() mut=> SizeImpl(&this);
             
             [LinkName("ImChunkStream_swap")]
-            private static extern void SwapImpl(ChunkStream<T>* self, ChunkStream<T>* rhs);
-            public void Swap(ChunkStream<T>* rhs) mut=> SwapImpl(&this, rhs);
+            private static extern void SwapImpl(ChunkStream<T>* self, ChunkStream<T >* rhs);
+            public void Swap(ref ChunkStream<T > rhs) mut=> SwapImpl(&this, &rhs);
             
         }
         
@@ -5255,8 +5354,8 @@ namespace ImGui
         public static void BeginTooltip() => BeginTooltipImpl();
         
         [LinkName("igBeginTooltipEx")]
-        private static extern void BeginTooltipExImpl(WindowFlags extra_flags, TooltipFlags tooltip_flags);
-        public static void BeginTooltipEx(WindowFlags extra_flags, TooltipFlags tooltip_flags) => BeginTooltipExImpl(extra_flags, tooltip_flags);
+        private static extern void BeginTooltipExImpl(TooltipFlags tooltip_flags, WindowFlags extra_window_flags);
+        public static void BeginTooltipEx(TooltipFlags tooltip_flags, WindowFlags extra_window_flags) => BeginTooltipExImpl(tooltip_flags, extra_window_flags);
         
         [LinkName("igBeginViewportSideBar")]
         private static extern bool BeginViewportSideBarImpl(char* name, Viewport* viewport, Dir dir, float size, WindowFlags window_flags);
@@ -5265,6 +5364,10 @@ namespace ImGui
         [LinkName("igBringWindowToDisplayBack")]
         private static extern void BringWindowToDisplayBackImpl(Window* window);
         public static void BringWindowToDisplayBack(Window* window) => BringWindowToDisplayBackImpl(window);
+        
+        [LinkName("igBringWindowToDisplayBehind")]
+        private static extern void BringWindowToDisplayBehindImpl(Window* window, Window* above_window);
+        public static void BringWindowToDisplayBehind(Window* window, Window* above_window) => BringWindowToDisplayBehindImpl(window, above_window);
         
         [LinkName("igBringWindowToDisplayFront")]
         private static extern void BringWindowToDisplayFrontImpl(Window* window);
@@ -5312,13 +5415,9 @@ namespace ImGui
         private static extern float CalcItemWidthImpl();
         public static float CalcItemWidth() => CalcItemWidthImpl();
         
-        [LinkName("igCalcListClipping")]
-        private static extern void CalcListClippingImpl(int32 items_count, float items_height, int32* out_items_display_start, int32* out_items_display_end);
-        public static void CalcListClipping(int32 items_count, float items_height, out int32 out_items_display_start, out int32 out_items_display_end)
-        {
-            out_items_display_start = ?;
-            out_items_display_end = ?;
-        }
+        [LinkName("igCalcRoundingFlagsForRectInRect")]
+        private static extern DrawFlags CalcRoundingFlagsForRectInRectImpl(Rect r_in, Rect r_outer, float threshold);
+        public static DrawFlags CalcRoundingFlagsForRectInRect(Rect r_in, Rect r_outer, float threshold) => CalcRoundingFlagsForRectInRectImpl(r_in, r_outer, threshold);
         
         [LinkName("igCalcTextSize")]
         private static extern Vec2 CalcTextSizeImpl(Vec2* pOut, char* text, char* text_end, bool hide_text_after_double_hash, float wrap_width);
@@ -5401,6 +5500,10 @@ namespace ImGui
         [LinkName("igClosePopupToLevel")]
         private static extern void ClosePopupToLevelImpl(int32 remaining, bool restore_focus_to_window_under_popup);
         public static void ClosePopupToLevel(int32 remaining, bool restore_focus_to_window_under_popup) => ClosePopupToLevelImpl(remaining, restore_focus_to_window_under_popup);
+        
+        [LinkName("igClosePopupsExceptModals")]
+        private static extern void ClosePopupsExceptModalsImpl();
+        public static void ClosePopupsExceptModals() => ClosePopupsExceptModalsImpl();
         
         [LinkName("igClosePopupsOverWindow")]
         private static extern void ClosePopupsOverWindowImpl(Window* ref_window, bool restore_focus_to_window_under_popup);
@@ -5549,6 +5652,10 @@ namespace ImGui
         private static extern void DebugDrawItemRectImpl(U32 col);
         public static void DebugDrawItemRect(U32 col = (U32) 4278190335) => DebugDrawItemRectImpl(col);
         
+        [LinkName("igDebugHookIdInfo")]
+        private static extern void DebugHookIdInfoImpl(ID id, DataType data_type, void* data_id, void* data_id_end);
+        public static void DebugHookIdInfo(ID id, DataType data_type, void* data_id, void* data_id_end) => DebugHookIdInfoImpl(id, data_type, data_id, data_id_end);
+        
         [LinkName("igDebugNodeColumns")]
         private static extern void DebugNodeColumnsImpl(OldColumns* columns);
         public static void DebugNodeColumns(OldColumns* columns) => DebugNodeColumnsImpl(columns);
@@ -5601,8 +5708,12 @@ namespace ImGui
         public static void DebugNodeWindowSettings(WindowSettings* settings) => DebugNodeWindowSettingsImpl(settings);
         
         [LinkName("igDebugNodeWindowsList")]
-        private static extern void DebugNodeWindowsListImpl(Vector<Window**> windows, char* label);
-        public static void DebugNodeWindowsList(Vector<Window**> windows, char* label) => DebugNodeWindowsListImpl(windows, label);
+        private static extern void DebugNodeWindowsListImpl(Vector<Window*>* windows, char* label);
+        public static void DebugNodeWindowsList(Vector<Window*>* windows, char* label) => DebugNodeWindowsListImpl(windows, label);
+        
+        [LinkName("igDebugNodeWindowsListByBeginStackParent")]
+        private static extern void DebugNodeWindowsListByBeginStackParentImpl(Window** windows, int32 windows_size, Window* parent_in_begin_stack);
+        public static void DebugNodeWindowsListByBeginStackParent(Window** windows, int32 windows_size, Window* parent_in_begin_stack) => DebugNodeWindowsListByBeginStackParentImpl(windows, windows_size, parent_in_begin_stack);
         
         [LinkName("igDebugRenderViewportThumbnail")]
         private static extern void DebugRenderViewportThumbnailImpl(DrawList* draw_list, ViewportP* viewport, Rect bb);
@@ -5629,12 +5740,12 @@ namespace ImGui
         public static ID DockBuilderAddNode(ID node_id = (ID) 0, DockNodeFlags flags = (DockNodeFlags) 0) => DockBuilderAddNodeImpl(node_id, flags);
         
         [LinkName("igDockBuilderCopyDockSpace")]
-        private static extern void DockBuilderCopyDockSpaceImpl(ID src_dockspace_id, ID dst_dockspace_id, Vector<char**> in_window_remap_pairs);
-        public static void DockBuilderCopyDockSpace(ID src_dockspace_id, ID dst_dockspace_id, Vector<char**> in_window_remap_pairs) => DockBuilderCopyDockSpaceImpl(src_dockspace_id, dst_dockspace_id, in_window_remap_pairs);
+        private static extern void DockBuilderCopyDockSpaceImpl(ID src_dockspace_id, ID dst_dockspace_id, Vector<char*>* in_window_remap_pairs);
+        public static void DockBuilderCopyDockSpace(ID src_dockspace_id, ID dst_dockspace_id, Vector<char*>* in_window_remap_pairs) => DockBuilderCopyDockSpaceImpl(src_dockspace_id, dst_dockspace_id, in_window_remap_pairs);
         
         [LinkName("igDockBuilderCopyNode")]
-        private static extern void DockBuilderCopyNodeImpl(ID src_node_id, ID dst_node_id, Vector<ID*> out_node_remap_pairs);
-        public static void DockBuilderCopyNode(ID src_node_id, ID dst_node_id, Vector<ID*> out_node_remap_pairs) => DockBuilderCopyNodeImpl(src_node_id, dst_node_id, out_node_remap_pairs);
+        private static extern void DockBuilderCopyNodeImpl(ID src_node_id, ID dst_node_id, Vector<ID>* out_node_remap_pairs);
+        public static void DockBuilderCopyNode(ID src_node_id, ID dst_node_id, Vector<ID>* out_node_remap_pairs) => DockBuilderCopyNodeImpl(src_node_id, dst_node_id, out_node_remap_pairs);
         
         [LinkName("igDockBuilderCopyWindowSettings")]
         private static extern void DockBuilderCopyWindowSettingsImpl(char* src_name, char* dst_name);
@@ -5705,6 +5816,10 @@ namespace ImGui
         private static extern void DockContextClearNodesImpl(Context* ctx, ID root_id, bool clear_settings_refs);
         public static void DockContextClearNodes(Context* ctx, ID root_id, bool clear_settings_refs) => DockContextClearNodesImpl(ctx, root_id, clear_settings_refs);
         
+        [LinkName("igDockContextEndFrame")]
+        private static extern void DockContextEndFrameImpl(Context* ctx);
+        public static void DockContextEndFrame(Context* ctx) => DockContextEndFrameImpl(ctx);
+        
         [LinkName("igDockContextGenNodeID")]
         private static extern ID DockContextGenNodeIDImpl(Context* ctx);
         public static ID DockContextGenNodeID(Context* ctx) => DockContextGenNodeIDImpl(ctx);
@@ -5764,6 +5879,10 @@ namespace ImGui
         [LinkName("igDockNodeGetWindowMenuButtonId")]
         private static extern ID DockNodeGetWindowMenuButtonIdImpl(DockNode* node);
         public static ID DockNodeGetWindowMenuButtonId(DockNode* node) => DockNodeGetWindowMenuButtonIdImpl(node);
+        
+        [LinkName("igDockNodeIsInHierarchyOf")]
+        private static extern bool DockNodeIsInHierarchyOfImpl(DockNode* node, DockNode* parent);
+        public static bool DockNodeIsInHierarchyOf(DockNode* node, DockNode* parent) => DockNodeIsInHierarchyOfImpl(node, parent);
         
         [LinkName("igDockSpace")]
         private static extern ID DockSpaceImpl(ID id, Vec2 size, DockNodeFlags flags, WindowClass* window_class);
@@ -5913,6 +6032,10 @@ namespace ImGui
         private static extern void ErrorCheckEndFrameRecoverImpl(ErrorLogCallback log_callback, void* user_data);
         public static void ErrorCheckEndFrameRecover(ErrorLogCallback log_callback, void* user_data = null) => ErrorCheckEndFrameRecoverImpl(log_callback, user_data);
         
+        [LinkName("igErrorCheckEndWindowRecover")]
+        private static extern void ErrorCheckEndWindowRecoverImpl(ErrorLogCallback log_callback, void* user_data);
+        public static void ErrorCheckEndWindowRecover(ErrorLogCallback log_callback, void* user_data = null) => ErrorCheckEndWindowRecoverImpl(log_callback, user_data);
+        
         [LinkName("igFindBestWindowPosForPopup")]
         private static extern Vec2 FindBestWindowPosForPopupImpl(Vec2* pOut, Window* window);
         public static Vec2 FindBestWindowPosForPopup(Window* window)
@@ -5930,6 +6053,14 @@ namespace ImGui
             FindBestWindowPosForPopupExImpl(&pOut, ref_pos, size, last_dir, r_outer, r_avoid, policy);
             return pOut;
         }
+        
+        [LinkName("igFindBottomMostVisibleWindowWithinBeginStack")]
+        private static extern Window* FindBottomMostVisibleWindowWithinBeginStackImpl(Window* window);
+        #if IMGUI_USE_REF
+        public static ref Window FindBottomMostVisibleWindowWithinBeginStack(Window* window) { return ref *FindBottomMostVisibleWindowWithinBeginStackImpl(window); }
+        #else
+        public static Window* FindBottomMostVisibleWindowWithinBeginStack(Window* window) => FindBottomMostVisibleWindowWithinBeginStackImpl(window);
+        #endif
         
         [LinkName("igFindOrCreateColumns")]
         private static extern OldColumns* FindOrCreateColumnsImpl(Window* window, ID id);
@@ -5994,6 +6125,10 @@ namespace ImGui
         #else
         public static Window* FindWindowByName(char* name) => FindWindowByNameImpl(name);
         #endif
+        
+        [LinkName("igFindWindowDisplayIndex")]
+        private static extern int32 FindWindowDisplayIndexImpl(Window* window);
+        public static int32 FindWindowDisplayIndex(Window* window) => FindWindowDisplayIndexImpl(window);
         
         [LinkName("igFindWindowSettings")]
         private static extern WindowSettings* FindWindowSettingsImpl(ID id);
@@ -6385,6 +6520,10 @@ namespace ImGui
         private static extern KeyModFlags GetMergedKeyModFlagsImpl();
         public static KeyModFlags GetMergedKeyModFlags() => GetMergedKeyModFlagsImpl();
         
+        [LinkName("igGetMouseClickedCount")]
+        private static extern int32 GetMouseClickedCountImpl(MouseButton button);
+        public static int32 GetMouseClickedCount(MouseButton button) => GetMouseClickedCountImpl(button);
+        
         [LinkName("igGetMouseCursor")]
         private static extern MouseCursor GetMouseCursorImpl();
         public static MouseCursor GetMouseCursor() => GetMouseCursorImpl();
@@ -6505,6 +6644,14 @@ namespace ImGui
         [LinkName("igGetTime")]
         private static extern double GetTimeImpl();
         public static double GetTime() => GetTimeImpl();
+        
+        [LinkName("igGetTopMostAndVisiblePopupModal")]
+        private static extern Window* GetTopMostAndVisiblePopupModalImpl();
+        #if IMGUI_USE_REF
+        public static ref Window GetTopMostAndVisiblePopupModal() { return ref *GetTopMostAndVisiblePopupModalImpl(); }
+        #else
+        public static Window* GetTopMostAndVisiblePopupModal() => GetTopMostAndVisiblePopupModalImpl();
+        #endif
         
         [LinkName("igGetTopMostPopupModal")]
         private static extern Window* GetTopMostPopupModalImpl();
@@ -6829,6 +6976,10 @@ namespace ImGui
         private static extern float ImInvLengthImpl(Vec2 lhs, float fail_value);
         public static float ImInvLength(Vec2 lhs, float fail_value) => ImInvLengthImpl(lhs, fail_value);
         
+        [LinkName("igImIsFloatAboveGuaranteedIntegerPrecision")]
+        private static extern bool ImIsFloatAboveGuaranteedIntegerPrecisionImpl(float f);
+        public static bool ImIsFloatAboveGuaranteedIntegerPrecision(float f) => ImIsFloatAboveGuaranteedIntegerPrecisionImpl(f);
+        
         [LinkName("igImIsPowerOfTwo_Int")]
         private static extern bool ImIsPowerOfTwoImpl(int32 v);
         public static bool ImIsPowerOfTwo(int32 v) => ImIsPowerOfTwoImpl(v);
@@ -6959,6 +7110,10 @@ namespace ImGui
         [LinkName("igImPow_double")]
         private static extern double ImPowImpl(double x, double y);
         public static double ImPow(double x, double y) => ImPowImpl(x, y);
+        
+        [LinkName("igImQsort")]
+        private static extern void ImQsortImpl(void* base_, size count, size size_of_element, function int(void* , void* ) compare_func);
+        public static void ImQsort(void* base_, size count, size size_of_element, function int(void* , void* ) compare_func) => ImQsortImpl(base_, count, size_of_element, compare_func);
         
         [LinkName("igImRotate")]
         private static extern Vec2 ImRotateImpl(Vec2* pOut, Vec2 v, float cos_a, float sin_a);
@@ -7252,8 +7407,8 @@ namespace ImGui
         public static bool IsAnyMouseDown() => IsAnyMouseDownImpl();
         
         [LinkName("igIsClippedEx")]
-        private static extern bool IsClippedExImpl(Rect bb, ID id, bool clip_even_when_logged);
-        public static bool IsClippedEx(Rect bb, ID id, bool clip_even_when_logged) => IsClippedExImpl(bb, id, clip_even_when_logged);
+        private static extern bool IsClippedExImpl(Rect bb, ID id);
+        public static bool IsClippedEx(Rect bb, ID id) => IsClippedExImpl(bb, id);
         
         [LinkName("igIsDragDropPayloadBeingAccepted")]
         private static extern bool IsDragDropPayloadBeingAcceptedImpl();
@@ -7384,8 +7539,8 @@ namespace ImGui
         public static bool IsWindowAppearing() => IsWindowAppearingImpl();
         
         [LinkName("igIsWindowChildOf")]
-        private static extern bool IsWindowChildOfImpl(Window* window, Window* potential_parent, bool dock_hierarchy);
-        public static bool IsWindowChildOf(Window* window, Window* potential_parent, bool dock_hierarchy) => IsWindowChildOfImpl(window, potential_parent, dock_hierarchy);
+        private static extern bool IsWindowChildOfImpl(Window* window, Window* potential_parent, bool popup_hierarchy, bool dock_hierarchy);
+        public static bool IsWindowChildOf(Window* window, Window* potential_parent, bool popup_hierarchy, bool dock_hierarchy) => IsWindowChildOfImpl(window, potential_parent, popup_hierarchy, dock_hierarchy);
         
         [LinkName("igIsWindowCollapsed")]
         private static extern bool IsWindowCollapsedImpl();
@@ -7407,6 +7562,10 @@ namespace ImGui
         private static extern bool IsWindowNavFocusableImpl(Window* window);
         public static bool IsWindowNavFocusable(Window* window) => IsWindowNavFocusableImpl(window);
         
+        [LinkName("igIsWindowWithinBeginStackOf")]
+        private static extern bool IsWindowWithinBeginStackOfImpl(Window* window, Window* potential_parent);
+        public static bool IsWindowWithinBeginStackOf(Window* window, Window* potential_parent) => IsWindowWithinBeginStackOfImpl(window, potential_parent);
+        
         [LinkName("igItemAdd")]
         private static extern bool ItemAddImpl(Rect bb, ID id, Rect* nav_bb, ItemFlags extra_flags);
         public static bool ItemAdd(Rect bb, ID id, Rect* nav_bb = null, ItemFlags extra_flags = (ItemFlags) 0) => ItemAddImpl(bb, id, nav_bb, extra_flags);
@@ -7414,10 +7573,6 @@ namespace ImGui
         [LinkName("igItemHoverable")]
         private static extern bool ItemHoverableImpl(Rect bb, ID id);
         public static bool ItemHoverable(Rect bb, ID id) => ItemHoverableImpl(bb, id);
-        
-        [LinkName("igItemInputable")]
-        private static extern void ItemInputableImpl(Window* window, ID id);
-        public static void ItemInputable(Window* window, ID id) => ItemInputableImpl(window, id);
         
         [LinkName("igItemSize_Vec2")]
         private static extern void ItemSizeImpl(Vec2 size, float text_baseline_y);
@@ -7548,12 +7703,16 @@ namespace ImGui
         public static void NavMoveRequestCancel() => NavMoveRequestCancelImpl();
         
         [LinkName("igNavMoveRequestForward")]
-        private static extern void NavMoveRequestForwardImpl(Dir move_dir, Dir clip_dir, NavMoveFlags move_flags);
-        public static void NavMoveRequestForward(Dir move_dir, Dir clip_dir, NavMoveFlags move_flags) => NavMoveRequestForwardImpl(move_dir, clip_dir, move_flags);
+        private static extern void NavMoveRequestForwardImpl(Dir move_dir, Dir clip_dir, NavMoveFlags move_flags, ScrollFlags scroll_flags);
+        public static void NavMoveRequestForward(Dir move_dir, Dir clip_dir, NavMoveFlags move_flags, ScrollFlags scroll_flags) => NavMoveRequestForwardImpl(move_dir, clip_dir, move_flags, scroll_flags);
+        
+        [LinkName("igNavMoveRequestResolveWithLastItem")]
+        private static extern void NavMoveRequestResolveWithLastItemImpl(NavItemData* result);
+        public static void NavMoveRequestResolveWithLastItem(NavItemData* result) => NavMoveRequestResolveWithLastItemImpl(result);
         
         [LinkName("igNavMoveRequestSubmit")]
-        private static extern void NavMoveRequestSubmitImpl(Dir move_dir, Dir clip_dir, NavMoveFlags move_flags);
-        public static void NavMoveRequestSubmit(Dir move_dir, Dir clip_dir, NavMoveFlags move_flags) => NavMoveRequestSubmitImpl(move_dir, clip_dir, move_flags);
+        private static extern void NavMoveRequestSubmitImpl(Dir move_dir, Dir clip_dir, NavMoveFlags move_flags, ScrollFlags scroll_flags);
+        public static void NavMoveRequestSubmit(Dir move_dir, Dir clip_dir, NavMoveFlags move_flags, ScrollFlags scroll_flags) => NavMoveRequestSubmitImpl(move_dir, clip_dir, move_flags, scroll_flags);
         
         [LinkName("igNavMoveRequestTryWrapping")]
         private static extern void NavMoveRequestTryWrappingImpl(Window* window, NavMoveFlags move_flags);
@@ -7852,11 +8011,23 @@ namespace ImGui
         public static void ScaleWindowsInViewport(ViewportP* viewport, float scale) => ScaleWindowsInViewportImpl(viewport, scale);
         
         [LinkName("igScrollToBringRectIntoView")]
-        private static extern Vec2 ScrollToBringRectIntoViewImpl(Vec2* pOut, Window* window, Rect item_rect);
-        public static Vec2 ScrollToBringRectIntoView(Window* window, Rect item_rect)
+        private static extern void ScrollToBringRectIntoViewImpl(Window* window, Rect rect);
+        public static void ScrollToBringRectIntoView(Window* window, Rect rect) => ScrollToBringRectIntoViewImpl(window, rect);
+        
+        [LinkName("igScrollToItem")]
+        private static extern void ScrollToItemImpl(ScrollFlags flags);
+        public static void ScrollToItem(ScrollFlags flags = (ScrollFlags) 0) => ScrollToItemImpl(flags);
+        
+        [LinkName("igScrollToRect")]
+        private static extern void ScrollToRectImpl(Window* window, Rect rect, ScrollFlags flags);
+        public static void ScrollToRect(Window* window, Rect rect, ScrollFlags flags = (ScrollFlags) 0) => ScrollToRectImpl(window, rect, flags);
+        
+        [LinkName("igScrollToRectEx")]
+        private static extern Vec2 ScrollToRectExImpl(Vec2* pOut, Window* window, Rect rect, ScrollFlags flags);
+        public static Vec2 ScrollToRectEx(Window* window, Rect rect, ScrollFlags flags = (ScrollFlags) 0)
         {
             Vec2 pOut = default;
-            ScrollToBringRectIntoViewImpl(&pOut, window, item_rect);
+            ScrollToRectExImpl(&pOut, window, rect, flags);
             return pOut;
         }
         
@@ -7865,8 +8036,8 @@ namespace ImGui
         public static void Scrollbar(Axis axis) => ScrollbarImpl(axis);
         
         [LinkName("igScrollbarEx")]
-        private static extern bool ScrollbarExImpl(Rect bb, ID id, Axis axis, float* p_scroll_v, float avail_v, float contents_v, DrawFlags flags);
-        public static bool ScrollbarEx(Rect bb, ID id, Axis axis, float* p_scroll_v, float avail_v, float contents_v, DrawFlags flags) => ScrollbarExImpl(bb, id, axis, p_scroll_v, avail_v, contents_v, flags);
+        private static extern bool ScrollbarExImpl(Rect bb, ID id, Axis axis, S64* p_scroll_v, S64 avail_v, S64 contents_v, DrawFlags flags);
+        public static bool ScrollbarEx(Rect bb, ID id, Axis axis, S64* p_scroll_v, S64 avail_v, S64 contents_v, DrawFlags flags) => ScrollbarExImpl(bb, id, axis, p_scroll_v, avail_v, contents_v, flags);
         
         [LinkName("igSelectable_Bool")]
         private static extern bool SelectableImpl(char* label, bool selected, SelectableFlags flags, Vec2 size);
@@ -8172,6 +8343,10 @@ namespace ImGui
         private static extern void ShowMetricsWindowImpl(bool* p_open);
         public static void ShowMetricsWindow(bool* p_open = null) => ShowMetricsWindowImpl(p_open);
         
+        [LinkName("igShowStackToolWindow")]
+        private static extern void ShowStackToolWindowImpl(bool* p_open);
+        public static void ShowStackToolWindow(bool* p_open = null) => ShowStackToolWindowImpl(p_open);
+        
         [LinkName("igShowStyleEditor")]
         private static extern void ShowStyleEditorImpl(Style* ref_);
         public static void ShowStyleEditor(Style* ref_ = null) => ShowStyleEditorImpl(ref_);
@@ -8253,8 +8428,8 @@ namespace ImGui
         public static void Spacing() => SpacingImpl();
         
         [LinkName("igSplitterBehavior")]
-        private static extern bool SplitterBehaviorImpl(Rect bb, ID id, Axis axis, float* size1, float* size2, float min_size1, float min_size2, float hover_extend, float hover_visibility_delay);
-        public static bool SplitterBehavior(Rect bb, ID id, Axis axis, float* size1, float* size2, float min_size1, float min_size2, float hover_extend = (float) 0.0f, float hover_visibility_delay = (float) 0.0f) => SplitterBehaviorImpl(bb, id, axis, size1, size2, min_size1, min_size2, hover_extend, hover_visibility_delay);
+        private static extern bool SplitterBehaviorImpl(Rect bb, ID id, Axis axis, float* size1, float* size2, float min_size1, float min_size2, float hover_extend, float hover_visibility_delay, U32 bg_col);
+        public static bool SplitterBehavior(Rect bb, ID id, Axis axis, float* size1, float* size2, float min_size1, float min_size2, float hover_extend = (float) 0.0f, float hover_visibility_delay = (float) 0.0f, U32 bg_col = (U32) 0) => SplitterBehaviorImpl(bb, id, axis, size1, size2, min_size1, min_size2, hover_extend, hover_visibility_delay, bg_col);
         
         [LinkName("igStartMouseMovingWindow")]
         private static extern void StartMouseMovingWindowImpl(Window* window);
@@ -8749,5 +8924,23 @@ namespace ImGui
         [LinkName("igValue_Float")]
         private static extern void ValueImpl(char* prefix, float v, char* float_format);
         public static void Value(char* prefix, float v, char* float_format = null) => ValueImpl(prefix, v, float_format);
+        
+        [LinkName("igWindowRectAbsToRel")]
+        private static extern Rect WindowRectAbsToRelImpl(Rect* pOut, Window* window, Rect r);
+        public static Rect WindowRectAbsToRel(Window* window, Rect r)
+        {
+            Rect pOut = default;
+            WindowRectAbsToRelImpl(&pOut, window, r);
+            return pOut;
+        }
+        
+        [LinkName("igWindowRectRelToAbs")]
+        private static extern Rect WindowRectRelToAbsImpl(Rect* pOut, Window* window, Rect r);
+        public static Rect WindowRectRelToAbs(Window* window, Rect r)
+        {
+            Rect pOut = default;
+            WindowRectRelToAbsImpl(&pOut, window, r);
+            return pOut;
+        }
     }
 }

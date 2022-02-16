@@ -227,7 +227,8 @@ namespace ImGui
 
 			string imGuizmoFile =
 $@"using System;
-using ImGui;
+
+using static ImGui.ImGui;
 
 namespace ImGuizmo
 {{

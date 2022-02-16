@@ -26,10 +26,15 @@ namespace ImGuiBeefGenerator.ImGui
             else
             {
                 Name = name;
+
+                // Base is a keyword and thus can't be used as parameter name
+                if (Name == "base")
+                    Name = "base_";
+
                 Type = ImGui.FixType(type);
                 IsVaList = false;
 
-                if (defaultValue == "NULL")
+                if (defaultValue == "NULL" || defaultValue == "nullptr")
                 {
                     DefaultValue = "null";
                 }

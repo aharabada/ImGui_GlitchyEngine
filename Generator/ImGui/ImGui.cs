@@ -4,7 +4,7 @@ namespace ImGuiBeefGenerator.ImGui
 {
     public static class ImGui
     {
-        public static readonly string[] ReservedKeywords = { "in", "repeat", "ref", "out", "where" };
+        public static readonly string[] ReservedKeywords = { "in", "repeat", "ref", "out", "where", "base" };
 
         public static readonly Dictionary<string, string> WellKnownDefaultValues = new Dictionary<string, string>()
         {
@@ -27,20 +27,6 @@ namespace ImGuiBeefGenerator.ImGui
             return $".{value.Substring(value.IndexOf("("))}";
         }
 
-        private static (bool IsPointer, int StarIndex) IsPointer(string type)
-        {
-            for (int i = type.Length - 1; i >= 0; i--)
-            {
-                if (!char.IsWhiteSpace(type[i]))
-                {
-                    bool isPointer = type[i] == '*';
-                    return (isPointer, isPointer ? i : -1);
-                }
-            }
-
-            return (false, -1);
-        }
-
         public static string FixType(string type)
         {
             if (type.Contains("_") && !IsFunctionPointer(type) && !type.EndsWith("_t") && !type.EndsWith("_t*"))
@@ -52,6 +38,8 @@ namespace ImGuiBeefGenerator.ImGui
             fixedType = fixedType.Replace("unsigned ", "u");
             fixedType = fixedType.Replace("signed ", "");
             fixedType = fixedType.Replace("_t", "");
+            fixedType = fixedType.Replace("long long", "int64");
+            fixedType = fixedType.Replace("ulong long", "uint64");
             fixedType = RemovePrefix(fixedType);
 
             if (fixedType.EndsWith("int"))
@@ -73,19 +61,19 @@ namespace ImGuiBeefGenerator.ImGui
 
         public static string FixTemplate(string template)
         {
-            (bool isPointer, int starIndex) = IsPointer(template);
-
-            if (isPointer)
-            {
-                template = template.Substring(0, starIndex);
-            }
-
             var fixedTemplate = template.Replace("const ", "");
 
             if (fixedTemplate == "STB_TexteditState" || fixedTemplate.StartsWith("SDL_"))
                 return fixedTemplate;
 
             fixedTemplate = fixedTemplate.Replace("const_", "");
+
+            bool isPointer = false;
+            if (fixedTemplate.EndsWith(" *"))
+            {
+                fixedTemplate = fixedTemplate.Substring(0, fixedTemplate.Length - 2);
+                isPointer = true;
+            }
 
             if (fixedTemplate.Contains("_"))
             {
@@ -112,10 +100,7 @@ namespace ImGuiBeefGenerator.ImGui
             }
 
             fixedTemplate += ">";
-
-            if (isPointer)
-                fixedTemplate += "*";
-
+            if (isPointer) fixedTemplate += "*";
             return fixedTemplate;
         }
 

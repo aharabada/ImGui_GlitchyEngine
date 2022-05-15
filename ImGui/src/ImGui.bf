@@ -1,12 +1,12 @@
 // -- GENERATION INFORMATION --
-// Date: 15.05.2022 13:30:51
+// Date: 15.05.2022 13:50:59
 // Constructors: 0
 // Destructors: 0
-// Enums: 71
-// Global methods: 797
+// Enums: 73
+// Global methods: 807
 // Instance methods: 0
-// Structs: 93
-// Typedefs: 25
+// Structs: 103
+// Typedefs: 26
 
 using System;
 
@@ -32,8 +32,8 @@ namespace ImGui
 
 	public static class ImGui
     {
-		public static char8* VERSION = "1.86";
-		public static int VERSION_NUM = 18600;
+		public static char8* VERSION = "1.87";
+		public static int VERSION_NUM = 18700;
 		public static bool CHECKVERSION()
 		{
 			bool result = DebugCheckVersionAndDataLayout(VERSION, sizeof(IO), sizeof(Style), sizeof(Vec2), sizeof(Vec4), sizeof(DrawVert), sizeof(DrawIdx));
@@ -132,6 +132,7 @@ namespace ImGui
 
         // -- Auto-Generated --
 
+        public typealias BitArrayForNamedKeys = BitArray<S32>;
         public typealias DrawCallback = function void(DrawList* parent_list, DrawCmd* cmd);
         public typealias DrawIdx = ushort;
         public typealias FileHandle = FILE*;
@@ -574,6 +575,21 @@ namespace ImGui
         }
         
         [AllowDuplicates, CRepr]
+        public enum InputEventType 
+        {
+            None = 0,
+            MousePos = 1,
+            MouseWheel = 2,
+            MouseButton = 3,
+            MouseViewport = 4,
+            Key = 5,
+            Char = 6,
+            Focus = 7,
+            COUNT = 8,
+        
+        }
+        
+        [AllowDuplicates, CRepr]
         public enum InputReadMode 
         {
             Down = 0,
@@ -592,8 +608,8 @@ namespace ImGui
             Mouse = 1,
             Keyboard = 2,
             Gamepad = 3,
-            Nav = 4,
-            Clipboard = 5,
+            Clipboard = 4,
+            Nav = 5,
             COUNT = 6,
         
         }
@@ -678,31 +694,158 @@ namespace ImGui
         }
         
         [AllowDuplicates, CRepr]
+        public enum KeyPrivate 
+        {
+            Key_LegacyNativeKey_BEGIN = 0,
+            Key_LegacyNativeKey_END = 512,
+            Key_Gamepad_BEGIN = 617,
+            Key_Gamepad_END = 641,
+        
+        }
+        
+        [AllowDuplicates, CRepr]
         public enum Key : int32
         {
-            Tab = 0,
-            LeftArrow = 1,
-            RightArrow = 2,
-            UpArrow = 3,
-            DownArrow = 4,
-            PageUp = 5,
-            PageDown = 6,
-            Home = 7,
-            End = 8,
-            Insert = 9,
-            Delete = 10,
-            Backspace = 11,
-            Space = 12,
-            Enter = 13,
-            Escape = 14,
-            KeyPadEnter = 15,
-            A = 16,
-            C = 17,
-            V = 18,
-            X = 19,
-            Y = 20,
-            Z = 21,
-            COUNT = 22,
+            None = 0,
+            Tab = 512,
+            LeftArrow = 513,
+            RightArrow = 514,
+            UpArrow = 515,
+            DownArrow = 516,
+            PageUp = 517,
+            PageDown = 518,
+            Home = 519,
+            End = 520,
+            Insert = 521,
+            Delete = 522,
+            Backspace = 523,
+            Space = 524,
+            Enter = 525,
+            Escape = 526,
+            LeftCtrl = 527,
+            LeftShift = 528,
+            LeftAlt = 529,
+            LeftSuper = 530,
+            RightCtrl = 531,
+            RightShift = 532,
+            RightAlt = 533,
+            RightSuper = 534,
+            Menu = 535,
+            Number0 = 536,
+            Number1 = 537,
+            Number2 = 538,
+            Number3 = 539,
+            Number4 = 540,
+            Number5 = 541,
+            Number6 = 542,
+            Number7 = 543,
+            Number8 = 544,
+            Number9 = 545,
+            A = 546,
+            B = 547,
+            C = 548,
+            D = 549,
+            E = 550,
+            F = 551,
+            G = 552,
+            H = 553,
+            I = 554,
+            J = 555,
+            K = 556,
+            L = 557,
+            M = 558,
+            N = 559,
+            O = 560,
+            P = 561,
+            Q = 562,
+            R = 563,
+            S = 564,
+            T = 565,
+            U = 566,
+            V = 567,
+            W = 568,
+            X = 569,
+            Y = 570,
+            Z = 571,
+            F1 = 572,
+            F2 = 573,
+            F3 = 574,
+            F4 = 575,
+            F5 = 576,
+            F6 = 577,
+            F7 = 578,
+            F8 = 579,
+            F9 = 580,
+            F10 = 581,
+            F11 = 582,
+            F12 = 583,
+            Apostrophe = 584,
+            Comma = 585,
+            Minus = 586,
+            Period = 587,
+            Slash = 588,
+            Semicolon = 589,
+            Equal = 590,
+            LeftBracket = 591,
+            Backslash = 592,
+            RightBracket = 593,
+            GraveAccent = 594,
+            CapsLock = 595,
+            ScrollLock = 596,
+            NumLock = 597,
+            PrintScreen = 598,
+            Pause = 599,
+            Keypad0 = 600,
+            Keypad1 = 601,
+            Keypad2 = 602,
+            Keypad3 = 603,
+            Keypad4 = 604,
+            Keypad5 = 605,
+            Keypad6 = 606,
+            Keypad7 = 607,
+            Keypad8 = 608,
+            Keypad9 = 609,
+            KeypadDecimal = 610,
+            KeypadDivide = 611,
+            KeypadMultiply = 612,
+            KeypadSubtract = 613,
+            KeypadAdd = 614,
+            KeypadEnter = 615,
+            KeypadEqual = 616,
+            GamepadStart = 617,
+            GamepadBack = 618,
+            GamepadFaceUp = 619,
+            GamepadFaceDown = 620,
+            GamepadFaceLeft = 621,
+            GamepadFaceRight = 622,
+            GamepadDpadUp = 623,
+            GamepadDpadDown = 624,
+            GamepadDpadLeft = 625,
+            GamepadDpadRight = 626,
+            GamepadL1 = 627,
+            GamepadR1 = 628,
+            GamepadL2 = 629,
+            GamepadR2 = 630,
+            GamepadL3 = 631,
+            GamepadR3 = 632,
+            GamepadLStickUp = 633,
+            GamepadLStickDown = 634,
+            GamepadLStickLeft = 635,
+            GamepadLStickRight = 636,
+            GamepadRStickUp = 637,
+            GamepadRStickDown = 638,
+            GamepadRStickLeft = 639,
+            GamepadRStickRight = 640,
+            ModCtrl = 641,
+            ModShift = 642,
+            ModAlt = 643,
+            ModSuper = 644,
+            COUNT = 645,
+            NamedKey_BEGIN = 512,
+            NamedKey_END = 645,
+            NamedKey_COUNT = 133,
+            KeysData_SIZE = 645,
+            KeysData_OFFSET = 0,
         
         }
         
@@ -798,7 +941,6 @@ namespace ImGui
             KeyUp_ = 18,
             KeyDown_ = 19,
             COUNT = 20,
-            InternalStart_ = 16,
         
         }
         
@@ -2183,8 +2325,8 @@ namespace ImGui
             public void AddText(char* text, char* text_end = null) mut=> AddTextImpl(&this, text, text_end);
             
             [LinkName("ImFontGlyphRangesBuilder_BuildRanges")]
-            private static extern void BuildRangesImpl(FontGlyphRangesBuilder* self, Vector<Wchar>* out_ranges);
-            public void BuildRanges(Vector<Wchar>* out_ranges) mut=> BuildRangesImpl(&this, out_ranges);
+            private static extern void BuildRangesImpl(FontGlyphRangesBuilder* self, Vector<Wchar*> out_ranges);
+            public void BuildRanges(Vector<Wchar*> out_ranges) mut=> BuildRangesImpl(&this, out_ranges);
             
             [LinkName("ImFontGlyphRangesBuilder_Clear")]
             private static extern void ClearImpl(FontGlyphRangesBuilder* self);
@@ -2234,6 +2376,8 @@ namespace ImGui
             public bool FontAtlasOwnedByContext;
             public IO IO;
             public PlatformIO PlatformIO;
+            public Vector<InputEvent> InputEventsQueue;
+            public Vector<InputEvent> InputEventsTrail;
             public Style Style;
             public ConfigFlags ConfigFlagsCurrFrame;
             public ConfigFlags ConfigFlagsLastFrame;
@@ -2288,7 +2432,7 @@ namespace ImGui
             public bool ActiveIdUsingMouseWheel;
             public U32 ActiveIdUsingNavDirMask;
             public U32 ActiveIdUsingNavInputMask;
-            public U64 ActiveIdUsingKeyInputMask;
+            public BitArrayForNamedKeys ActiveIdUsingKeyInputMask;
             public Vec2 ActiveIdClickOffset;
             public Window* ActiveIdWindow;
             public InputSource ActiveIdSource;
@@ -2421,9 +2565,9 @@ namespace ImGui
             public float TooltipSlowDelay;
             public Vector<char> ClipboardHandlerData;
             public Vector<ID> MenusIdSubmittedThisFrame;
-            public Vec2 PlatformImePos;
-            public Vec2 PlatformImeLastPos;
-            public ViewportP* PlatformImePosViewport;
+            public PlatformImeData PlatformImeData;
+            public PlatformImeData PlatformImeDataPrev;
+            public ID PlatformImeViewport;
             public char PlatformLocaleDecimalPoint;
             public DockContext DockContext;
             public bool SettingsLoaded;
@@ -2656,7 +2800,6 @@ namespace ImGui
             public float MouseDoubleClickTime;
             public float MouseDoubleClickMaxDist;
             public float MouseDragThreshold;
-            public int32[22] KeyMap;
             public float KeyRepeatDelay;
             public float KeyRepeatRate;
             public void* UserData;
@@ -2675,6 +2818,7 @@ namespace ImGui
             public bool ConfigViewportsNoDefaultParent;
             public bool MouseDrawCursor;
             public bool ConfigMacOSXBehaviors;
+            public bool ConfigInputTrickleEventQueue;
             public bool ConfigInputTextCursorBlink;
             public bool ConfigDragClickToInputText;
             public bool ConfigWindowsResizeFromEdges;
@@ -2688,17 +2832,8 @@ namespace ImGui
             public function char*(void* user_data) GetClipboardTextFn;
             public function void(void* user_data, char* text) SetClipboardTextFn;
             public void* ClipboardUserData;
-            public Vec2 MousePos;
-            public bool[5] MouseDown;
-            public float MouseWheel;
-            public float MouseWheelH;
-            public ID MouseHoveredViewport;
-            public bool KeyCtrl;
-            public bool KeyShift;
-            public bool KeyAlt;
-            public bool KeySuper;
-            public bool[512] KeysDown;
-            public float[20] NavInputs;
+            public function void(Viewport* viewport, PlatformImeData* data) SetPlatformImeDataFn;
+            public void* _UnusedPadding;
             public bool WantCaptureMouse;
             public bool WantCaptureKeyboard;
             public bool WantTextInput;
@@ -2713,9 +2848,22 @@ namespace ImGui
             public int32 MetricsActiveWindows;
             public int32 MetricsActiveAllocations;
             public Vec2 MouseDelta;
-            public bool WantCaptureMouseUnlessPopupClose;
+            public int32[645] KeyMap;
+            public bool[512] KeysDown;
+            public Vec2 MousePos;
+            public bool[5] MouseDown;
+            public float MouseWheel;
+            public float MouseWheelH;
+            public ID MouseHoveredViewport;
+            public bool KeyCtrl;
+            public bool KeyShift;
+            public bool KeyAlt;
+            public bool KeySuper;
+            public float[20] NavInputs;
             public KeyModFlags KeyMods;
             public KeyModFlags KeyModsPrev;
+            public KeyData[645] KeysData;
+            public bool WantCaptureMouseUnlessPopupClose;
             public Vec2 MousePosPrev;
             public Vec2[5] MouseClickedPos;
             public double[5] MouseClickedTime;
@@ -2730,12 +2878,12 @@ namespace ImGui
             public float[5] MouseDownDurationPrev;
             public Vec2[5] MouseDragMaxDistanceAbs;
             public float[5] MouseDragMaxDistanceSqr;
-            public float[512] KeysDownDuration;
-            public float[512] KeysDownDurationPrev;
             public float[20] NavInputsDownDuration;
             public float[20] NavInputsDownDurationPrev;
             public float PenPressure;
             public bool AppFocusLost;
+            public S8 BackendUsingLegacyKeyArrays;
+            public bool BackendUsingLegacyNavInputArray;
             public Wchar16 InputQueueSurrogate;
             public Vector<Wchar> InputQueueCharacters;
         
@@ -2762,6 +2910,30 @@ namespace ImGui
             private static extern void AddInputCharactersUTF8Impl(IO* self, char* str);
             public void AddInputCharactersUTF8(char* str) mut=> AddInputCharactersUTF8Impl(&this, str);
             
+            [LinkName("ImGuiIO_AddKeyAnalogEvent")]
+            private static extern void AddKeyAnalogEventImpl(IO* self, Key key, bool down, float v);
+            public void AddKeyAnalogEvent(Key key, bool down, float v) mut=> AddKeyAnalogEventImpl(&this, key, down, v);
+            
+            [LinkName("ImGuiIO_AddKeyEvent")]
+            private static extern void AddKeyEventImpl(IO* self, Key key, bool down);
+            public void AddKeyEvent(Key key, bool down) mut=> AddKeyEventImpl(&this, key, down);
+            
+            [LinkName("ImGuiIO_AddMouseButtonEvent")]
+            private static extern void AddMouseButtonEventImpl(IO* self, int32 button, bool down);
+            public void AddMouseButtonEvent(int32 button, bool down) mut=> AddMouseButtonEventImpl(&this, button, down);
+            
+            [LinkName("ImGuiIO_AddMousePosEvent")]
+            private static extern void AddMousePosEventImpl(IO* self, float x, float y);
+            public void AddMousePosEvent(float x, float y) mut=> AddMousePosEventImpl(&this, x, y);
+            
+            [LinkName("ImGuiIO_AddMouseViewportEvent")]
+            private static extern void AddMouseViewportEventImpl(IO* self, ID id);
+            public void AddMouseViewportEvent(ID id) mut=> AddMouseViewportEventImpl(&this, id);
+            
+            [LinkName("ImGuiIO_AddMouseWheelEvent")]
+            private static extern void AddMouseWheelEventImpl(IO* self, float wh_x, float wh_y);
+            public void AddMouseWheelEvent(float wh_x, float wh_y) mut=> AddMouseWheelEventImpl(&this, wh_x, wh_y);
+            
             [LinkName("ImGuiIO_ClearInputCharacters")]
             private static extern void ClearInputCharactersImpl(IO* self);
             public void ClearInputCharacters() mut=> ClearInputCharactersImpl(&this);
@@ -2770,6 +2942,100 @@ namespace ImGui
             private static extern void ClearInputKeysImpl(IO* self);
             public void ClearInputKeys() mut=> ClearInputKeysImpl(&this);
             
+            [LinkName("ImGuiIO_SetKeyEventNativeData")]
+            private static extern void SetKeyEventNativeDataImpl(IO* self, Key key, int32 native_keycode, int32 native_scancode, int32 native_legacy_index);
+            public void SetKeyEventNativeData(Key key, int32 native_keycode, int32 native_scancode, int32 native_legacy_index = -1) mut=> SetKeyEventNativeDataImpl(&this, key, native_keycode, native_scancode, native_legacy_index);
+            
+        }
+        
+        [CRepr]
+        public struct InputEvent
+        {
+            public InputEventType Type;
+            public InputSource Source;
+            private InputEventUnion0 Union0 = .();
+            public InputEventMousePos MousePos { get { return Union0.MousePos; } set mut { Union0.MousePos = value; } };
+            public InputEventMouseWheel MouseWheel { get { return Union0.MouseWheel; } set mut { Union0.MouseWheel = value; } };
+            public InputEventMouseButton MouseButton { get { return Union0.MouseButton; } set mut { Union0.MouseButton = value; } };
+            public InputEventMouseViewport MouseViewport { get { return Union0.MouseViewport; } set mut { Union0.MouseViewport = value; } };
+            public InputEventKey Key { get { return Union0.Key; } set mut { Union0.Key = value; } };
+            public InputEventText Text { get { return Union0.Text; } set mut { Union0.Text = value; } };
+            public InputEventAppFocused AppFocused { get { return Union0.AppFocused; } set mut { Union0.AppFocused = value; } };
+            public bool AddedByTestEngine;
+        
+            [LinkName("ImGuiInputEvent_ImGuiInputEvent")]
+            private static extern InputEvent* CtorImpl();
+            public this()
+            {
+                this = *CtorImpl();
+            }
+            
+            [CRepr, Union]
+            public struct InputEventUnion0
+            {
+                public InputEventMousePos MousePos;
+                public InputEventMouseWheel MouseWheel;
+                public InputEventMouseButton MouseButton;
+                public InputEventMouseViewport MouseViewport;
+                public InputEventKey Key;
+                public InputEventText Text;
+                public InputEventAppFocused AppFocused;
+            
+            }
+        }
+        
+        [CRepr]
+        public struct InputEventAppFocused
+        {
+            public bool Focused;
+        
+        }
+        
+        [CRepr]
+        public struct InputEventKey
+        {
+            public Key Key;
+            public bool Down;
+            public float AnalogValue;
+        
+        }
+        
+        [CRepr]
+        public struct InputEventMouseButton
+        {
+            public int32 Button;
+            public bool Down;
+        
+        }
+        
+        [CRepr]
+        public struct InputEventMousePos
+        {
+            public float PosX;
+            public float PosY;
+        
+        }
+        
+        [CRepr]
+        public struct InputEventMouseViewport
+        {
+            public ID HoveredViewportID;
+        
+        }
+        
+        [CRepr]
+        public struct InputEventMouseWheel
+        {
+            public float WheelX;
+            public float WheelY;
+        
+        }
+        
+        [CRepr]
+        public struct InputEventText
+        {
+            public uint32 Char;
+        
         }
         
         [CRepr]
@@ -2895,6 +3161,16 @@ namespace ImGui
             private static extern void SelectAllImpl(InputTextState* self);
             public void SelectAll() mut=> SelectAllImpl(&this);
             
+        }
+        
+        [CRepr]
+        public struct KeyData
+        {
+            public bool Down;
+            public float DownDuration;
+            public float DownDurationPrev;
+            public float AnalogValue;
+        
         }
         
         [CRepr]
@@ -3241,7 +3517,6 @@ namespace ImGui
             public function void(Viewport* vp, void* render_arg) Platform_SwapBuffers;
             public function float(Viewport* vp) Platform_GetWindowDpiScale;
             public function void(Viewport* vp) Platform_OnChangedViewport;
-            public function void(Viewport* vp, Vec2 pos) Platform_SetImeInputPos;
             public function int(Viewport* vp, U64 vk_inst, void* vk_allocators, U64* out_vk_surface) Platform_CreateVkSurface;
             public function void(Viewport* vp) Renderer_CreateWindow;
             public function void(Viewport* vp) Renderer_DestroyWindow;
@@ -3253,6 +3528,22 @@ namespace ImGui
         
             [LinkName("ImGuiPlatformIO_ImGuiPlatformIO")]
             private static extern PlatformIO* CtorImpl();
+            public this()
+            {
+                this = *CtorImpl();
+            }
+            
+        }
+        
+        [CRepr]
+        public struct PlatformImeData
+        {
+            public bool WantVisible;
+            public Vec2 InputPos;
+            public float InputLineHeight;
+        
+            [LinkName("ImGuiPlatformImeData_ImGuiPlatformImeData")]
+            private static extern PlatformImeData* CtorImpl();
             public this()
             {
                 this = *CtorImpl();
@@ -4095,8 +4386,8 @@ namespace ImGui
             public bool Empty() mut=> EmptyImpl(&this);
             
             [LinkName("ImGuiTextRange_split")]
-            private static extern void SplitImpl(TextRange* self, char separator, Vector<TextRange>* out_);
-            public void Split(char separator, Vector<TextRange>* out_) mut=> SplitImpl(&this, separator, out_);
+            private static extern void SplitImpl(TextRange* self, char separator, Vector<TextRange*> out_);
+            public void Split(char separator, Vector<TextRange*> out_) mut=> SplitImpl(&this, separator, out_);
             
         }
         
@@ -4258,6 +4549,7 @@ namespace ImGui
             public float WindowBorderSize;
             public int32 NameBufLen;
             public ID MoveId;
+            public ID TabId;
             public ID ChildId;
             public Vec2 Scroll;
             public Vec2 ScrollMax;
@@ -4982,8 +5274,8 @@ namespace ImGui
             public int32 SizeInBytes() mut=> SizeInBytesImpl(&this);
             
             [LinkName("ImVector_swap")]
-            private static extern void SwapImpl(Vector<T>* self, Vector<T >* rhs);
-            public void Swap(ref Vector<T > rhs) mut=> SwapImpl(&this, &rhs);
+            private static extern void SwapImpl(Vector<T>* self, Vector<T>* rhs);
+            public void Swap(ref Vector<T> rhs) mut=> SwapImpl(&this, &rhs);
             
         }
         
@@ -5062,8 +5354,8 @@ namespace ImGui
             public int32 Size() mut=> SizeImpl(&this);
             
             [LinkName("ImChunkStream_swap")]
-            private static extern void SwapImpl(ChunkStream<T>* self, ChunkStream<T >* rhs);
-            public void Swap(ref ChunkStream<T > rhs) mut=> SwapImpl(&this, &rhs);
+            private static extern void SwapImpl(ChunkStream<T>* self, ChunkStream<T>* rhs);
+            public void Swap(ref ChunkStream<T> rhs) mut=> SwapImpl(&this, &rhs);
             
         }
         
@@ -5616,13 +5908,13 @@ namespace ImGui
         public static WindowSettings* CreateNewWindowSettings(char* name) => CreateNewWindowSettingsImpl(name);
         #endif
         
+        [LinkName("igDataTypeApplyFromText")]
+        private static extern bool DataTypeApplyFromTextImpl(char* buf, DataType data_type, void* p_data, char* format);
+        public static bool DataTypeApplyFromText(char* buf, DataType data_type, void* p_data, char* format) => DataTypeApplyFromTextImpl(buf, data_type, p_data, format);
+        
         [LinkName("igDataTypeApplyOp")]
         private static extern void DataTypeApplyOpImpl(DataType data_type, int32 op, void* output, void* arg_1, void* arg_2);
         public static void DataTypeApplyOp(DataType data_type, int32 op, void* output, void* arg_1, void* arg_2) => DataTypeApplyOpImpl(data_type, op, output, arg_1, arg_2);
-        
-        [LinkName("igDataTypeApplyOpFromText")]
-        private static extern bool DataTypeApplyOpFromTextImpl(char* buf, char* initial_value_buf, DataType data_type, void* p_data, char* format);
-        public static bool DataTypeApplyOpFromText(char* buf, char* initial_value_buf, DataType data_type, void* p_data, char* format) => DataTypeApplyOpFromTextImpl(buf, initial_value_buf, data_type, p_data, format);
         
         [LinkName("igDataTypeClamp")]
         private static extern bool DataTypeClampImpl(DataType data_type, void* p_data, void* p_min, void* p_max);
@@ -5708,8 +6000,8 @@ namespace ImGui
         public static void DebugNodeWindowSettings(WindowSettings* settings) => DebugNodeWindowSettingsImpl(settings);
         
         [LinkName("igDebugNodeWindowsList")]
-        private static extern void DebugNodeWindowsListImpl(Vector<Window*>* windows, char* label);
-        public static void DebugNodeWindowsList(Vector<Window*>* windows, char* label) => DebugNodeWindowsListImpl(windows, label);
+        private static extern void DebugNodeWindowsListImpl(Vector<Window*> windows, char* label);
+        public static void DebugNodeWindowsList(Vector<Window*> windows, char* label) => DebugNodeWindowsListImpl(windows, label);
         
         [LinkName("igDebugNodeWindowsListByBeginStackParent")]
         private static extern void DebugNodeWindowsListByBeginStackParentImpl(Window** windows, int32 windows_size, Window* parent_in_begin_stack);
@@ -5740,12 +6032,12 @@ namespace ImGui
         public static ID DockBuilderAddNode(ID node_id = (ID) 0, DockNodeFlags flags = (DockNodeFlags) 0) => DockBuilderAddNodeImpl(node_id, flags);
         
         [LinkName("igDockBuilderCopyDockSpace")]
-        private static extern void DockBuilderCopyDockSpaceImpl(ID src_dockspace_id, ID dst_dockspace_id, Vector<char*>* in_window_remap_pairs);
-        public static void DockBuilderCopyDockSpace(ID src_dockspace_id, ID dst_dockspace_id, Vector<char*>* in_window_remap_pairs) => DockBuilderCopyDockSpaceImpl(src_dockspace_id, dst_dockspace_id, in_window_remap_pairs);
+        private static extern void DockBuilderCopyDockSpaceImpl(ID src_dockspace_id, ID dst_dockspace_id, Vector<charPtr*> in_window_remap_pairs);
+        public static void DockBuilderCopyDockSpace(ID src_dockspace_id, ID dst_dockspace_id, Vector<charPtr*> in_window_remap_pairs) => DockBuilderCopyDockSpaceImpl(src_dockspace_id, dst_dockspace_id, in_window_remap_pairs);
         
         [LinkName("igDockBuilderCopyNode")]
-        private static extern void DockBuilderCopyNodeImpl(ID src_node_id, ID dst_node_id, Vector<ID>* out_node_remap_pairs);
-        public static void DockBuilderCopyNode(ID src_node_id, ID dst_node_id, Vector<ID>* out_node_remap_pairs) => DockBuilderCopyNodeImpl(src_node_id, dst_node_id, out_node_remap_pairs);
+        private static extern void DockBuilderCopyNodeImpl(ID src_node_id, ID dst_node_id, Vector<ID*> out_node_remap_pairs);
+        public static void DockBuilderCopyNode(ID src_node_id, ID dst_node_id, Vector<ID*> out_node_remap_pairs) => DockBuilderCopyNodeImpl(src_node_id, dst_node_id, out_node_remap_pairs);
         
         [LinkName("igDockBuilderCopyWindowSettings")]
         private static extern void DockBuilderCopyWindowSettingsImpl(char* src_name, char* dst_name);
@@ -6060,6 +6352,14 @@ namespace ImGui
         public static ref Window FindBottomMostVisibleWindowWithinBeginStack(Window* window) { return ref *FindBottomMostVisibleWindowWithinBeginStackImpl(window); }
         #else
         public static Window* FindBottomMostVisibleWindowWithinBeginStack(Window* window) => FindBottomMostVisibleWindowWithinBeginStackImpl(window);
+        #endif
+        
+        [LinkName("igFindHoveredViewportFromPlatformWindowStack")]
+        private static extern ViewportP* FindHoveredViewportFromPlatformWindowStackImpl(Vec2 mouse_platform_pos);
+        #if IMGUI_USE_REF
+        public static ref ViewportP FindHoveredViewportFromPlatformWindowStack(Vec2 mouse_platform_pos) { return ref *FindHoveredViewportFromPlatformWindowStackImpl(mouse_platform_pos); }
+        #else
+        public static ViewportP* FindHoveredViewportFromPlatformWindowStack(Vec2 mouse_platform_pos) => FindHoveredViewportFromPlatformWindowStackImpl(mouse_platform_pos);
         #endif
         
         [LinkName("igFindOrCreateColumns")]
@@ -6500,13 +6800,29 @@ namespace ImGui
         private static extern ItemStatusFlags GetItemStatusFlagsImpl();
         public static ItemStatusFlags GetItemStatusFlags() => GetItemStatusFlagsImpl();
         
+        [LinkName("igGetKeyData")]
+        private static extern KeyData* GetKeyDataImpl(Key key);
+        #if IMGUI_USE_REF
+        public static ref KeyData GetKeyData(Key key) { return ref *GetKeyDataImpl(key); }
+        #else
+        public static KeyData* GetKeyData(Key key) => GetKeyDataImpl(key);
+        #endif
+        
         [LinkName("igGetKeyIndex")]
-        private static extern int32 GetKeyIndexImpl(Key imgui_key);
-        public static int32 GetKeyIndex(Key imgui_key) => GetKeyIndexImpl(imgui_key);
+        private static extern int32 GetKeyIndexImpl(Key key);
+        public static int32 GetKeyIndex(Key key) => GetKeyIndexImpl(key);
+        
+        [LinkName("igGetKeyName")]
+        private static extern char* GetKeyNameImpl(Key key);
+        #if IMGUI_USE_REF
+        public static ref char GetKeyName(Key key) { return ref *GetKeyNameImpl(key); }
+        #else
+        public static char* GetKeyName(Key key) => GetKeyNameImpl(key);
+        #endif
         
         [LinkName("igGetKeyPressedAmount")]
-        private static extern int32 GetKeyPressedAmountImpl(int32 key_index, float repeat_delay, float rate);
-        public static int32 GetKeyPressedAmount(int32 key_index, float repeat_delay, float rate) => GetKeyPressedAmountImpl(key_index, repeat_delay, rate);
+        private static extern int32 GetKeyPressedAmountImpl(Key key, float repeat_delay, float rate);
+        public static int32 GetKeyPressedAmount(Key key, float repeat_delay, float rate) => GetKeyPressedAmountImpl(key, repeat_delay, rate);
         
         [LinkName("igGetMainViewport")]
         private static extern Viewport* GetMainViewportImpl();
@@ -6567,6 +6883,14 @@ namespace ImGui
             GetNavInputAmount2dImpl(&pOut, dir_sources, mode, slow_factor, fast_factor);
             return pOut;
         }
+        
+        [LinkName("igGetNavInputName")]
+        private static extern char* GetNavInputNameImpl(NavInput n);
+        #if IMGUI_USE_REF
+        public static ref char GetNavInputName(NavInput n) { return ref *GetNavInputNameImpl(n); }
+        #else
+        public static char* GetNavInputName(NavInput n) => GetNavInputNameImpl(n);
+        #endif
         
         [LinkName("igGetPlatformIO")]
         private static extern PlatformIO* GetPlatformIOImpl();
@@ -6912,9 +7236,18 @@ namespace ImGui
             return pOut;
         }
         
-        [LinkName("igImFloorSigned")]
+        [LinkName("igImFloorSigned_Float")]
         private static extern float ImFloorSignedImpl(float f);
         public static float ImFloorSigned(float f) => ImFloorSignedImpl(f);
+        
+        [LinkName("igImFloorSigned_Vec2")]
+        private static extern Vec2 ImFloorSignedImpl(Vec2* pOut, Vec2 v);
+        public static Vec2 ImFloorSigned(Vec2 v)
+        {
+            Vec2 pOut = default;
+            ImFloorSignedImpl(&pOut, v);
+            return pOut;
+        }
         
         [LinkName("igImFontAtlasBuildFinish")]
         private static extern void ImFontAtlasBuildFinishImpl(FontAtlas* atlas);
@@ -7414,6 +7747,10 @@ namespace ImGui
         private static extern bool IsDragDropPayloadBeingAcceptedImpl();
         public static bool IsDragDropPayloadBeingAccepted() => IsDragDropPayloadBeingAcceptedImpl();
         
+        [LinkName("igIsGamepadKey")]
+        private static extern bool IsGamepadKeyImpl(Key key);
+        public static bool IsGamepadKey(Key key) => IsGamepadKeyImpl(key);
+        
         [LinkName("igIsItemActivated")]
         private static extern bool IsItemActivatedImpl();
         public static bool IsItemActivated() => IsItemActivatedImpl();
@@ -7459,20 +7796,24 @@ namespace ImGui
         public static bool IsItemVisible() => IsItemVisibleImpl();
         
         [LinkName("igIsKeyDown")]
-        private static extern bool IsKeyDownImpl(int32 user_key_index);
-        public static bool IsKeyDown(int32 user_key_index) => IsKeyDownImpl(user_key_index);
+        private static extern bool IsKeyDownImpl(Key key);
+        public static bool IsKeyDown(Key key) => IsKeyDownImpl(key);
         
         [LinkName("igIsKeyPressed")]
-        private static extern bool IsKeyPressedImpl(int32 user_key_index, bool repeat_);
-        public static bool IsKeyPressed(int32 user_key_index, bool repeat_ = true) => IsKeyPressedImpl(user_key_index, repeat_);
+        private static extern bool IsKeyPressedImpl(Key key, bool repeat_);
+        public static bool IsKeyPressed(Key key, bool repeat_ = true) => IsKeyPressedImpl(key, repeat_);
         
         [LinkName("igIsKeyPressedMap")]
         private static extern bool IsKeyPressedMapImpl(Key key, bool repeat_);
         public static bool IsKeyPressedMap(Key key, bool repeat_ = true) => IsKeyPressedMapImpl(key, repeat_);
         
         [LinkName("igIsKeyReleased")]
-        private static extern bool IsKeyReleasedImpl(int32 user_key_index);
-        public static bool IsKeyReleased(int32 user_key_index) => IsKeyReleasedImpl(user_key_index);
+        private static extern bool IsKeyReleasedImpl(Key key);
+        public static bool IsKeyReleased(Key key) => IsKeyReleasedImpl(key);
+        
+        [LinkName("igIsLegacyKey")]
+        private static extern bool IsLegacyKeyImpl(Key key);
+        public static bool IsLegacyKey(Key key) => IsLegacyKeyImpl(key);
         
         [LinkName("igIsMouseClicked")]
         private static extern bool IsMouseClickedImpl(MouseButton button, bool repeat_);
@@ -7505,6 +7846,10 @@ namespace ImGui
         [LinkName("igIsMouseReleased")]
         private static extern bool IsMouseReleasedImpl(MouseButton button);
         public static bool IsMouseReleased(MouseButton button) => IsMouseReleasedImpl(button);
+        
+        [LinkName("igIsNamedKey")]
+        private static extern bool IsNamedKeyImpl(Key key);
+        public static bool IsNamedKey(Key key) => IsNamedKeyImpl(key);
         
         [LinkName("igIsNavInputDown")]
         private static extern bool IsNavInputDownImpl(NavInput n);
@@ -8058,6 +8403,10 @@ namespace ImGui
         [LinkName("igSetActiveID")]
         private static extern void SetActiveIDImpl(ID id, Window* window);
         public static void SetActiveID(ID id, Window* window) => SetActiveIDImpl(id, window);
+        
+        [LinkName("igSetActiveIdUsingKey")]
+        private static extern void SetActiveIdUsingKeyImpl(Key key);
+        public static void SetActiveIdUsingKey(Key key) => SetActiveIdUsingKeyImpl(key);
         
         [LinkName("igSetActiveIdUsingNavAndKeys")]
         private static extern void SetActiveIdUsingNavAndKeysImpl();
@@ -8880,6 +9229,10 @@ namespace ImGui
         [LinkName("igUpdateHoveredWindowAndCaptureFlags")]
         private static extern void UpdateHoveredWindowAndCaptureFlagsImpl();
         public static void UpdateHoveredWindowAndCaptureFlags() => UpdateHoveredWindowAndCaptureFlagsImpl();
+        
+        [LinkName("igUpdateInputEvents")]
+        private static extern void UpdateInputEventsImpl(bool trickle_fast_inputs);
+        public static void UpdateInputEvents(bool trickle_fast_inputs) => UpdateInputEventsImpl(trickle_fast_inputs);
         
         [LinkName("igUpdateMouseMovingWindowEndFrame")]
         private static extern void UpdateMouseMovingWindowEndFrameImpl();

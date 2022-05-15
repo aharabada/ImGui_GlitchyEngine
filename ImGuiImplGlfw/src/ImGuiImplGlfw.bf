@@ -4,8 +4,8 @@ namespace ImGui
 {
     public static class ImGuiImplGlfw
     {
-        private typealias GLFWwindow = glfw_beef.GlfwWindow;
-        private typealias GLFWmonitor = glfw_beef.GlfwMonitor;
+        private typealias GLFWwindow = GLFW.GlfwWindow;
+        private typealias GLFWmonitor = GLFW.GlfwMonitor;
     
         [LinkName("ImGui_ImplGlfw_CharCallback")]
         private static extern void CharCallbackImpl(GLFWwindow* window, uint32 c);
@@ -14,6 +14,10 @@ namespace ImGui
         [LinkName("ImGui_ImplGlfw_CursorEnterCallback")]
         private static extern void CursorEnterCallbackImpl(GLFWwindow* window, int32 entered);
         public static void CursorEnterCallback(GLFWwindow* window, int32 entered) => CursorEnterCallbackImpl(window, entered);
+        
+        [LinkName("ImGui_ImplGlfw_CursorPosCallback")]
+        private static extern void CursorPosCallbackImpl(GLFWwindow* window, double x, double y);
+        public static void CursorPosCallback(GLFWwindow* window, double x, double y) => CursorPosCallbackImpl(window, x, y);
         
         [LinkName("ImGui_ImplGlfw_InitForOpenGL")]
         private static extern bool InitForOpenGLImpl(GLFWwindow* window, bool install_callbacks);
@@ -26,6 +30,10 @@ namespace ImGui
         [LinkName("ImGui_ImplGlfw_InitForVulkan")]
         private static extern bool InitForVulkanImpl(GLFWwindow* window, bool install_callbacks);
         public static bool InitForVulkan(GLFWwindow* window, bool install_callbacks) => InitForVulkanImpl(window, install_callbacks);
+        
+        [LinkName("ImGui_ImplGlfw_InstallCallbacks")]
+        private static extern void InstallCallbacksImpl(GLFWwindow* window);
+        public static void InstallCallbacks(GLFWwindow* window) => InstallCallbacksImpl(window);
         
         [LinkName("ImGui_ImplGlfw_KeyCallback")]
         private static extern void KeyCallbackImpl(GLFWwindow* window, int32 key, int32 scancode, int32 action, int32 mods);
@@ -42,6 +50,10 @@ namespace ImGui
         [LinkName("ImGui_ImplGlfw_NewFrame")]
         private static extern void NewFrameImpl();
         public static void NewFrame() => NewFrameImpl();
+        
+        [LinkName("ImGui_ImplGlfw_RestoreCallbacks")]
+        private static extern void RestoreCallbacksImpl(GLFWwindow* window);
+        public static void RestoreCallbacks(GLFWwindow* window) => RestoreCallbacksImpl(window);
         
         [LinkName("ImGui_ImplGlfw_ScrollCallback")]
         private static extern void ScrollCallbackImpl(GLFWwindow* window, double xoffset, double yoffset);

@@ -58,7 +58,7 @@ namespace ImGuiBeefGenerator.ImGui
         {
             var serialized =
 $@"
-[AllowDuplicates]
+[AllowDuplicates, CRepr]
 public enum {Name} {(Type != "" ? $": {Type}" : "")}
 {{
 ";

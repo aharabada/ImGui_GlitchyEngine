@@ -22,6 +22,10 @@ file(GLOB IMGUI_SOURCES
     cimgui/imgui/imgui_demo.cpp
     cimgui/imgui/imgui_widgets.cpp
     ${TABLES_SOURCE}
+    #win32 backend
+    cimgui/imgui/backends/imgui_impl_win32.cpp
+    #dx11 backend
+    cimgui/imgui/backends/imgui_impl_dx11.cpp
 )
 
 #DX11 backend

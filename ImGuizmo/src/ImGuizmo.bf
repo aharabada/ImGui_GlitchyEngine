@@ -8,7 +8,7 @@ namespace ImGuizmo
 	{
 		// -- Auto-Generated --
 
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum MODE 
         {
             LOCAL = 0,
@@ -16,7 +16,7 @@ namespace ImGuizmo
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum OPERATION 
         {
             TRANSLATE_X = 1,

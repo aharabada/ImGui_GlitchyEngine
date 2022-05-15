@@ -1,5 +1,5 @@
 // -- GENERATION INFORMATION --
-// Date: 17.02.2022 00:35:59
+// Date: 15.05.2022 13:30:51
 // Constructors: 0
 // Destructors: 0
 // Enums: 71
@@ -158,7 +158,7 @@ namespace ImGui
         public typealias Wchar16 = ushort;
         public typealias Wchar32 = uint32;
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DrawFlags : int32
         {
             None = 0,
@@ -178,7 +178,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DrawListFlags : int32
         {
             None = 0,
@@ -189,7 +189,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum FontAtlasFlags : int32
         {
             None = 0,
@@ -199,7 +199,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ActivateFlags : int32
         {
             None = 0,
@@ -209,7 +209,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum Axis 
         {
             None = -1,
@@ -218,7 +218,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum BackendFlags : int32
         {
             None = 0,
@@ -232,7 +232,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ButtonFlagsPrivate 
         {
             ButtonFlags_PressedOnClick = 16,
@@ -255,7 +255,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ButtonFlags : int32
         {
             None = 0,
@@ -267,7 +267,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum Col : int32
         {
             Text = 0,
@@ -329,7 +329,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ColorEditFlags : int32
         {
             None = 0,
@@ -364,14 +364,14 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ComboFlagsPrivate 
         {
             ComboFlags_CustomPreview = 1048576,
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ComboFlags : int32
         {
             None = 0,
@@ -386,7 +386,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum Cond : int32
         {
             None = 0,
@@ -397,7 +397,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ConfigFlags : int32
         {
             None = 0,
@@ -416,7 +416,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ContextHookType 
         {
             NewFramePre = 0,
@@ -430,7 +430,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DataAuthority : int32
         {
             Auto = 0,
@@ -439,7 +439,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DataTypePrivate 
         {
             DataType_String = 11,
@@ -448,7 +448,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DataType : int32
         {
             S8 = 0,
@@ -465,7 +465,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum Dir : int32
         {
             None = -1,
@@ -477,7 +477,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DockNodeFlagsPrivate 
         {
             DockNodeFlags_DockSpace = 1024,
@@ -502,7 +502,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DockNodeFlags : int32
         {
             None = 0,
@@ -515,7 +515,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DockNodeState 
         {
             Unknown = 0,
@@ -525,7 +525,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DragDropFlags : int32
         {
             None = 0,
@@ -542,7 +542,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum FocusedFlags : int32
         {
             None = 0,
@@ -555,7 +555,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum HoveredFlags : int32
         {
             None = 0,
@@ -573,7 +573,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum InputReadMode 
         {
             Down = 0,
@@ -585,7 +585,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum InputSource 
         {
             None = 0,
@@ -598,7 +598,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum InputTextFlagsPrivate 
         {
             InputTextFlags_Multiline = 67108864,
@@ -607,7 +607,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum InputTextFlags : int32
         {
             None = 0,
@@ -634,7 +634,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ItemFlags : int32
         {
             None = 0,
@@ -650,7 +650,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ItemStatusFlags : int32
         {
             None = 0,
@@ -666,7 +666,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum KeyModFlags : int32
         {
             None = 0,
@@ -677,7 +677,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum Key : int32
         {
             Tab = 0,
@@ -706,7 +706,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum LayoutType : int32
         {
             Horizontal = 0,
@@ -714,7 +714,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum LogType 
         {
             None = 0,
@@ -725,7 +725,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum MouseButton : int32
         {
             Left = 0,
@@ -735,7 +735,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum MouseCursor : int32
         {
             None = -1,
@@ -752,7 +752,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum NavDirSourceFlags : int32
         {
             None = 0,
@@ -763,7 +763,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum NavHighlightFlags : int32
         {
             None = 0,
@@ -774,7 +774,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum NavInput : int32
         {
             Activate = 0,
@@ -802,7 +802,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum NavLayer 
         {
             Main = 0,
@@ -811,7 +811,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum NavMoveFlags : int32
         {
             None = 0,
@@ -831,7 +831,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum NextItemDataFlags : int32
         {
             None = 0,
@@ -840,7 +840,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum NextWindowDataFlags : int32
         {
             None = 0,
@@ -858,7 +858,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum OldColumnFlags : int32
         {
             None = 0,
@@ -870,7 +870,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum PlotType 
         {
             Lines = 0,
@@ -878,7 +878,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum PopupFlags : int32
         {
             None = 0,
@@ -895,7 +895,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum PopupPositionPolicy 
         {
             Default = 0,
@@ -904,7 +904,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ScrollFlags : int32
         {
             None = 0,
@@ -920,7 +920,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum SelectableFlagsPrivate 
         {
             SelectableFlags_NoHoldingActiveID = 1048576,
@@ -934,7 +934,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum SelectableFlags : int32
         {
             None = 0,
@@ -946,7 +946,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum SeparatorFlags : int32
         {
             None = 0,
@@ -956,7 +956,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum SliderFlagsPrivate 
         {
             SliderFlags_Vertical = 1048576,
@@ -964,7 +964,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum SliderFlags : int32
         {
             None = 0,
@@ -976,7 +976,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum SortDirection : int32
         {
             None = 0,
@@ -985,7 +985,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum StyleVar : int32
         {
             Alpha = 0,
@@ -1017,7 +1017,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TabBarFlagsPrivate 
         {
             TabBarFlags_DockNode = 1048576,
@@ -1026,7 +1026,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TabBarFlags : int32
         {
             None = 0,
@@ -1043,7 +1043,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TabItemFlagsPrivate 
         {
             TabItemFlags_SectionMask_ = 192,
@@ -1054,7 +1054,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TabItemFlags : int32
         {
             None = 0,
@@ -1069,7 +1069,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TableBgTarget : int32
         {
             None = 0,
@@ -1079,7 +1079,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TableColumnFlags : int32
         {
             None = 0,
@@ -1112,7 +1112,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TableFlags : int32
         {
             None = 0,
@@ -1154,7 +1154,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TableRowFlags : int32
         {
             None = 0,
@@ -1162,7 +1162,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TextFlags : int32
         {
             None = 0,
@@ -1170,7 +1170,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TooltipFlags : int32
         {
             None = 0,
@@ -1178,14 +1178,14 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TreeNodeFlagsPrivate 
         {
             TreeNodeFlags_ClipLabelForTrailingButton = 1048576,
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TreeNodeFlags : int32
         {
             None = 0,
@@ -1207,7 +1207,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ViewportFlags : int32
         {
             None = 0,
@@ -1227,7 +1227,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum WindowDockStyleCol 
         {
             Text = 0,
@@ -1240,7 +1240,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum WindowFlags : int32
         {
             None = 0,

@@ -2,12 +2,16 @@ $option = $args[0]
 
 if(($option -eq "make") -or (!$option))
 {
-    if(Test-Path build)
+    #if(Test-Path build)
+    #{
+    #    echo "Removing old build directory..."
+    #    rm -Recurse build
+    #}
+    if (!(Test-Path build))
     {
-        echo "Removing old build directory..."
-        rm -Recurse build
+        mkdir build
     }
-    mkdir build
+
     cd build
     cmake ../ -DIMGUI_STATIC="ON"
     cd ..

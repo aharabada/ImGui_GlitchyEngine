@@ -221,7 +221,7 @@ namespace ImGui
 			imguiFile = imguiFile.Remove(imguiFile.Length - 4);
 			imguiFile += "}\n}";
 
-			files.Add("src/ImGui.bf", imguiFile);
+			files.Add("ImGui/src/ImGui.bf", imguiFile);
 
 			// Generate ImGuizmo
 
@@ -243,7 +243,7 @@ namespace ImGuizmo
 			imGuizmoFile = imGuizmoFile.Remove(imGuizmoFile.Length - 4);
 			imGuizmoFile += "}\n}";
 
-			files.Add("ImGuizmo.bf", imGuizmoFile);
+			files.Add("ImGuizmo/ImGuizmo.bf", imGuizmoFile);
 
 			files["ImGuiImplGlfw/src/ImGuiImplGlfw.bf"] = GenerateImplFile("ImGuiImplGlfw", Bindings);
 			files["ImGuiImplOpenGL2/src/ImGuiImplOpenGL2.bf"] = GenerateImplFile("ImGuiImplOpenGL2", Bindings);
@@ -253,9 +253,9 @@ namespace ImGuizmo
 			string dx11File = "using DirectX.D3D11;\nusing static ImGui.ImGui;\n";
 
             dx11File += GenerateImplFile("ImGuiImplDX11", Bindings);
-			files["ImGuiImplDX11.bf"] = dx11File;
+			files["ImGuiImplDX11/src/ImGuiImplDX11.bf"] = dx11File;
 
-            files["ImGuiImplWin32.bf"] = GenerateImplFile("ImGuiImplWin32", Bindings);
+            files["ImGuiImplWin32/src/ImGuiImplWin32.bf"] = GenerateImplFile("ImGuiImplWin32", Bindings);
 
             //files["ImGuizmo.bf"] = GenerateImplFile("ImGuizmo", Bindings);
 

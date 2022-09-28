@@ -5,7 +5,7 @@ Because I'm stupid, How to get things somehow to work:
     2.1. set compiler to clang (thats the one that worked for me)
     2.2. add backends as arguments (win32 & dx11)
 3. run generator.bat (command line has to be in generator folder!)
-4. got to cimgui/cmakelists.txt
+4. go to cimgui/cmakelists.txt
 5. add the following filenames to IMGUI_SOURCES:
     #win32 backend
     cimgui/imgui/backends/imgui_impl_win32.cpp

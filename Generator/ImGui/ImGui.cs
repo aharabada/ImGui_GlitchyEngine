@@ -69,9 +69,9 @@ namespace ImGuiBeefGenerator.ImGui
             fixedTemplate = fixedTemplate.Replace("const_", "");
 
             bool isPointer = false;
-            if (fixedTemplate.EndsWith(" *"))
+            if (fixedTemplate.EndsWith("*"))
             {
-                fixedTemplate = fixedTemplate.Substring(0, fixedTemplate.Length - 2);
+                fixedTemplate = fixedTemplate.Substring(0, fixedTemplate.Length - 1).TrimEnd();
                 isPointer = true;
             }
 

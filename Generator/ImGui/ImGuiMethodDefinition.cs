@@ -43,7 +43,9 @@ namespace ImGuiBeefGenerator.ImGui
             if (variation.ContainsKey("destructor"))
             {
                return new ImGuiDestructorDefinition(
-                    (string) variation["stname"]
+                   (string) variation["ov_cimguiname"],
+                    (string) variation["stname"],
+                   variation.ContainsKey("templated")
                 );
             }
 

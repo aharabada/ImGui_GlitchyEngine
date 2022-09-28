@@ -78,9 +78,26 @@ public this(float x, float y, float z, float w)
 }
 ";
             }
+            
+            if (ParentType == "Color")
+            {
+                // Color has to destroy the allocated memory to avoid leaks.
+                // TODO: this is actually a much larger problem... many structs are probably actually broken
+                return
+                    $@"
+[LinkName(""{LinkName}"")]
+private static extern {ParentType}{(IsGeneric ? "<T>" : "")}* CtorImpl({Args.ToLinkableDefinitionArg()});
+public this({Args.ToDefinitionArgs()})
+{{
+    var ptr = CtorImpl({Args.ToCallArgs()});
+    this = *ptr;
+    DestroyImpl(ptr);
+}}
+";
+            }
 
             return
-$@"
+                $@"
 [LinkName(""{LinkName}"")]
 private static extern {ParentType}{(IsGeneric ? "<T>" : "")}* CtorImpl({Args.ToLinkableDefinitionArg()});
 public this({Args.ToDefinitionArgs()})

@@ -1,5 +1,5 @@
 // -- GENERATION INFORMATION --
-// Date: 28.09.2022 21:27:30
+// Date: 28.09.2022 21:51:50
 // Constructors: 0
 // Destructors: 0
 // Enums: 74
@@ -1473,36 +1473,49 @@ namespace ImGui
             private static extern Color* CtorImpl();
             public this()
             {
-                this = *CtorImpl();
+                var ptr = CtorImpl();
+                this = *ptr;
+                DestroyImpl(ptr);
             }
             
             [LinkName("ImColor_ImColor_Float")]
             private static extern Color* CtorImpl(float r, float g, float b, float a);
             public this(float r, float g, float b, float a = (float) 1.0f)
             {
-                this = *CtorImpl(r, g, b, a);
+                var ptr = CtorImpl(r, g, b, a);
+                this = *ptr;
+                DestroyImpl(ptr);
             }
             
             [LinkName("ImColor_ImColor_Vec4")]
             private static extern Color* CtorImpl(Vec4 col);
             public this(Vec4 col)
             {
-                this = *CtorImpl(col);
+                var ptr = CtorImpl(col);
+                this = *ptr;
+                DestroyImpl(ptr);
             }
             
             [LinkName("ImColor_ImColor_Int")]
             private static extern Color* CtorImpl(int32 r, int32 g, int32 b, int32 a);
             public this(int32 r, int32 g, int32 b, int32 a = (int32) 255)
             {
-                this = *CtorImpl(r, g, b, a);
+                var ptr = CtorImpl(r, g, b, a);
+                this = *ptr;
+                DestroyImpl(ptr);
             }
             
             [LinkName("ImColor_ImColor_U32")]
             private static extern Color* CtorImpl(U32 rgba);
             public this(U32 rgba)
             {
-                this = *CtorImpl(rgba);
+                var ptr = CtorImpl(rgba);
+                this = *ptr;
+                DestroyImpl(ptr);
             }
+            
+            [LinkName("ImColor_destroy")]
+            private static extern void DestroyImpl(Color* ptr);
             
             [LinkName("ImColor_SetHSV")]
             private static extern void SetHSVImpl(Color* self, float h, float s, float v, float a);
@@ -1535,6 +1548,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImDrawCmd_destroy")]
+            private static extern void DestroyImpl(DrawCmd* ptr);
             
             [LinkName("ImDrawCmd_GetTexID")]
             private static extern TextureID GetTexIDImpl(DrawCmd* self);
@@ -1570,6 +1586,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImDrawData_destroy")]
+            private static extern void DestroyImpl(DrawData* ptr);
             
             [LinkName("ImDrawData_Clear")]
             private static extern void ClearImpl(DrawData* self);
@@ -1633,6 +1652,9 @@ namespace ImGui
             {
                 this = *CtorImpl(shared_data);
             }
+            
+            [LinkName("ImDrawList_destroy")]
+            private static extern void DestroyImpl(DrawList* ptr);
             
             [LinkName("ImDrawList_AddBezierCubic")]
             private static extern void AddBezierCubicImpl(DrawList* self, Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, U32 col, float thickness, int32 num_segments);
@@ -1916,6 +1938,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImDrawListSharedData_destroy")]
+            private static extern void DestroyImpl(DrawListSharedData* ptr);
+            
             [LinkName("ImDrawListSharedData_SetCircleTessellationMaxError")]
             private static extern void SetCircleTessellationMaxErrorImpl(DrawListSharedData* self, float max_error);
             public void SetCircleTessellationMaxError(float max_error) mut=> SetCircleTessellationMaxErrorImpl(&this, max_error);
@@ -1935,6 +1960,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImDrawListSplitter_destroy")]
+            private static extern void DestroyImpl(DrawListSplitter* ptr);
             
             [LinkName("ImDrawListSplitter_Clear")]
             private static extern void ClearImpl(DrawListSplitter* self);
@@ -1995,6 +2023,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImFont_destroy")]
+            private static extern void DestroyImpl(Font* ptr);
             
             [LinkName("ImFont_AddGlyph")]
             private static extern void AddGlyphImpl(Font* self, FontConfig* src_cfg, Wchar c, float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, float advance_x);
@@ -2098,6 +2129,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImFontAtlas_destroy")]
+            private static extern void DestroyImpl(FontAtlas* ptr);
             
             [LinkName("ImFontAtlas_AddCustomRectFontGlyph")]
             private static extern int32 AddCustomRectFontGlyphImpl(FontAtlas* self, Font* font, Wchar id, int32 width, int32 height, float advance_x, Vec2 offset);
@@ -2254,6 +2288,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImFontAtlasCustomRect_destroy")]
+            private static extern void DestroyImpl(FontAtlasCustomRect* ptr);
+            
             [LinkName("ImFontAtlasCustomRect_IsPacked")]
             private static extern bool IsPackedImpl(FontAtlasCustomRect* self);
             public bool IsPacked() mut=> IsPackedImpl(&this);
@@ -2297,6 +2334,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImFontConfig_destroy")]
+            private static extern void DestroyImpl(FontConfig* ptr);
+            
         }
         
         [CRepr]
@@ -2328,6 +2368,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImFontGlyphRangesBuilder_destroy")]
+            private static extern void DestroyImpl(FontGlyphRangesBuilder* ptr);
             
             [LinkName("ImFontGlyphRangesBuilder_AddChar")]
             private static extern void AddCharImpl(FontGlyphRangesBuilder* self, Wchar c);
@@ -2383,6 +2426,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiComboPreviewData_destroy")]
+            private static extern void DestroyImpl(ComboPreviewData* ptr);
             
         }
         
@@ -2629,6 +2675,9 @@ namespace ImGui
                 this = *CtorImpl(shared_font_atlas);
             }
             
+            [LinkName("ImGuiContext_destroy")]
+            private static extern void DestroyImpl(Context* ptr);
+            
         }
         
         [CRepr]
@@ -2646,6 +2695,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiContextHook_destroy")]
+            private static extern void DestroyImpl(ContextHook* ptr);
             
         }
         
@@ -2680,6 +2732,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiDockContext_destroy")]
+            private static extern void DestroyImpl(DockContext* ptr);
             
         }
         
@@ -2734,6 +2789,9 @@ namespace ImGui
             {
                 this = *CtorImpl(id);
             }
+            
+            [LinkName("ImGuiDockNode_destroy")]
+            private static extern void DestroyImpl(DockNode* ptr);
             
             [LinkName("ImGuiDockNode_IsCentralNode")]
             private static extern bool IsCentralNodeImpl(DockNode* self);
@@ -2914,6 +2972,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiIO_destroy")]
+            private static extern void DestroyImpl(IO* ptr);
+            
             [LinkName("ImGuiIO_AddFocusEvent")]
             private static extern void AddFocusEventImpl(IO* self, bool focused);
             public void AddFocusEvent(bool focused) mut=> AddFocusEventImpl(&this, focused);
@@ -2993,6 +3054,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiInputEvent_destroy")]
+            private static extern void DestroyImpl(InputEvent* ptr);
             
             [CRepr, Union]
             public struct InputEventUnion0
@@ -3085,6 +3149,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiInputTextCallbackData_destroy")]
+            private static extern void DestroyImpl(InputTextCallbackData* ptr);
+            
             [LinkName("ImGuiInputTextCallbackData_ClearSelection")]
             private static extern void ClearSelectionImpl(InputTextCallbackData* self);
             public void ClearSelection() mut=> ClearSelectionImpl(&this);
@@ -3132,6 +3199,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiInputTextState_destroy")]
+            private static extern void DestroyImpl(InputTextState* ptr);
             
             [LinkName("ImGuiInputTextState_ClearFreeMemory")]
             private static extern void ClearFreeMemoryImpl(InputTextState* self);
@@ -3214,6 +3284,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiLastItemData_destroy")]
+            private static extern void DestroyImpl(LastItemData* ptr);
+            
         }
         
         [CRepr]
@@ -3232,6 +3305,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiListClipper_destroy")]
+            private static extern void DestroyImpl(ListClipper* ptr);
             
             [LinkName("ImGuiListClipper_Begin")]
             private static extern void BeginImpl(ListClipper* self, int32 items_count, float items_height);
@@ -3266,6 +3342,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiListClipperData_destroy")]
+            private static extern void DestroyImpl(ListClipperData* ptr);
             
             [LinkName("ImGuiListClipperData_Reset")]
             private static extern void ResetImpl(ListClipperData* self, ListClipper* clipper);
@@ -3303,6 +3382,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiMenuColumns_destroy")]
+            private static extern void DestroyImpl(MenuColumns* ptr);
+            
             [LinkName("ImGuiMenuColumns_CalcNextTotalWidth")]
             private static extern void CalcNextTotalWidthImpl(MenuColumns* self, bool update_offsets);
             public void CalcNextTotalWidth(bool update_offsets) mut=> CalcNextTotalWidthImpl(&this, update_offsets);
@@ -3338,6 +3420,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiMetricsConfig_destroy")]
+            private static extern void DestroyImpl(MetricsConfig* ptr);
+            
         }
         
         [CRepr]
@@ -3358,6 +3443,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiNavItemData_destroy")]
+            private static extern void DestroyImpl(NavItemData* ptr);
             
             [LinkName("ImGuiNavItemData_Clear")]
             private static extern void ClearImpl(NavItemData* self);
@@ -3380,6 +3468,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiNextItemData_destroy")]
+            private static extern void DestroyImpl(NextItemData* ptr);
             
             [LinkName("ImGuiNextItemData_ClearFlags")]
             private static extern void ClearFlagsImpl(NextItemData* self);
@@ -3418,6 +3509,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiNextWindowData_destroy")]
+            private static extern void DestroyImpl(NextWindowData* ptr);
+            
             [LinkName("ImGuiNextWindowData_ClearFlags")]
             private static extern void ClearFlagsImpl(NextWindowData* self);
             public void ClearFlags() mut=> ClearFlagsImpl(&this);
@@ -3438,6 +3532,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiOldColumnData_destroy")]
+            private static extern void DestroyImpl(OldColumnData* ptr);
             
         }
         
@@ -3469,6 +3566,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiOldColumns_destroy")]
+            private static extern void DestroyImpl(OldColumns* ptr);
+            
         }
         
         [CRepr]
@@ -3482,6 +3582,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiOnceUponAFrame_destroy")]
+            private static extern void DestroyImpl(OnceUponAFrame* ptr);
             
         }
         
@@ -3503,6 +3606,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiPayload_destroy")]
+            private static extern void DestroyImpl(Payload* ptr);
             
             [LinkName("ImGuiPayload_Clear")]
             private static extern void ClearImpl(Payload* self);
@@ -3558,6 +3664,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiPlatformIO_destroy")]
+            private static extern void DestroyImpl(PlatformIO* ptr);
+            
         }
         
         [CRepr]
@@ -3573,6 +3682,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiPlatformImeData_destroy")]
+            private static extern void DestroyImpl(PlatformImeData* ptr);
             
         }
         
@@ -3591,6 +3703,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiPlatformMonitor_destroy")]
+            private static extern void DestroyImpl(PlatformMonitor* ptr);
             
         }
         
@@ -3612,6 +3727,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiPopupData_destroy")]
+            private static extern void DestroyImpl(PopupData* ptr);
             
         }
         
@@ -3635,6 +3753,9 @@ namespace ImGui
                 this = *CtorImpl(index);
             }
             
+            [LinkName("ImGuiPtrOrIndex_destroy")]
+            private static extern void DestroyImpl(PtrOrIndex* ptr);
+            
         }
         
         [CRepr]
@@ -3656,6 +3777,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiSettingsHandler_destroy")]
+            private static extern void DestroyImpl(SettingsHandler* ptr);
             
         }
         
@@ -3694,6 +3818,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiStackLevelInfo_destroy")]
+            private static extern void DestroyImpl(StackLevelInfo* ptr);
+            
         }
         
         [CRepr]
@@ -3715,6 +3842,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiStackSizes_destroy")]
+            private static extern void DestroyImpl(StackSizes* ptr);
             
             [LinkName("ImGuiStackSizes_CompareWithCurrentState")]
             private static extern void CompareWithCurrentStateImpl(StackSizes* self);
@@ -3742,6 +3872,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiStackTool_destroy")]
+            private static extern void DestroyImpl(StackTool* ptr);
             
         }
         
@@ -3842,6 +3975,9 @@ namespace ImGui
                 this = *CtorImpl(_key, _val_p);
             }
             
+            [LinkName("ImGuiStoragePair_destroy")]
+            private static extern void DestroyImpl(StoragePair* ptr);
+            
             [CRepr, Union]
             public struct StoragePairUnion0
             {
@@ -3904,6 +4040,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiStyle_destroy")]
+            private static extern void DestroyImpl(Style* ptr);
+            
             [LinkName("ImGuiStyle_ScaleAllSizes")]
             private static extern void ScaleAllSizesImpl(Style* self, float scale_factor);
             public void ScaleAllSizes(float scale_factor) mut=> ScaleAllSizesImpl(&this, scale_factor);
@@ -3938,6 +4077,9 @@ namespace ImGui
             {
                 this = *CtorImpl(idx, v);
             }
+            
+            [LinkName("ImGuiStyleMod_destroy")]
+            private static extern void DestroyImpl(StyleMod* ptr);
             
             [CRepr, Union]
             public struct StyleModUnion0
@@ -3990,6 +4132,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTabBar_destroy")]
+            private static extern void DestroyImpl(TabBar* ptr);
+            
             [LinkName("ImGuiTabBar_GetTabName")]
             private static extern char* GetTabNameImpl(TabBar* self, TabItem* tab);
             public char* GetTabName(TabItem* tab) mut=> GetTabNameImpl(&this, tab);
@@ -4023,6 +4168,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiTabItem_destroy")]
+            private static extern void DestroyImpl(TabItem* ptr);
             
         }
         
@@ -4141,6 +4289,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTable_destroy")]
+            private static extern void DestroyImpl(Table* ptr);
+            
         }
         
         [CRepr]
@@ -4203,6 +4354,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTableColumn_destroy")]
+            private static extern void DestroyImpl(TableColumn* ptr);
+            
         }
         
         [CRepr]
@@ -4224,6 +4378,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTableColumnSettings_destroy")]
+            private static extern void DestroyImpl(TableColumnSettings* ptr);
+            
         }
         
         [CRepr]
@@ -4241,6 +4398,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTableColumnSortSpecs_destroy")]
+            private static extern void DestroyImpl(TableColumnSortSpecs* ptr);
+            
         }
         
         [CRepr]
@@ -4255,6 +4415,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiTableInstanceData_destroy")]
+            private static extern void DestroyImpl(TableInstanceData* ptr);
             
         }
         
@@ -4275,6 +4438,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTableSettings_destroy")]
+            private static extern void DestroyImpl(TableSettings* ptr);
+            
             [LinkName("ImGuiTableSettings_GetColumnSettings")]
             private static extern TableColumnSettings* GetColumnSettingsImpl(TableSettings* self);
             public TableColumnSettings* GetColumnSettings() mut=> GetColumnSettingsImpl(&this);
@@ -4294,6 +4460,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiTableSortSpecs_destroy")]
+            private static extern void DestroyImpl(TableSortSpecs* ptr);
             
         }
         
@@ -4320,6 +4489,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTableTempData_destroy")]
+            private static extern void DestroyImpl(TableTempData* ptr);
+            
         }
         
         [CRepr]
@@ -4333,6 +4505,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiTextBuffer_destroy")]
+            private static extern void DestroyImpl(TextBuffer* ptr);
             
             [LinkName("ImGuiTextBuffer_append")]
             private static extern void AppendImpl(TextBuffer* self, char* str, char* str_end);
@@ -4386,6 +4561,9 @@ namespace ImGui
                 this = *CtorImpl(default_filter);
             }
             
+            [LinkName("ImGuiTextFilter_destroy")]
+            private static extern void DestroyImpl(TextFilter* ptr);
+            
             [LinkName("ImGuiTextFilter_Build")]
             private static extern void BuildImpl(TextFilter* self);
             public void Build() mut=> BuildImpl(&this);
@@ -4428,6 +4606,9 @@ namespace ImGui
                 this = *CtorImpl(_b, _e);
             }
             
+            [LinkName("ImGuiTextRange_destroy")]
+            private static extern void DestroyImpl(TextRange* ptr);
+            
             [LinkName("ImGuiTextRange_empty")]
             private static extern bool EmptyImpl(TextRange* self);
             public bool Empty() mut=> EmptyImpl(&this);
@@ -4464,6 +4645,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiViewport_destroy")]
+            private static extern void DestroyImpl(Viewport* ptr);
             
             [LinkName("ImGuiViewport_GetCenter")]
             private static extern Vec2 GetCenterImpl(Vec2* pOut, Viewport* self);
@@ -4517,6 +4701,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiViewportP_destroy")]
+            private static extern void DestroyImpl(ViewportP* ptr);
             
             [LinkName("ImGuiViewportP_CalcWorkRectPos")]
             private static extern Vec2 CalcWorkRectPosImpl(Vec2* pOut, ViewportP* self, Vec2 off_min);
@@ -4693,6 +4880,9 @@ namespace ImGui
                 this = *CtorImpl(context, name);
             }
             
+            [LinkName("ImGuiWindow_destroy")]
+            private static extern void DestroyImpl(Window* ptr);
+            
             [LinkName("ImGuiWindow_CalcFontSize")]
             private static extern float CalcFontSizeImpl(Window* self);
             public float CalcFontSize() mut=> CalcFontSizeImpl(&this);
@@ -4769,6 +4959,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiWindowClass_destroy")]
+            private static extern void DestroyImpl(WindowClass* ptr);
+            
         }
         
         [CRepr]
@@ -4798,6 +4991,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiWindowSettings_destroy")]
+            private static extern void DestroyImpl(WindowSettings* ptr);
             
             [LinkName("ImGuiWindowSettings_GetName")]
             private static extern char* GetNameImpl(WindowSettings* self);
@@ -4888,6 +5084,9 @@ namespace ImGui
             {
                 this = *CtorImpl(x1, y1, x2, y2);
             }
+            
+            [LinkName("ImRect_destroy")]
+            private static extern void DestroyImpl(Rect* ptr);
             
             [LinkName("ImRect_Add_Vec2")]
             private static extern void AddImpl(Rect* self, Vec2 p);
@@ -5041,6 +5240,9 @@ namespace ImGui
                 this = *CtorImpl(_x);
             }
             
+            [LinkName("ImVec1_destroy")]
+            private static extern void DestroyImpl(Vec1* ptr);
+            
         }
         
         [CRepr]
@@ -5060,6 +5262,9 @@ namespace ImGui
                 this.x = x;
                 this.y = y;
             }
+            
+            [LinkName("ImVec2_destroy")]
+            private static extern void DestroyImpl(Vec2* ptr);
             
         }
         
@@ -5090,6 +5295,9 @@ namespace ImGui
                 this = *CtorImpl(rhs);
             }
             
+            [LinkName("ImVec2ih_destroy")]
+            private static extern void DestroyImpl(Vec2ih* ptr);
+            
         }
         
         [CRepr]
@@ -5115,6 +5323,9 @@ namespace ImGui
             	this.z = z;
             	this.w = w;
             }
+            
+            [LinkName("ImVec4_destroy")]
+            private static extern void DestroyImpl(Vec4* ptr);
             
         }
         
@@ -5192,6 +5403,9 @@ namespace ImGui
             {
                 this = *CtorImpl(src);
             }
+            
+            [LinkName("ImVector_destroy")]
+            private static extern void DestroyImpl(Vector<T>* ptr);
             
             [LinkName("ImVector__grow_capacity")]
             private static extern int32 GrowCapacityImpl(Vector<T>* self, int32 sz);

@@ -1,12 +1,12 @@
 // -- GENERATION INFORMATION --
-// Date: 28.09.2022 21:51:50
-// Constructors: 0
-// Destructors: 0
-// Enums: 74
-// Global methods: 821
-// Instance methods: 0
-// Structs: 104
-// Typedefs: 26
+// Date: 04/19/2023 06:29:50
+// Constructors: 96
+// Destructors: 75
+// Enums: 73
+// Global methods: 872
+// Instance methods: 356
+// Structs: 111
+// Typedefs: 29
 
 using System;
 
@@ -32,8 +32,8 @@ namespace ImGui
 
 	public static class ImGui
     {
-		public static char8* VERSION = "1.88";
-		public static int VERSION_NUM = 18800;
+		public static char8* VERSION = "1.89.5";
+		public static int VERSION_NUM = 189500;
 		public static bool CHECKVERSION()
 		{
 			bool result = DebugCheckVersionAndDataLayout(VERSION, sizeof(IO), sizeof(Style), sizeof(Vec2), sizeof(Vec4), sizeof(DrawVert), sizeof(DrawIdx));
@@ -132,7 +132,8 @@ namespace ImGui
 
         // -- Auto-Generated --
 
-        public typealias BitArrayForNamedKeys = BitArray<S32>;
+        public typealias BitArrayForNamedKeys = BitArray<const Key.NamedKey_COUNT, const -Key.NamedKey_BEGIN>;
+        public typealias BitArrayPtr = U32*;
         public typealias DrawCallback = function void(DrawList* parent_list, DrawCmd* cmd);
         public typealias DrawIdx = ushort;
         public typealias FileHandle = FILE*;
@@ -140,11 +141,13 @@ namespace ImGui
         public typealias ErrorLogCallback = function void(void* user_data, char* fmt,  ...);
         public typealias ID = uint32;
         public typealias InputTextCallback = function int(InputTextCallbackData* data);
+        public typealias KeyChord = int32;
+        public typealias KeyRoutingIndex = S16;
         public typealias MemAllocFunc = function void*(size sz, void* user_data);
         public typealias MemFreeFunc = function void(void* ptr, void* user_data);
         public typealias SizeCallback = function void(SizeCallbackData* data);
-        public typealias TableColumnIdx = S8;
-        public typealias TableDrawChannelIdx = U8;
+        public typealias TableColumnIdx = S16;
+        public typealias TableDrawChannelIdx = U16;
         public typealias PoolIdx = int32;
         public typealias S16 = short;
         public typealias S32 = int32;
@@ -159,7 +162,7 @@ namespace ImGui
         public typealias Wchar16 = ushort;
         public typealias Wchar32 = uint32;
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum DrawFlags : int32
         {
             None = 0,
@@ -179,7 +182,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum DrawListFlags : int32
         {
             None = 0,
@@ -190,7 +193,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum FontAtlasFlags : int32
         {
             None = 0,
@@ -200,7 +203,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum ActivateFlags : int32
         {
             None = 0,
@@ -210,8 +213,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum Axis 
+        [AllowDuplicates]
+        public enum Axis : int32
         {
             None = -1,
             X = 0,
@@ -219,7 +222,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum BackendFlags : int32
         {
             None = 0,
@@ -233,8 +236,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum ButtonFlagsPrivate 
+        [AllowDuplicates]
+        public enum ButtonFlagsPrivate : int32
         {
             ButtonFlags_PressedOnClick = 16,
             ButtonFlags_PressedOnClickRelease = 32,
@@ -251,12 +254,14 @@ namespace ImGui
             ButtonFlags_NoHoldingActiveId = 131072,
             ButtonFlags_NoNavFocus = 262144,
             ButtonFlags_NoHoveredOnFocus = 524288,
+            ButtonFlags_NoSetKeyOwner = 1048576,
+            ButtonFlags_NoTestKeyOwner = 2097152,
             ButtonFlags_PressedOnMask_ = 1008,
             ButtonFlags_PressedOnDefault_ = 32,
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum ButtonFlags : int32
         {
             None = 0,
@@ -268,7 +273,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum Col : int32
         {
             Text = 0,
@@ -330,7 +335,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum ColorEditFlags : int32
         {
             None = 0,
@@ -365,14 +370,14 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum ComboFlagsPrivate 
+        [AllowDuplicates]
+        public enum ComboFlagsPrivate : int32
         {
             ComboFlags_CustomPreview = 1048576,
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum ComboFlags : int32
         {
             None = 0,
@@ -387,7 +392,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum Cond : int32
         {
             None = 0,
@@ -398,7 +403,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum ConfigFlags : int32
         {
             None = 0,
@@ -417,8 +422,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum ContextHookType 
+        [AllowDuplicates]
+        public enum ContextHookType : int32
         {
             NewFramePre = 0,
             NewFramePost = 1,
@@ -431,7 +436,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum DataAuthority : int32
         {
             Auto = 0,
@@ -440,8 +445,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum DataTypePrivate 
+        [AllowDuplicates]
+        public enum DataTypePrivate : int32
         {
             DataType_String = 11,
             DataType_Pointer = 12,
@@ -449,7 +454,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum DataType : int32
         {
             S8 = 0,
@@ -466,7 +471,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum DebugLogFlags : int32
         {
             None = 0,
@@ -474,15 +479,17 @@ namespace ImGui
             EventFocus = 2,
             EventPopup = 4,
             EventNav = 8,
-            EventIO = 16,
-            EventDocking = 32,
-            EventViewport = 64,
-            EventMask_ = 127,
+            EventClipper = 16,
+            EventSelection = 32,
+            EventIO = 64,
+            EventDocking = 128,
+            EventViewport = 256,
+            EventMask_ = 511,
             OutputToTTY = 1024,
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum Dir : int32
         {
             None = -1,
@@ -494,8 +501,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum DockNodeFlagsPrivate 
+        [AllowDuplicates]
+        public enum DockNodeFlagsPrivate : int32
         {
             DockNodeFlags_DockSpace = 1024,
             DockNodeFlags_CentralNode = 2048,
@@ -519,7 +526,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum DockNodeFlags : int32
         {
             None = 0,
@@ -532,8 +539,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum DockNodeState 
+        [AllowDuplicates]
+        public enum DockNodeState : int32
         {
             Unknown = 0,
             HostWindowHiddenBecauseSingleWindow = 1,
@@ -542,7 +549,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum DragDropFlags : int32
         {
             None = 0,
@@ -559,7 +566,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum FocusedFlags : int32
         {
             None = 0,
@@ -572,7 +579,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum HoveredFlags : int32
         {
             None = 0,
@@ -588,11 +595,14 @@ namespace ImGui
             NoNavOverride = 1024,
             RectOnly = 416,
             RootAndChildWindows = 3,
+            DelayNormal = 2048,
+            DelayShort = 4096,
+            NoSharedDelay = 8192,
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum InputEventType 
+        [AllowDuplicates]
+        public enum InputEventType : int32
         {
             None = 0,
             MousePos = 1,
@@ -606,21 +616,50 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum InputSource 
+        [AllowDuplicates]
+        public enum InputFlags : int32
+        {
+            None = 0,
+            Repeat = 1,
+            RepeatRateDefault = 2,
+            RepeatRateNavMove = 4,
+            RepeatRateNavTweak = 8,
+            RepeatRateMask_ = 14,
+            CondHovered = 16,
+            CondActive = 32,
+            CondDefault_ = 48,
+            CondMask_ = 48,
+            LockThisFrame = 64,
+            LockUntilRelease = 128,
+            RouteFocused = 256,
+            RouteGlobalLow = 512,
+            RouteGlobal = 1024,
+            RouteGlobalHigh = 2048,
+            RouteMask_ = 3840,
+            RouteAlways = 4096,
+            RouteUnlessBgFocused = 8192,
+            RouteExtraMask_ = 12288,
+            SupportedByIsKeyPressed = 15,
+            SupportedByShortcut = 16143,
+            SupportedBySetKeyOwner = 192,
+            SupportedBySetItemKeyOwner = 240,
+        
+        }
+        
+        [AllowDuplicates]
+        public enum InputSource : int32
         {
             None = 0,
             Mouse = 1,
             Keyboard = 2,
             Gamepad = 3,
             Clipboard = 4,
-            Nav = 5,
-            COUNT = 6,
+            COUNT = 5,
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum InputTextFlagsPrivate 
+        [AllowDuplicates]
+        public enum InputTextFlagsPrivate : int32
         {
             InputTextFlags_Multiline = 67108864,
             InputTextFlags_NoMarkEdited = 134217728,
@@ -628,7 +667,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum InputTextFlags : int32
         {
             None = 0,
@@ -652,10 +691,11 @@ namespace ImGui
             CharsScientific = 131072,
             CallbackResize = 262144,
             CallbackEdit = 524288,
+            EscapeClearsAll = 1048576,
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum ItemFlags : int32
         {
             None = 0,
@@ -667,11 +707,12 @@ namespace ImGui
             SelectableDontClosePopup = 32,
             MixedValue = 64,
             ReadOnly = 128,
-            Inputable = 256,
+            NoWindowHoverableCheck = 256,
+            Inputable = 1024,
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum ItemStatusFlags : int32
         {
             None = 0,
@@ -684,20 +725,11 @@ namespace ImGui
             Deactivated = 64,
             HoveredWindow = 128,
             FocusedByTabbing = 256,
+            Visible = 512,
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum KeyPrivate 
-        {
-            Key_LegacyNativeKey_BEGIN = 0,
-            Key_LegacyNativeKey_END = 512,
-            Key_Gamepad_BEGIN = 617,
-            Key_Gamepad_END = 641,
-        
-        }
-        
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum Key : int32
         {
             None = 0,
@@ -725,16 +757,16 @@ namespace ImGui
             RightAlt = 533,
             RightSuper = 534,
             Menu = 535,
-            Number0 = 536,
-            Number1 = 537,
-            Number2 = 538,
-            Number3 = 539,
-            Number4 = 540,
-            Number5 = 541,
-            Number6 = 542,
-            Number7 = 543,
-            Number8 = 544,
-            Number9 = 545,
+            N0 = 536,
+            N1 = 537,
+            N2 = 538,
+            N3 = 539,
+            N4 = 540,
+            N5 = 541,
+            N6 = 542,
+            N7 = 543,
+            N8 = 544,
+            N9 = 545,
             A = 546,
             B = 547,
             C = 548,
@@ -808,42 +840,56 @@ namespace ImGui
             KeypadEqual = 616,
             GamepadStart = 617,
             GamepadBack = 618,
-            GamepadFaceUp = 619,
-            GamepadFaceDown = 620,
-            GamepadFaceLeft = 621,
-            GamepadFaceRight = 622,
-            GamepadDpadUp = 623,
-            GamepadDpadDown = 624,
-            GamepadDpadLeft = 625,
-            GamepadDpadRight = 626,
+            GamepadFaceLeft = 619,
+            GamepadFaceRight = 620,
+            GamepadFaceUp = 621,
+            GamepadFaceDown = 622,
+            GamepadDpadLeft = 623,
+            GamepadDpadRight = 624,
+            GamepadDpadUp = 625,
+            GamepadDpadDown = 626,
             GamepadL1 = 627,
             GamepadR1 = 628,
             GamepadL2 = 629,
             GamepadR2 = 630,
             GamepadL3 = 631,
             GamepadR3 = 632,
-            GamepadLStickUp = 633,
-            GamepadLStickDown = 634,
-            GamepadLStickLeft = 635,
-            GamepadLStickRight = 636,
-            GamepadRStickUp = 637,
-            GamepadRStickDown = 638,
-            GamepadRStickLeft = 639,
-            GamepadRStickRight = 640,
-            ModCtrl = 641,
-            ModShift = 642,
-            ModAlt = 643,
-            ModSuper = 644,
-            COUNT = 645,
+            GamepadLStickLeft = 633,
+            GamepadLStickRight = 634,
+            GamepadLStickUp = 635,
+            GamepadLStickDown = 636,
+            GamepadRStickLeft = 637,
+            GamepadRStickRight = 638,
+            GamepadRStickUp = 639,
+            GamepadRStickDown = 640,
+            MouseLeft = 641,
+            MouseRight = 642,
+            MouseMiddle = 643,
+            MouseX1 = 644,
+            MouseX2 = 645,
+            MouseWheelX = 646,
+            MouseWheelY = 647,
+            ReservedForModCtrl = 648,
+            ReservedForModShift = 649,
+            ReservedForModAlt = 650,
+            ReservedForModSuper = 651,
+            COUNT = 652,
+            Mod_None = 0,
+            Mod_Ctrl = 4096,
+            Mod_Shift = 8192,
+            Mod_Alt = 16384,
+            Mod_Super = 32768,
+            Mod_Shortcut = 2048,
+            Mod_Mask_ = 63488,
             NamedKey_BEGIN = 512,
-            NamedKey_END = 645,
-            NamedKey_COUNT = 133,
-            KeysData_SIZE = 645,
+            NamedKey_END = 652,
+            NamedKey_COUNT = 140,
+            KeysData_SIZE = 652,
             KeysData_OFFSET = 0,
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum LayoutType : int32
         {
             Horizontal = 0,
@@ -851,8 +897,23 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum LogType 
+        [AllowDuplicates]
+        public enum LocKey : int32
+        {
+            TableSizeOne = 0,
+            TableSizeAllFit = 1,
+            TableSizeAllDefault = 2,
+            TableResetOrder = 3,
+            WindowingMainMenuBar = 4,
+            WindowingPopup = 5,
+            WindowingUntitled = 6,
+            DockingHideTabBar = 7,
+            COUNT = 8,
+        
+        }
+        
+        [AllowDuplicates]
+        public enum LogType : int32
         {
             None = 0,
             TTY = 1,
@@ -862,18 +923,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum ModFlags : int32
-        {
-            None = 0,
-            Ctrl = 1,
-            Shift = 2,
-            Alt = 4,
-            Super = 8,
-        
-        }
-        
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum MouseButton : int32
         {
             Left = 0,
@@ -883,7 +933,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum MouseCursor : int32
         {
             None = -1,
@@ -900,18 +950,17 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum NavDirSourceFlags : int32
+        [AllowDuplicates]
+        public enum MouseSource : int32
         {
-            None = 0,
-            RawKeyboard = 1,
-            Keyboard = 2,
-            PadDPad = 4,
-            PadLStick = 8,
+            Mouse = 0,
+            TouchScreen = 1,
+            Pen = 2,
+            COUNT = 3,
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum NavHighlightFlags : int32
         {
             None = 0,
@@ -922,7 +971,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum NavInput : int32
         {
             Activate = 0,
@@ -941,16 +990,12 @@ namespace ImGui
             FocusNext = 13,
             TweakSlow = 14,
             TweakFast = 15,
-            KeyLeft_ = 16,
-            KeyRight_ = 17,
-            KeyUp_ = 18,
-            KeyDown_ = 19,
-            COUNT = 20,
+            COUNT = 16,
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum NavLayer 
+        [AllowDuplicates]
+        public enum NavLayer : int32
         {
             Main = 0,
             Menu = 1,
@@ -958,7 +1003,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum NavMoveFlags : int32
         {
             None = 0,
@@ -978,19 +1023,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum NavReadMode 
-        {
-            Down = 0,
-            Pressed = 1,
-            Released = 2,
-            Repeat = 3,
-            RepeatSlow = 4,
-            RepeatFast = 5,
-        
-        }
-        
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum NextItemDataFlags : int32
         {
             None = 0,
@@ -999,7 +1032,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum NextWindowDataFlags : int32
         {
             None = 0,
@@ -1017,7 +1050,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum OldColumnFlags : int32
         {
             None = 0,
@@ -1029,15 +1062,15 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum PlotType 
+        [AllowDuplicates]
+        public enum PlotType : int32
         {
             Lines = 0,
             Histogram = 1,
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum PopupFlags : int32
         {
             None = 0,
@@ -1054,8 +1087,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum PopupPositionPolicy 
+        [AllowDuplicates]
+        public enum PopupPositionPolicy : int32
         {
             Default = 0,
             ComboBox = 1,
@@ -1063,7 +1096,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum ScrollFlags : int32
         {
             None = 0,
@@ -1079,21 +1112,21 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum SelectableFlagsPrivate 
+        [AllowDuplicates]
+        public enum SelectableFlagsPrivate : int32
         {
             SelectableFlags_NoHoldingActiveID = 1048576,
             SelectableFlags_SelectOnNav = 2097152,
             SelectableFlags_SelectOnClick = 4194304,
             SelectableFlags_SelectOnRelease = 8388608,
             SelectableFlags_SpanAvailWidth = 16777216,
-            SelectableFlags_DrawHoveredWhenHeld = 33554432,
-            SelectableFlags_SetNavIdOnHover = 67108864,
-            SelectableFlags_NoPadWithHalfSpacing = 134217728,
+            SelectableFlags_SetNavIdOnHover = 33554432,
+            SelectableFlags_NoPadWithHalfSpacing = 67108864,
+            SelectableFlags_NoSetKeyOwner = 134217728,
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum SelectableFlags : int32
         {
             None = 0,
@@ -1105,7 +1138,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum SeparatorFlags : int32
         {
             None = 0,
@@ -1115,15 +1148,15 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum SliderFlagsPrivate 
+        [AllowDuplicates]
+        public enum SliderFlagsPrivate : int32
         {
             SliderFlags_Vertical = 1048576,
             SliderFlags_ReadOnly = 2097152,
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum SliderFlags : int32
         {
             None = 0,
@@ -1135,7 +1168,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum SortDirection : int32
         {
             None = 0,
@@ -1144,7 +1177,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum StyleVar : int32
         {
             Alpha = 0,
@@ -1172,12 +1205,15 @@ namespace ImGui
             TabRounding = 22,
             ButtonTextAlign = 23,
             SelectableTextAlign = 24,
-            COUNT = 25,
+            SeparatorTextBorderSize = 25,
+            SeparatorTextAlign = 26,
+            SeparatorTextPadding = 27,
+            COUNT = 28,
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum TabBarFlagsPrivate 
+        [AllowDuplicates]
+        public enum TabBarFlagsPrivate : int32
         {
             TabBarFlags_DockNode = 1048576,
             TabBarFlags_IsFocused = 2097152,
@@ -1185,7 +1221,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum TabBarFlags : int32
         {
             None = 0,
@@ -1202,8 +1238,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum TabItemFlagsPrivate 
+        [AllowDuplicates]
+        public enum TabItemFlagsPrivate : int32
         {
             TabItemFlags_SectionMask_ = 192,
             TabItemFlags_NoCloseButton = 1048576,
@@ -1213,7 +1249,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum TabItemFlags : int32
         {
             None = 0,
@@ -1228,7 +1264,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum TableBgTarget : int32
         {
             None = 0,
@@ -1238,7 +1274,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum TableColumnFlags : int32
         {
             None = 0,
@@ -1271,7 +1307,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum TableFlags : int32
         {
             None = 0,
@@ -1313,7 +1349,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum TableRowFlags : int32
         {
             None = 0,
@@ -1321,7 +1357,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum TextFlags : int32
         {
             None = 0,
@@ -1329,7 +1365,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum TooltipFlags : int32
         {
             None = 0,
@@ -1337,14 +1373,14 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum TreeNodeFlagsPrivate 
+        [AllowDuplicates]
+        public enum TreeNodeFlagsPrivate : int32
         {
             TreeNodeFlags_ClipLabelForTrailingButton = 1048576,
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum TreeNodeFlags : int32
         {
             None = 0,
@@ -1366,7 +1402,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum ViewportFlags : int32
         {
             None = 0,
@@ -1379,15 +1415,16 @@ namespace ImGui
             NoFocusOnClick = 64,
             NoInputs = 128,
             NoRendererClear = 256,
-            TopMost = 512,
-            Minimized = 1024,
-            NoAutoMerge = 2048,
-            CanHostOtherWindows = 4096,
+            NoAutoMerge = 512,
+            TopMost = 1024,
+            CanHostOtherWindows = 2048,
+            IsMinimized = 4096,
+            IsFocused = 8192,
         
         }
         
-        [AllowDuplicates, CRepr]
-        public enum WindowDockStyleCol 
+        [AllowDuplicates]
+        public enum WindowDockStyleCol : int32
         {
             Text = 0,
             Tab = 1,
@@ -1399,7 +1436,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates, CRepr]
+        [AllowDuplicates]
         public enum WindowFlags : int32
         {
             None = 0,
@@ -1443,23 +1480,23 @@ namespace ImGui
             public Vector<U32> Storage;
         
             [LinkName("ImBitVector_Clear")]
-            private static extern void ClearImpl(BitVector* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImBitVector_ClearBit")]
-            private static extern void ClearBitImpl(BitVector* self, int32 n);
+            private static extern void ClearBitImpl(Self* self, int32 n);
             public void ClearBit(int32 n) mut=> ClearBitImpl(&this, n);
             
             [LinkName("ImBitVector_Create")]
-            private static extern void CreateImpl(BitVector* self, int32 sz);
+            private static extern void CreateImpl(Self* self, int32 sz);
             public void Create(int32 sz) mut=> CreateImpl(&this, sz);
             
             [LinkName("ImBitVector_SetBit")]
-            private static extern void SetBitImpl(BitVector* self, int32 n);
+            private static extern void SetBitImpl(Self* self, int32 n);
             public void SetBit(int32 n) mut=> SetBitImpl(&this, n);
             
             [LinkName("ImBitVector_TestBit")]
-            private static extern bool TestBitImpl(BitVector* self, int32 n);
+            private static extern bool TestBitImpl(Self* self, int32 n);
             public bool TestBit(int32 n) mut=> TestBitImpl(&this, n);
             
         }
@@ -1473,52 +1510,39 @@ namespace ImGui
             private static extern Color* CtorImpl();
             public this()
             {
-                var ptr = CtorImpl();
-                this = *ptr;
-                DestroyImpl(ptr);
+                this = *CtorImpl();
             }
             
             [LinkName("ImColor_ImColor_Float")]
             private static extern Color* CtorImpl(float r, float g, float b, float a);
             public this(float r, float g, float b, float a = (float) 1.0f)
             {
-                var ptr = CtorImpl(r, g, b, a);
-                this = *ptr;
-                DestroyImpl(ptr);
+                this = *CtorImpl(r, g, b, a);
             }
             
             [LinkName("ImColor_ImColor_Vec4")]
             private static extern Color* CtorImpl(Vec4 col);
             public this(Vec4 col)
             {
-                var ptr = CtorImpl(col);
-                this = *ptr;
-                DestroyImpl(ptr);
+                this = *CtorImpl(col);
             }
             
             [LinkName("ImColor_ImColor_Int")]
             private static extern Color* CtorImpl(int32 r, int32 g, int32 b, int32 a);
             public this(int32 r, int32 g, int32 b, int32 a = (int32) 255)
             {
-                var ptr = CtorImpl(r, g, b, a);
-                this = *ptr;
-                DestroyImpl(ptr);
+                this = *CtorImpl(r, g, b, a);
             }
             
             [LinkName("ImColor_ImColor_U32")]
             private static extern Color* CtorImpl(U32 rgba);
             public this(U32 rgba)
             {
-                var ptr = CtorImpl(rgba);
-                this = *ptr;
-                DestroyImpl(ptr);
+                this = *CtorImpl(rgba);
             }
             
-            [LinkName("ImColor_destroy")]
-            private static extern void DestroyImpl(Color* ptr);
-            
             [LinkName("ImColor_SetHSV")]
-            private static extern void SetHSVImpl(Color* self, float h, float s, float v, float a);
+            private static extern void SetHSVImpl(Self* self, float h, float s, float v, float a);
             public void SetHSV(float h, float s, float v, float a = (float) 1.0f) mut=> SetHSVImpl(&this, h, s, v, a);
             
         }
@@ -1549,11 +1573,8 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImDrawCmd_destroy")]
-            private static extern void DestroyImpl(DrawCmd* ptr);
-            
             [LinkName("ImDrawCmd_GetTexID")]
-            private static extern TextureID GetTexIDImpl(DrawCmd* self);
+            private static extern TextureID GetTexIDImpl(Self* self);
             public TextureID GetTexID() mut=> GetTexIDImpl(&this);
             
         }
@@ -1587,19 +1608,16 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImDrawData_destroy")]
-            private static extern void DestroyImpl(DrawData* ptr);
-            
             [LinkName("ImDrawData_Clear")]
-            private static extern void ClearImpl(DrawData* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImDrawData_DeIndexAllBuffers")]
-            private static extern void DeIndexAllBuffersImpl(DrawData* self);
+            private static extern void DeIndexAllBuffersImpl(Self* self);
             public void DeIndexAllBuffers() mut=> DeIndexAllBuffersImpl(&this);
             
             [LinkName("ImDrawData_ScaleClipRects")]
-            private static extern void ScaleClipRectsImpl(DrawData* self, Vec2 fb_scale);
+            private static extern void ScaleClipRectsImpl(Self* self, Vec2 fb_scale);
             public void ScaleClipRects(Vec2 fb_scale) mut=> ScaleClipRectsImpl(&this, fb_scale);
             
         }
@@ -1610,19 +1628,19 @@ namespace ImGui
             public Vector<DrawList*>[2] Layers;
         
             [LinkName("ImDrawDataBuilder_Clear")]
-            private static extern void ClearImpl(DrawDataBuilder* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImDrawDataBuilder_ClearFreeMemory")]
-            private static extern void ClearFreeMemoryImpl(DrawDataBuilder* self);
+            private static extern void ClearFreeMemoryImpl(Self* self);
             public void ClearFreeMemory() mut=> ClearFreeMemoryImpl(&this);
             
             [LinkName("ImDrawDataBuilder_FlattenIntoSingleLayer")]
-            private static extern void FlattenIntoSingleLayerImpl(DrawDataBuilder* self);
+            private static extern void FlattenIntoSingleLayerImpl(Self* self);
             public void FlattenIntoSingleLayer() mut=> FlattenIntoSingleLayerImpl(&this);
             
             [LinkName("ImDrawDataBuilder_GetDrawListCount")]
-            private static extern int32 GetDrawListCountImpl(DrawDataBuilder* self);
+            private static extern int32 GetDrawListCountImpl(Self* self);
             public int32 GetDrawListCount() mut=> GetDrawListCountImpl(&this);
             
         }
@@ -1653,119 +1671,116 @@ namespace ImGui
                 this = *CtorImpl(shared_data);
             }
             
-            [LinkName("ImDrawList_destroy")]
-            private static extern void DestroyImpl(DrawList* ptr);
-            
             [LinkName("ImDrawList_AddBezierCubic")]
-            private static extern void AddBezierCubicImpl(DrawList* self, Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, U32 col, float thickness, int32 num_segments);
+            private static extern void AddBezierCubicImpl(Self* self, Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, U32 col, float thickness, int32 num_segments);
             public void AddBezierCubic(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, U32 col, float thickness, int32 num_segments = (int32) 0) mut=> AddBezierCubicImpl(&this, p1, p2, p3, p4, col, thickness, num_segments);
             
             [LinkName("ImDrawList_AddBezierQuadratic")]
-            private static extern void AddBezierQuadraticImpl(DrawList* self, Vec2 p1, Vec2 p2, Vec2 p3, U32 col, float thickness, int32 num_segments);
+            private static extern void AddBezierQuadraticImpl(Self* self, Vec2 p1, Vec2 p2, Vec2 p3, U32 col, float thickness, int32 num_segments);
             public void AddBezierQuadratic(Vec2 p1, Vec2 p2, Vec2 p3, U32 col, float thickness, int32 num_segments = (int32) 0) mut=> AddBezierQuadraticImpl(&this, p1, p2, p3, col, thickness, num_segments);
             
             [LinkName("ImDrawList_AddCallback")]
-            private static extern void AddCallbackImpl(DrawList* self, DrawCallback callback, void* callback_data);
+            private static extern void AddCallbackImpl(Self* self, DrawCallback callback, void* callback_data);
             public void AddCallback(DrawCallback callback, void* callback_data) mut=> AddCallbackImpl(&this, callback, callback_data);
             
             [LinkName("ImDrawList_AddCircle")]
-            private static extern void AddCircleImpl(DrawList* self, Vec2 center, float radius, U32 col, int32 num_segments, float thickness);
+            private static extern void AddCircleImpl(Self* self, Vec2 center, float radius, U32 col, int32 num_segments, float thickness);
             public void AddCircle(Vec2 center, float radius, U32 col, int32 num_segments = (int32) 0, float thickness = (float) 1.0f) mut=> AddCircleImpl(&this, center, radius, col, num_segments, thickness);
             
             [LinkName("ImDrawList_AddCircleFilled")]
-            private static extern void AddCircleFilledImpl(DrawList* self, Vec2 center, float radius, U32 col, int32 num_segments);
+            private static extern void AddCircleFilledImpl(Self* self, Vec2 center, float radius, U32 col, int32 num_segments);
             public void AddCircleFilled(Vec2 center, float radius, U32 col, int32 num_segments = (int32) 0) mut=> AddCircleFilledImpl(&this, center, radius, col, num_segments);
             
             [LinkName("ImDrawList_AddConvexPolyFilled")]
-            private static extern void AddConvexPolyFilledImpl(DrawList* self, Vec2* points, int32 num_points, U32 col);
+            private static extern void AddConvexPolyFilledImpl(Self* self, Vec2* points, int32 num_points, U32 col);
             public void AddConvexPolyFilled(Vec2* points, int32 num_points, U32 col) mut=> AddConvexPolyFilledImpl(&this, points, num_points, col);
             
             [LinkName("ImDrawList_AddDrawCmd")]
-            private static extern void AddDrawCmdImpl(DrawList* self);
+            private static extern void AddDrawCmdImpl(Self* self);
             public void AddDrawCmd() mut=> AddDrawCmdImpl(&this);
             
             [LinkName("ImDrawList_AddImage")]
-            private static extern void AddImageImpl(DrawList* self, TextureID user_texture_id, Vec2 p_min, Vec2 p_max, Vec2 uv_min, Vec2 uv_max, U32 col);
+            private static extern void AddImageImpl(Self* self, TextureID user_texture_id, Vec2 p_min, Vec2 p_max, Vec2 uv_min, Vec2 uv_max, U32 col);
             public void AddImage(TextureID user_texture_id, Vec2 p_min, Vec2 p_max, Vec2 uv_min = Vec2.Zero, Vec2 uv_max = Vec2.Ones, U32 col = (U32) 4294967295) mut=> AddImageImpl(&this, user_texture_id, p_min, p_max, uv_min, uv_max, col);
             
             [LinkName("ImDrawList_AddImageQuad")]
-            private static extern void AddImageQuadImpl(DrawList* self, TextureID user_texture_id, Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, Vec2 uv1, Vec2 uv2, Vec2 uv3, Vec2 uv4, U32 col);
+            private static extern void AddImageQuadImpl(Self* self, TextureID user_texture_id, Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, Vec2 uv1, Vec2 uv2, Vec2 uv3, Vec2 uv4, U32 col);
             public void AddImageQuad(TextureID user_texture_id, Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, Vec2 uv1 = Vec2.Zero, Vec2 uv2 = Vec2.OneZero, Vec2 uv3 = Vec2.Ones, Vec2 uv4 = Vec2.ZeroOne, U32 col = (U32) 4294967295) mut=> AddImageQuadImpl(&this, user_texture_id, p1, p2, p3, p4, uv1, uv2, uv3, uv4, col);
             
             [LinkName("ImDrawList_AddImageRounded")]
-            private static extern void AddImageRoundedImpl(DrawList* self, TextureID user_texture_id, Vec2 p_min, Vec2 p_max, Vec2 uv_min, Vec2 uv_max, U32 col, float rounding, DrawFlags flags);
+            private static extern void AddImageRoundedImpl(Self* self, TextureID user_texture_id, Vec2 p_min, Vec2 p_max, Vec2 uv_min, Vec2 uv_max, U32 col, float rounding, DrawFlags flags);
             public void AddImageRounded(TextureID user_texture_id, Vec2 p_min, Vec2 p_max, Vec2 uv_min, Vec2 uv_max, U32 col, float rounding, DrawFlags flags = (DrawFlags) 0) mut=> AddImageRoundedImpl(&this, user_texture_id, p_min, p_max, uv_min, uv_max, col, rounding, flags);
             
             [LinkName("ImDrawList_AddLine")]
-            private static extern void AddLineImpl(DrawList* self, Vec2 p1, Vec2 p2, U32 col, float thickness);
+            private static extern void AddLineImpl(Self* self, Vec2 p1, Vec2 p2, U32 col, float thickness);
             public void AddLine(Vec2 p1, Vec2 p2, U32 col, float thickness = (float) 1.0f) mut=> AddLineImpl(&this, p1, p2, col, thickness);
             
             [LinkName("ImDrawList_AddNgon")]
-            private static extern void AddNgonImpl(DrawList* self, Vec2 center, float radius, U32 col, int32 num_segments, float thickness);
+            private static extern void AddNgonImpl(Self* self, Vec2 center, float radius, U32 col, int32 num_segments, float thickness);
             public void AddNgon(Vec2 center, float radius, U32 col, int32 num_segments, float thickness = (float) 1.0f) mut=> AddNgonImpl(&this, center, radius, col, num_segments, thickness);
             
             [LinkName("ImDrawList_AddNgonFilled")]
-            private static extern void AddNgonFilledImpl(DrawList* self, Vec2 center, float radius, U32 col, int32 num_segments);
+            private static extern void AddNgonFilledImpl(Self* self, Vec2 center, float radius, U32 col, int32 num_segments);
             public void AddNgonFilled(Vec2 center, float radius, U32 col, int32 num_segments) mut=> AddNgonFilledImpl(&this, center, radius, col, num_segments);
             
             [LinkName("ImDrawList_AddPolyline")]
-            private static extern void AddPolylineImpl(DrawList* self, Vec2* points, int32 num_points, U32 col, DrawFlags flags, float thickness);
+            private static extern void AddPolylineImpl(Self* self, Vec2* points, int32 num_points, U32 col, DrawFlags flags, float thickness);
             public void AddPolyline(Vec2* points, int32 num_points, U32 col, DrawFlags flags, float thickness) mut=> AddPolylineImpl(&this, points, num_points, col, flags, thickness);
             
             [LinkName("ImDrawList_AddQuad")]
-            private static extern void AddQuadImpl(DrawList* self, Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, U32 col, float thickness);
+            private static extern void AddQuadImpl(Self* self, Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, U32 col, float thickness);
             public void AddQuad(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, U32 col, float thickness = (float) 1.0f) mut=> AddQuadImpl(&this, p1, p2, p3, p4, col, thickness);
             
             [LinkName("ImDrawList_AddQuadFilled")]
-            private static extern void AddQuadFilledImpl(DrawList* self, Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, U32 col);
+            private static extern void AddQuadFilledImpl(Self* self, Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, U32 col);
             public void AddQuadFilled(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, U32 col) mut=> AddQuadFilledImpl(&this, p1, p2, p3, p4, col);
             
             [LinkName("ImDrawList_AddRect")]
-            private static extern void AddRectImpl(DrawList* self, Vec2 p_min, Vec2 p_max, U32 col, float rounding, DrawFlags flags, float thickness);
+            private static extern void AddRectImpl(Self* self, Vec2 p_min, Vec2 p_max, U32 col, float rounding, DrawFlags flags, float thickness);
             public void AddRect(Vec2 p_min, Vec2 p_max, U32 col, float rounding = (float) 0.0f, DrawFlags flags = (DrawFlags) 0, float thickness = (float) 1.0f) mut=> AddRectImpl(&this, p_min, p_max, col, rounding, flags, thickness);
             
             [LinkName("ImDrawList_AddRectFilled")]
-            private static extern void AddRectFilledImpl(DrawList* self, Vec2 p_min, Vec2 p_max, U32 col, float rounding, DrawFlags flags);
+            private static extern void AddRectFilledImpl(Self* self, Vec2 p_min, Vec2 p_max, U32 col, float rounding, DrawFlags flags);
             public void AddRectFilled(Vec2 p_min, Vec2 p_max, U32 col, float rounding = (float) 0.0f, DrawFlags flags = (DrawFlags) 0) mut=> AddRectFilledImpl(&this, p_min, p_max, col, rounding, flags);
             
             [LinkName("ImDrawList_AddRectFilledMultiColor")]
-            private static extern void AddRectFilledMultiColorImpl(DrawList* self, Vec2 p_min, Vec2 p_max, U32 col_upr_left, U32 col_upr_right, U32 col_bot_right, U32 col_bot_left);
+            private static extern void AddRectFilledMultiColorImpl(Self* self, Vec2 p_min, Vec2 p_max, U32 col_upr_left, U32 col_upr_right, U32 col_bot_right, U32 col_bot_left);
             public void AddRectFilledMultiColor(Vec2 p_min, Vec2 p_max, U32 col_upr_left, U32 col_upr_right, U32 col_bot_right, U32 col_bot_left) mut=> AddRectFilledMultiColorImpl(&this, p_min, p_max, col_upr_left, col_upr_right, col_bot_right, col_bot_left);
             
             [LinkName("ImDrawList_AddText_Vec2")]
-            private static extern void AddTextImpl(DrawList* self, Vec2 pos, U32 col, char* text_begin, char* text_end);
+            private static extern void AddTextImpl(Self* self, Vec2 pos, U32 col, char* text_begin, char* text_end);
             public void AddText(Vec2 pos, U32 col, char* text_begin, char* text_end = null) mut=> AddTextImpl(&this, pos, col, text_begin, text_end);
             
             [LinkName("ImDrawList_AddText_FontPtr")]
-            private static extern void AddTextImpl(DrawList* self, Font* font, float font_size, Vec2 pos, U32 col, char* text_begin, char* text_end, float wrap_width, Vec4* cpu_fine_clip_rect);
+            private static extern void AddTextImpl(Self* self, Font* font, float font_size, Vec2 pos, U32 col, char* text_begin, char* text_end, float wrap_width, Vec4* cpu_fine_clip_rect);
             public void AddText(Font* font, float font_size, Vec2 pos, U32 col, char* text_begin, char* text_end = null, float wrap_width = (float) 0.0f, Vec4* cpu_fine_clip_rect = null) mut=> AddTextImpl(&this, font, font_size, pos, col, text_begin, text_end, wrap_width, cpu_fine_clip_rect);
             
             [LinkName("ImDrawList_AddTriangle")]
-            private static extern void AddTriangleImpl(DrawList* self, Vec2 p1, Vec2 p2, Vec2 p3, U32 col, float thickness);
+            private static extern void AddTriangleImpl(Self* self, Vec2 p1, Vec2 p2, Vec2 p3, U32 col, float thickness);
             public void AddTriangle(Vec2 p1, Vec2 p2, Vec2 p3, U32 col, float thickness = (float) 1.0f) mut=> AddTriangleImpl(&this, p1, p2, p3, col, thickness);
             
             [LinkName("ImDrawList_AddTriangleFilled")]
-            private static extern void AddTriangleFilledImpl(DrawList* self, Vec2 p1, Vec2 p2, Vec2 p3, U32 col);
+            private static extern void AddTriangleFilledImpl(Self* self, Vec2 p1, Vec2 p2, Vec2 p3, U32 col);
             public void AddTriangleFilled(Vec2 p1, Vec2 p2, Vec2 p3, U32 col) mut=> AddTriangleFilledImpl(&this, p1, p2, p3, col);
             
             [LinkName("ImDrawList_ChannelsMerge")]
-            private static extern void ChannelsMergeImpl(DrawList* self);
+            private static extern void ChannelsMergeImpl(Self* self);
             public void ChannelsMerge() mut=> ChannelsMergeImpl(&this);
             
             [LinkName("ImDrawList_ChannelsSetCurrent")]
-            private static extern void ChannelsSetCurrentImpl(DrawList* self, int32 n);
+            private static extern void ChannelsSetCurrentImpl(Self* self, int32 n);
             public void ChannelsSetCurrent(int32 n) mut=> ChannelsSetCurrentImpl(&this, n);
             
             [LinkName("ImDrawList_ChannelsSplit")]
-            private static extern void ChannelsSplitImpl(DrawList* self, int32 count);
+            private static extern void ChannelsSplitImpl(Self* self, int32 count);
             public void ChannelsSplit(int32 count) mut=> ChannelsSplitImpl(&this, count);
             
             [LinkName("ImDrawList_CloneOutput")]
-            private static extern DrawList* CloneOutputImpl(DrawList* self);
+            private static extern DrawList* CloneOutputImpl(Self* self);
             public DrawList* CloneOutput() mut=> CloneOutputImpl(&this);
             
             [LinkName("ImDrawList_GetClipRectMax")]
-            private static extern Vec2 GetClipRectMaxImpl(Vec2* pOut, DrawList* self);
+            private static extern Vec2 GetClipRectMaxImpl(Vec2* pOut, Self* self);
             public Vec2 GetClipRectMax() mut
             {
                 Vec2 pOut = default;
@@ -1774,7 +1789,7 @@ namespace ImGui
             }
             
             [LinkName("ImDrawList_GetClipRectMin")]
-            private static extern Vec2 GetClipRectMinImpl(Vec2* pOut, DrawList* self);
+            private static extern Vec2 GetClipRectMinImpl(Vec2* pOut, Self* self);
             public Vec2 GetClipRectMin() mut
             {
                 Vec2 pOut = default;
@@ -1783,135 +1798,135 @@ namespace ImGui
             }
             
             [LinkName("ImDrawList_PathArcTo")]
-            private static extern void PathArcToImpl(DrawList* self, Vec2 center, float radius, float a_min, float a_max, int32 num_segments);
+            private static extern void PathArcToImpl(Self* self, Vec2 center, float radius, float a_min, float a_max, int32 num_segments);
             public void PathArcTo(Vec2 center, float radius, float a_min, float a_max, int32 num_segments = (int32) 0) mut=> PathArcToImpl(&this, center, radius, a_min, a_max, num_segments);
             
             [LinkName("ImDrawList_PathArcToFast")]
-            private static extern void PathArcToFastImpl(DrawList* self, Vec2 center, float radius, int32 a_min_of_12, int32 a_max_of_12);
+            private static extern void PathArcToFastImpl(Self* self, Vec2 center, float radius, int32 a_min_of_12, int32 a_max_of_12);
             public void PathArcToFast(Vec2 center, float radius, int32 a_min_of_12, int32 a_max_of_12) mut=> PathArcToFastImpl(&this, center, radius, a_min_of_12, a_max_of_12);
             
             [LinkName("ImDrawList_PathBezierCubicCurveTo")]
-            private static extern void PathBezierCubicCurveToImpl(DrawList* self, Vec2 p2, Vec2 p3, Vec2 p4, int32 num_segments);
+            private static extern void PathBezierCubicCurveToImpl(Self* self, Vec2 p2, Vec2 p3, Vec2 p4, int32 num_segments);
             public void PathBezierCubicCurveTo(Vec2 p2, Vec2 p3, Vec2 p4, int32 num_segments = (int32) 0) mut=> PathBezierCubicCurveToImpl(&this, p2, p3, p4, num_segments);
             
             [LinkName("ImDrawList_PathBezierQuadraticCurveTo")]
-            private static extern void PathBezierQuadraticCurveToImpl(DrawList* self, Vec2 p2, Vec2 p3, int32 num_segments);
+            private static extern void PathBezierQuadraticCurveToImpl(Self* self, Vec2 p2, Vec2 p3, int32 num_segments);
             public void PathBezierQuadraticCurveTo(Vec2 p2, Vec2 p3, int32 num_segments = (int32) 0) mut=> PathBezierQuadraticCurveToImpl(&this, p2, p3, num_segments);
             
             [LinkName("ImDrawList_PathClear")]
-            private static extern void PathClearImpl(DrawList* self);
+            private static extern void PathClearImpl(Self* self);
             public void PathClear() mut=> PathClearImpl(&this);
             
             [LinkName("ImDrawList_PathFillConvex")]
-            private static extern void PathFillConvexImpl(DrawList* self, U32 col);
+            private static extern void PathFillConvexImpl(Self* self, U32 col);
             public void PathFillConvex(U32 col) mut=> PathFillConvexImpl(&this, col);
             
             [LinkName("ImDrawList_PathLineTo")]
-            private static extern void PathLineToImpl(DrawList* self, Vec2 pos);
+            private static extern void PathLineToImpl(Self* self, Vec2 pos);
             public void PathLineTo(Vec2 pos) mut=> PathLineToImpl(&this, pos);
             
             [LinkName("ImDrawList_PathLineToMergeDuplicate")]
-            private static extern void PathLineToMergeDuplicateImpl(DrawList* self, Vec2 pos);
+            private static extern void PathLineToMergeDuplicateImpl(Self* self, Vec2 pos);
             public void PathLineToMergeDuplicate(Vec2 pos) mut=> PathLineToMergeDuplicateImpl(&this, pos);
             
             [LinkName("ImDrawList_PathRect")]
-            private static extern void PathRectImpl(DrawList* self, Vec2 rect_min, Vec2 rect_max, float rounding, DrawFlags flags);
+            private static extern void PathRectImpl(Self* self, Vec2 rect_min, Vec2 rect_max, float rounding, DrawFlags flags);
             public void PathRect(Vec2 rect_min, Vec2 rect_max, float rounding = (float) 0.0f, DrawFlags flags = (DrawFlags) 0) mut=> PathRectImpl(&this, rect_min, rect_max, rounding, flags);
             
             [LinkName("ImDrawList_PathStroke")]
-            private static extern void PathStrokeImpl(DrawList* self, U32 col, DrawFlags flags, float thickness);
+            private static extern void PathStrokeImpl(Self* self, U32 col, DrawFlags flags, float thickness);
             public void PathStroke(U32 col, DrawFlags flags = (DrawFlags) 0, float thickness = (float) 1.0f) mut=> PathStrokeImpl(&this, col, flags, thickness);
             
             [LinkName("ImDrawList_PopClipRect")]
-            private static extern void PopClipRectImpl(DrawList* self);
+            private static extern void PopClipRectImpl(Self* self);
             public void PopClipRect() mut=> PopClipRectImpl(&this);
             
             [LinkName("ImDrawList_PopTextureID")]
-            private static extern void PopTextureIDImpl(DrawList* self);
+            private static extern void PopTextureIDImpl(Self* self);
             public void PopTextureID() mut=> PopTextureIDImpl(&this);
             
             [LinkName("ImDrawList_PrimQuadUV")]
-            private static extern void PrimQuadUVImpl(DrawList* self, Vec2 a, Vec2 b, Vec2 c, Vec2 d, Vec2 uv_a, Vec2 uv_b, Vec2 uv_c, Vec2 uv_d, U32 col);
+            private static extern void PrimQuadUVImpl(Self* self, Vec2 a, Vec2 b, Vec2 c, Vec2 d, Vec2 uv_a, Vec2 uv_b, Vec2 uv_c, Vec2 uv_d, U32 col);
             public void PrimQuadUV(Vec2 a, Vec2 b, Vec2 c, Vec2 d, Vec2 uv_a, Vec2 uv_b, Vec2 uv_c, Vec2 uv_d, U32 col) mut=> PrimQuadUVImpl(&this, a, b, c, d, uv_a, uv_b, uv_c, uv_d, col);
             
             [LinkName("ImDrawList_PrimRect")]
-            private static extern void PrimRectImpl(DrawList* self, Vec2 a, Vec2 b, U32 col);
+            private static extern void PrimRectImpl(Self* self, Vec2 a, Vec2 b, U32 col);
             public void PrimRect(Vec2 a, Vec2 b, U32 col) mut=> PrimRectImpl(&this, a, b, col);
             
             [LinkName("ImDrawList_PrimRectUV")]
-            private static extern void PrimRectUVImpl(DrawList* self, Vec2 a, Vec2 b, Vec2 uv_a, Vec2 uv_b, U32 col);
+            private static extern void PrimRectUVImpl(Self* self, Vec2 a, Vec2 b, Vec2 uv_a, Vec2 uv_b, U32 col);
             public void PrimRectUV(Vec2 a, Vec2 b, Vec2 uv_a, Vec2 uv_b, U32 col) mut=> PrimRectUVImpl(&this, a, b, uv_a, uv_b, col);
             
             [LinkName("ImDrawList_PrimReserve")]
-            private static extern void PrimReserveImpl(DrawList* self, int32 idx_count, int32 vtx_count);
+            private static extern void PrimReserveImpl(Self* self, int32 idx_count, int32 vtx_count);
             public void PrimReserve(int32 idx_count, int32 vtx_count) mut=> PrimReserveImpl(&this, idx_count, vtx_count);
             
             [LinkName("ImDrawList_PrimUnreserve")]
-            private static extern void PrimUnreserveImpl(DrawList* self, int32 idx_count, int32 vtx_count);
+            private static extern void PrimUnreserveImpl(Self* self, int32 idx_count, int32 vtx_count);
             public void PrimUnreserve(int32 idx_count, int32 vtx_count) mut=> PrimUnreserveImpl(&this, idx_count, vtx_count);
             
             [LinkName("ImDrawList_PrimVtx")]
-            private static extern void PrimVtxImpl(DrawList* self, Vec2 pos, Vec2 uv, U32 col);
+            private static extern void PrimVtxImpl(Self* self, Vec2 pos, Vec2 uv, U32 col);
             public void PrimVtx(Vec2 pos, Vec2 uv, U32 col) mut=> PrimVtxImpl(&this, pos, uv, col);
             
             [LinkName("ImDrawList_PrimWriteIdx")]
-            private static extern void PrimWriteIdxImpl(DrawList* self, DrawIdx idx);
+            private static extern void PrimWriteIdxImpl(Self* self, DrawIdx idx);
             public void PrimWriteIdx(DrawIdx idx) mut=> PrimWriteIdxImpl(&this, idx);
             
             [LinkName("ImDrawList_PrimWriteVtx")]
-            private static extern void PrimWriteVtxImpl(DrawList* self, Vec2 pos, Vec2 uv, U32 col);
+            private static extern void PrimWriteVtxImpl(Self* self, Vec2 pos, Vec2 uv, U32 col);
             public void PrimWriteVtx(Vec2 pos, Vec2 uv, U32 col) mut=> PrimWriteVtxImpl(&this, pos, uv, col);
             
             [LinkName("ImDrawList_PushClipRect")]
-            private static extern void PushClipRectImpl(DrawList* self, Vec2 clip_rect_min, Vec2 clip_rect_max, bool intersect_with_current_clip_rect);
+            private static extern void PushClipRectImpl(Self* self, Vec2 clip_rect_min, Vec2 clip_rect_max, bool intersect_with_current_clip_rect);
             public void PushClipRect(Vec2 clip_rect_min, Vec2 clip_rect_max, bool intersect_with_current_clip_rect = false) mut=> PushClipRectImpl(&this, clip_rect_min, clip_rect_max, intersect_with_current_clip_rect);
             
             [LinkName("ImDrawList_PushClipRectFullScreen")]
-            private static extern void PushClipRectFullScreenImpl(DrawList* self);
+            private static extern void PushClipRectFullScreenImpl(Self* self);
             public void PushClipRectFullScreen() mut=> PushClipRectFullScreenImpl(&this);
             
             [LinkName("ImDrawList_PushTextureID")]
-            private static extern void PushTextureIDImpl(DrawList* self, TextureID texture_id);
+            private static extern void PushTextureIDImpl(Self* self, TextureID texture_id);
             public void PushTextureID(TextureID texture_id) mut=> PushTextureIDImpl(&this, texture_id);
             
             [LinkName("ImDrawList__CalcCircleAutoSegmentCount")]
-            private static extern int32 CalcCircleAutoSegmentCountImpl(DrawList* self, float radius);
+            private static extern int32 CalcCircleAutoSegmentCountImpl(Self* self, float radius);
             public int32 CalcCircleAutoSegmentCount(float radius) mut=> CalcCircleAutoSegmentCountImpl(&this, radius);
             
             [LinkName("ImDrawList__ClearFreeMemory")]
-            private static extern void ClearFreeMemoryImpl(DrawList* self);
+            private static extern void ClearFreeMemoryImpl(Self* self);
             public void ClearFreeMemory() mut=> ClearFreeMemoryImpl(&this);
             
             [LinkName("ImDrawList__OnChangedClipRect")]
-            private static extern void OnChangedClipRectImpl(DrawList* self);
+            private static extern void OnChangedClipRectImpl(Self* self);
             public void OnChangedClipRect() mut=> OnChangedClipRectImpl(&this);
             
             [LinkName("ImDrawList__OnChangedTextureID")]
-            private static extern void OnChangedTextureIDImpl(DrawList* self);
+            private static extern void OnChangedTextureIDImpl(Self* self);
             public void OnChangedTextureID() mut=> OnChangedTextureIDImpl(&this);
             
             [LinkName("ImDrawList__OnChangedVtxOffset")]
-            private static extern void OnChangedVtxOffsetImpl(DrawList* self);
+            private static extern void OnChangedVtxOffsetImpl(Self* self);
             public void OnChangedVtxOffset() mut=> OnChangedVtxOffsetImpl(&this);
             
             [LinkName("ImDrawList__PathArcToFastEx")]
-            private static extern void PathArcToFastExImpl(DrawList* self, Vec2 center, float radius, int32 a_min_sample, int32 a_max_sample, int32 a_step);
+            private static extern void PathArcToFastExImpl(Self* self, Vec2 center, float radius, int32 a_min_sample, int32 a_max_sample, int32 a_step);
             public void PathArcToFastEx(Vec2 center, float radius, int32 a_min_sample, int32 a_max_sample, int32 a_step) mut=> PathArcToFastExImpl(&this, center, radius, a_min_sample, a_max_sample, a_step);
             
             [LinkName("ImDrawList__PathArcToN")]
-            private static extern void PathArcToNImpl(DrawList* self, Vec2 center, float radius, float a_min, float a_max, int32 num_segments);
+            private static extern void PathArcToNImpl(Self* self, Vec2 center, float radius, float a_min, float a_max, int32 num_segments);
             public void PathArcToN(Vec2 center, float radius, float a_min, float a_max, int32 num_segments) mut=> PathArcToNImpl(&this, center, radius, a_min, a_max, num_segments);
             
             [LinkName("ImDrawList__PopUnusedDrawCmd")]
-            private static extern void PopUnusedDrawCmdImpl(DrawList* self);
+            private static extern void PopUnusedDrawCmdImpl(Self* self);
             public void PopUnusedDrawCmd() mut=> PopUnusedDrawCmdImpl(&this);
             
             [LinkName("ImDrawList__ResetForNewFrame")]
-            private static extern void ResetForNewFrameImpl(DrawList* self);
+            private static extern void ResetForNewFrameImpl(Self* self);
             public void ResetForNewFrame() mut=> ResetForNewFrameImpl(&this);
             
             [LinkName("ImDrawList__TryMergeDrawCmds")]
-            private static extern void TryMergeDrawCmdsImpl(DrawList* self);
+            private static extern void TryMergeDrawCmdsImpl(Self* self);
             public void TryMergeDrawCmds() mut=> TryMergeDrawCmdsImpl(&this);
             
         }
@@ -1926,6 +1941,7 @@ namespace ImGui
             public float CircleSegmentMaxError;
             public Vec4 ClipRectFullscreen;
             public DrawListFlags InitialFlags;
+            public Vector<Vec2> TempBuffer;
             public Vec2[48] ArcFastVtx;
             public float ArcFastRadiusCutoff;
             public U8[64] CircleSegmentCounts;
@@ -1938,11 +1954,8 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImDrawListSharedData_destroy")]
-            private static extern void DestroyImpl(DrawListSharedData* ptr);
-            
             [LinkName("ImDrawListSharedData_SetCircleTessellationMaxError")]
-            private static extern void SetCircleTessellationMaxErrorImpl(DrawListSharedData* self, float max_error);
+            private static extern void SetCircleTessellationMaxErrorImpl(Self* self, float max_error);
             public void SetCircleTessellationMaxError(float max_error) mut=> SetCircleTessellationMaxErrorImpl(&this, max_error);
             
         }
@@ -1961,27 +1974,24 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImDrawListSplitter_destroy")]
-            private static extern void DestroyImpl(DrawListSplitter* ptr);
-            
             [LinkName("ImDrawListSplitter_Clear")]
-            private static extern void ClearImpl(DrawListSplitter* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImDrawListSplitter_ClearFreeMemory")]
-            private static extern void ClearFreeMemoryImpl(DrawListSplitter* self);
+            private static extern void ClearFreeMemoryImpl(Self* self);
             public void ClearFreeMemory() mut=> ClearFreeMemoryImpl(&this);
             
             [LinkName("ImDrawListSplitter_Merge")]
-            private static extern void MergeImpl(DrawListSplitter* self, DrawList* draw_list);
+            private static extern void MergeImpl(Self* self, DrawList* draw_list);
             public void Merge(DrawList* draw_list) mut=> MergeImpl(&this, draw_list);
             
             [LinkName("ImDrawListSplitter_SetCurrentChannel")]
-            private static extern void SetCurrentChannelImpl(DrawListSplitter* self, DrawList* draw_list, int32 channel_idx);
+            private static extern void SetCurrentChannelImpl(Self* self, DrawList* draw_list, int32 channel_idx);
             public void SetCurrentChannel(DrawList* draw_list, int32 channel_idx) mut=> SetCurrentChannelImpl(&this, draw_list, channel_idx);
             
             [LinkName("ImDrawListSplitter_Split")]
-            private static extern void SplitImpl(DrawListSplitter* self, DrawList* draw_list, int32 count);
+            private static extern void SplitImpl(Self* self, DrawList* draw_list, int32 count);
             public void Split(DrawList* draw_list, int32 count) mut=> SplitImpl(&this, draw_list, count);
             
         }
@@ -2009,7 +2019,9 @@ namespace ImGui
             public short ConfigDataCount;
             public Wchar FallbackChar;
             public Wchar EllipsisChar;
-            public Wchar DotChar;
+            public short EllipsisCharCount;
+            public float EllipsisWidth;
+            public float EllipsisCharStep;
             public bool DirtyLookupTables;
             public float Scale;
             public float Ascent;
@@ -2024,23 +2036,20 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImFont_destroy")]
-            private static extern void DestroyImpl(Font* ptr);
-            
             [LinkName("ImFont_AddGlyph")]
-            private static extern void AddGlyphImpl(Font* self, FontConfig* src_cfg, Wchar c, float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, float advance_x);
+            private static extern void AddGlyphImpl(Self* self, FontConfig* src_cfg, Wchar c, float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, float advance_x);
             public void AddGlyph(FontConfig* src_cfg, Wchar c, float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, float advance_x) mut=> AddGlyphImpl(&this, src_cfg, c, x0, y0, x1, y1, u0, v0, u1, v1, advance_x);
             
             [LinkName("ImFont_AddRemapChar")]
-            private static extern void AddRemapCharImpl(Font* self, Wchar dst, Wchar src, bool overwrite_dst);
+            private static extern void AddRemapCharImpl(Self* self, Wchar dst, Wchar src, bool overwrite_dst);
             public void AddRemapChar(Wchar dst, Wchar src, bool overwrite_dst = true) mut=> AddRemapCharImpl(&this, dst, src, overwrite_dst);
             
             [LinkName("ImFont_BuildLookupTable")]
-            private static extern void BuildLookupTableImpl(Font* self);
+            private static extern void BuildLookupTableImpl(Self* self);
             public void BuildLookupTable() mut=> BuildLookupTableImpl(&this);
             
             [LinkName("ImFont_CalcTextSizeA")]
-            private static extern Vec2 CalcTextSizeAImpl(Vec2* pOut, Font* self, float size, float max_width, float wrap_width, char* text_begin, char* text_end, char** remaining);
+            private static extern Vec2 CalcTextSizeAImpl(Vec2* pOut, Self* self, float size, float max_width, float wrap_width, char* text_begin, char* text_end, char** remaining);
             public Vec2 CalcTextSizeA(float size, float max_width, float wrap_width, char* text_begin, char* text_end = null, char** remaining = null) mut
             {
                 Vec2 pOut = default;
@@ -2049,51 +2058,51 @@ namespace ImGui
             }
             
             [LinkName("ImFont_CalcWordWrapPositionA")]
-            private static extern char* CalcWordWrapPositionAImpl(Font* self, float scale, char* text, char* text_end, float wrap_width);
+            private static extern char* CalcWordWrapPositionAImpl(Self* self, float scale, char* text, char* text_end, float wrap_width);
             public char* CalcWordWrapPositionA(float scale, char* text, char* text_end, float wrap_width) mut=> CalcWordWrapPositionAImpl(&this, scale, text, text_end, wrap_width);
             
             [LinkName("ImFont_ClearOutputData")]
-            private static extern void ClearOutputDataImpl(Font* self);
+            private static extern void ClearOutputDataImpl(Self* self);
             public void ClearOutputData() mut=> ClearOutputDataImpl(&this);
             
             [LinkName("ImFont_FindGlyph")]
-            private static extern FontGlyph* FindGlyphImpl(Font* self, Wchar c);
+            private static extern FontGlyph* FindGlyphImpl(Self* self, Wchar c);
             public FontGlyph* FindGlyph(Wchar c) mut=> FindGlyphImpl(&this, c);
             
             [LinkName("ImFont_FindGlyphNoFallback")]
-            private static extern FontGlyph* FindGlyphNoFallbackImpl(Font* self, Wchar c);
+            private static extern FontGlyph* FindGlyphNoFallbackImpl(Self* self, Wchar c);
             public FontGlyph* FindGlyphNoFallback(Wchar c) mut=> FindGlyphNoFallbackImpl(&this, c);
             
             [LinkName("ImFont_GetCharAdvance")]
-            private static extern float GetCharAdvanceImpl(Font* self, Wchar c);
+            private static extern float GetCharAdvanceImpl(Self* self, Wchar c);
             public float GetCharAdvance(Wchar c) mut=> GetCharAdvanceImpl(&this, c);
             
             [LinkName("ImFont_GetDebugName")]
-            private static extern char* GetDebugNameImpl(Font* self);
+            private static extern char* GetDebugNameImpl(Self* self);
             public char* GetDebugName() mut=> GetDebugNameImpl(&this);
             
             [LinkName("ImFont_GrowIndex")]
-            private static extern void GrowIndexImpl(Font* self, int32 new_size);
+            private static extern void GrowIndexImpl(Self* self, int32 new_size);
             public void GrowIndex(int32 new_size) mut=> GrowIndexImpl(&this, new_size);
             
             [LinkName("ImFont_IsGlyphRangeUnused")]
-            private static extern bool IsGlyphRangeUnusedImpl(Font* self, uint32 c_begin, uint32 c_last);
+            private static extern bool IsGlyphRangeUnusedImpl(Self* self, uint32 c_begin, uint32 c_last);
             public bool IsGlyphRangeUnused(uint32 c_begin, uint32 c_last) mut=> IsGlyphRangeUnusedImpl(&this, c_begin, c_last);
             
             [LinkName("ImFont_IsLoaded")]
-            private static extern bool IsLoadedImpl(Font* self);
+            private static extern bool IsLoadedImpl(Self* self);
             public bool IsLoaded() mut=> IsLoadedImpl(&this);
             
             [LinkName("ImFont_RenderChar")]
-            private static extern void RenderCharImpl(Font* self, DrawList* draw_list, float size, Vec2 pos, U32 col, Wchar c);
+            private static extern void RenderCharImpl(Self* self, DrawList* draw_list, float size, Vec2 pos, U32 col, Wchar c);
             public void RenderChar(DrawList* draw_list, float size, Vec2 pos, U32 col, Wchar c) mut=> RenderCharImpl(&this, draw_list, size, pos, col, c);
             
             [LinkName("ImFont_RenderText")]
-            private static extern void RenderTextImpl(Font* self, DrawList* draw_list, float size, Vec2 pos, U32 col, Vec4 clip_rect, char* text_begin, char* text_end, float wrap_width, bool cpu_fine_clip);
+            private static extern void RenderTextImpl(Self* self, DrawList* draw_list, float size, Vec2 pos, U32 col, Vec4 clip_rect, char* text_begin, char* text_end, float wrap_width, bool cpu_fine_clip);
             public void RenderText(DrawList* draw_list, float size, Vec2 pos, U32 col, Vec4 clip_rect, char* text_begin, char* text_end, float wrap_width = (float) 0.0f, bool cpu_fine_clip = false) mut=> RenderTextImpl(&this, draw_list, size, pos, col, clip_rect, text_begin, text_end, wrap_width, cpu_fine_clip);
             
             [LinkName("ImFont_SetGlyphVisible")]
-            private static extern void SetGlyphVisibleImpl(Font* self, Wchar c, bool visible);
+            private static extern void SetGlyphVisibleImpl(Self* self, Wchar c, bool visible);
             public void SetGlyphVisible(Wchar c, bool visible) mut=> SetGlyphVisibleImpl(&this, c, visible);
             
         }
@@ -2106,6 +2115,7 @@ namespace ImGui
             public int32 TexDesiredWidth;
             public int32 TexGlyphPadding;
             public bool Locked;
+            public void* UserData;
             public bool TexReady;
             public bool TexPixelsUseColors;
             public uchar* TexPixelsAlpha8;
@@ -2130,47 +2140,44 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImFontAtlas_destroy")]
-            private static extern void DestroyImpl(FontAtlas* ptr);
-            
             [LinkName("ImFontAtlas_AddCustomRectFontGlyph")]
-            private static extern int32 AddCustomRectFontGlyphImpl(FontAtlas* self, Font* font, Wchar id, int32 width, int32 height, float advance_x, Vec2 offset);
+            private static extern int32 AddCustomRectFontGlyphImpl(Self* self, Font* font, Wchar id, int32 width, int32 height, float advance_x, Vec2 offset);
             public int32 AddCustomRectFontGlyph(Font* font, Wchar id, int32 width, int32 height, float advance_x, Vec2 offset = Vec2.Zero) mut=> AddCustomRectFontGlyphImpl(&this, font, id, width, height, advance_x, offset);
             
             [LinkName("ImFontAtlas_AddCustomRectRegular")]
-            private static extern int32 AddCustomRectRegularImpl(FontAtlas* self, int32 width, int32 height);
+            private static extern int32 AddCustomRectRegularImpl(Self* self, int32 width, int32 height);
             public int32 AddCustomRectRegular(int32 width, int32 height) mut=> AddCustomRectRegularImpl(&this, width, height);
             
             [LinkName("ImFontAtlas_AddFont")]
-            private static extern Font* AddFontImpl(FontAtlas* self, FontConfig* font_cfg);
+            private static extern Font* AddFontImpl(Self* self, FontConfig* font_cfg);
             public Font* AddFont(FontConfig* font_cfg) mut=> AddFontImpl(&this, font_cfg);
             
             [LinkName("ImFontAtlas_AddFontDefault")]
-            private static extern Font* AddFontDefaultImpl(FontAtlas* self, FontConfig* font_cfg);
+            private static extern Font* AddFontDefaultImpl(Self* self, FontConfig* font_cfg);
             public Font* AddFontDefault(FontConfig* font_cfg = null) mut=> AddFontDefaultImpl(&this, font_cfg);
             
             [LinkName("ImFontAtlas_AddFontFromFileTTF")]
-            private static extern Font* AddFontFromFileTTFImpl(FontAtlas* self, char* filename, float size_pixels, FontConfig* font_cfg, Wchar* glyph_ranges);
+            private static extern Font* AddFontFromFileTTFImpl(Self* self, char* filename, float size_pixels, FontConfig* font_cfg, Wchar* glyph_ranges);
             public Font* AddFontFromFileTTF(char* filename, float size_pixels, FontConfig* font_cfg = null, Wchar* glyph_ranges = null) mut=> AddFontFromFileTTFImpl(&this, filename, size_pixels, font_cfg, glyph_ranges);
             
             [LinkName("ImFontAtlas_AddFontFromMemoryCompressedBase85TTF")]
-            private static extern Font* AddFontFromMemoryCompressedBase85TTFImpl(FontAtlas* self, char* compressed_font_data_base85, float size_pixels, FontConfig* font_cfg, Wchar* glyph_ranges);
+            private static extern Font* AddFontFromMemoryCompressedBase85TTFImpl(Self* self, char* compressed_font_data_base85, float size_pixels, FontConfig* font_cfg, Wchar* glyph_ranges);
             public Font* AddFontFromMemoryCompressedBase85TTF(char* compressed_font_data_base85, float size_pixels, FontConfig* font_cfg = null, Wchar* glyph_ranges = null) mut=> AddFontFromMemoryCompressedBase85TTFImpl(&this, compressed_font_data_base85, size_pixels, font_cfg, glyph_ranges);
             
             [LinkName("ImFontAtlas_AddFontFromMemoryCompressedTTF")]
-            private static extern Font* AddFontFromMemoryCompressedTTFImpl(FontAtlas* self, void* compressed_font_data, int32 compressed_font_size, float size_pixels, FontConfig* font_cfg, Wchar* glyph_ranges);
+            private static extern Font* AddFontFromMemoryCompressedTTFImpl(Self* self, void* compressed_font_data, int32 compressed_font_size, float size_pixels, FontConfig* font_cfg, Wchar* glyph_ranges);
             public Font* AddFontFromMemoryCompressedTTF(void* compressed_font_data, int32 compressed_font_size, float size_pixels, FontConfig* font_cfg = null, Wchar* glyph_ranges = null) mut=> AddFontFromMemoryCompressedTTFImpl(&this, compressed_font_data, compressed_font_size, size_pixels, font_cfg, glyph_ranges);
             
             [LinkName("ImFontAtlas_AddFontFromMemoryTTF")]
-            private static extern Font* AddFontFromMemoryTTFImpl(FontAtlas* self, void* font_data, int32 font_size, float size_pixels, FontConfig* font_cfg, Wchar* glyph_ranges);
+            private static extern Font* AddFontFromMemoryTTFImpl(Self* self, void* font_data, int32 font_size, float size_pixels, FontConfig* font_cfg, Wchar* glyph_ranges);
             public Font* AddFontFromMemoryTTF(void* font_data, int32 font_size, float size_pixels, FontConfig* font_cfg = null, Wchar* glyph_ranges = null) mut=> AddFontFromMemoryTTFImpl(&this, font_data, font_size, size_pixels, font_cfg, glyph_ranges);
             
             [LinkName("ImFontAtlas_Build")]
-            private static extern bool BuildImpl(FontAtlas* self);
+            private static extern bool BuildImpl(Self* self);
             public bool Build() mut=> BuildImpl(&this);
             
             [LinkName("ImFontAtlas_CalcCustomRectUV")]
-            private static extern void CalcCustomRectUVImpl(FontAtlas* self, FontAtlasCustomRect* rect, Vec2* out_uv_min, Vec2* out_uv_max);
+            private static extern void CalcCustomRectUVImpl(Self* self, FontAtlasCustomRect* rect, Vec2* out_uv_min, Vec2* out_uv_max);
             public void CalcCustomRectUV(FontAtlasCustomRect* rect, out Vec2 out_uv_min, out Vec2 out_uv_max) mut
             {
                 out_uv_min = ?;
@@ -2179,60 +2186,64 @@ namespace ImGui
             }
             
             [LinkName("ImFontAtlas_Clear")]
-            private static extern void ClearImpl(FontAtlas* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImFontAtlas_ClearFonts")]
-            private static extern void ClearFontsImpl(FontAtlas* self);
+            private static extern void ClearFontsImpl(Self* self);
             public void ClearFonts() mut=> ClearFontsImpl(&this);
             
             [LinkName("ImFontAtlas_ClearInputData")]
-            private static extern void ClearInputDataImpl(FontAtlas* self);
+            private static extern void ClearInputDataImpl(Self* self);
             public void ClearInputData() mut=> ClearInputDataImpl(&this);
             
             [LinkName("ImFontAtlas_ClearTexData")]
-            private static extern void ClearTexDataImpl(FontAtlas* self);
+            private static extern void ClearTexDataImpl(Self* self);
             public void ClearTexData() mut=> ClearTexDataImpl(&this);
             
             [LinkName("ImFontAtlas_GetCustomRectByIndex")]
-            private static extern FontAtlasCustomRect* GetCustomRectByIndexImpl(FontAtlas* self, int32 index);
+            private static extern FontAtlasCustomRect* GetCustomRectByIndexImpl(Self* self, int32 index);
             public FontAtlasCustomRect* GetCustomRectByIndex(int32 index) mut=> GetCustomRectByIndexImpl(&this, index);
             
             [LinkName("ImFontAtlas_GetGlyphRangesChineseFull")]
-            private static extern Wchar* GetGlyphRangesChineseFullImpl(FontAtlas* self);
+            private static extern Wchar* GetGlyphRangesChineseFullImpl(Self* self);
             public Wchar* GetGlyphRangesChineseFull() mut=> GetGlyphRangesChineseFullImpl(&this);
             
             [LinkName("ImFontAtlas_GetGlyphRangesChineseSimplifiedCommon")]
-            private static extern Wchar* GetGlyphRangesChineseSimplifiedCommonImpl(FontAtlas* self);
+            private static extern Wchar* GetGlyphRangesChineseSimplifiedCommonImpl(Self* self);
             public Wchar* GetGlyphRangesChineseSimplifiedCommon() mut=> GetGlyphRangesChineseSimplifiedCommonImpl(&this);
             
             [LinkName("ImFontAtlas_GetGlyphRangesCyrillic")]
-            private static extern Wchar* GetGlyphRangesCyrillicImpl(FontAtlas* self);
+            private static extern Wchar* GetGlyphRangesCyrillicImpl(Self* self);
             public Wchar* GetGlyphRangesCyrillic() mut=> GetGlyphRangesCyrillicImpl(&this);
             
             [LinkName("ImFontAtlas_GetGlyphRangesDefault")]
-            private static extern Wchar* GetGlyphRangesDefaultImpl(FontAtlas* self);
+            private static extern Wchar* GetGlyphRangesDefaultImpl(Self* self);
             public Wchar* GetGlyphRangesDefault() mut=> GetGlyphRangesDefaultImpl(&this);
             
+            [LinkName("ImFontAtlas_GetGlyphRangesGreek")]
+            private static extern Wchar* GetGlyphRangesGreekImpl(Self* self);
+            public Wchar* GetGlyphRangesGreek() mut=> GetGlyphRangesGreekImpl(&this);
+            
             [LinkName("ImFontAtlas_GetGlyphRangesJapanese")]
-            private static extern Wchar* GetGlyphRangesJapaneseImpl(FontAtlas* self);
+            private static extern Wchar* GetGlyphRangesJapaneseImpl(Self* self);
             public Wchar* GetGlyphRangesJapanese() mut=> GetGlyphRangesJapaneseImpl(&this);
             
             [LinkName("ImFontAtlas_GetGlyphRangesKorean")]
-            private static extern Wchar* GetGlyphRangesKoreanImpl(FontAtlas* self);
+            private static extern Wchar* GetGlyphRangesKoreanImpl(Self* self);
             public Wchar* GetGlyphRangesKorean() mut=> GetGlyphRangesKoreanImpl(&this);
             
             [LinkName("ImFontAtlas_GetGlyphRangesThai")]
-            private static extern Wchar* GetGlyphRangesThaiImpl(FontAtlas* self);
+            private static extern Wchar* GetGlyphRangesThaiImpl(Self* self);
             public Wchar* GetGlyphRangesThai() mut=> GetGlyphRangesThaiImpl(&this);
             
             [LinkName("ImFontAtlas_GetGlyphRangesVietnamese")]
-            private static extern Wchar* GetGlyphRangesVietnameseImpl(FontAtlas* self);
+            private static extern Wchar* GetGlyphRangesVietnameseImpl(Self* self);
             public Wchar* GetGlyphRangesVietnamese() mut=> GetGlyphRangesVietnameseImpl(&this);
             
             [LinkName("ImFontAtlas_GetMouseCursorTexData")]
-            private static extern bool GetMouseCursorTexDataImpl(FontAtlas* self, MouseCursor cursor, Vec2* out_offset, Vec2* out_size, Vec2[2] out_uv_border, Vec2[2] out_uv_fill);
-            public bool GetMouseCursorTexData(MouseCursor cursor, out Vec2 out_offset, out Vec2 out_size, Vec2[2] out_uv_border, Vec2[2] out_uv_fill) mut
+            private static extern bool GetMouseCursorTexDataImpl(Self* self, MouseCursor cursor, Vec2* out_offset, Vec2* out_size, Vec2[2] out_uv_border, Vec2[2] out_uv_fill);
+            public bool GetMouseCursorTexData(MouseCursor cursor, out Vec2 out_offset, out Vec2 out_size, ref Vec2[2] out_uv_border, ref Vec2[2] out_uv_fill) mut
             {
                 out_offset = ?;
                 out_size = ?;
@@ -2240,7 +2251,7 @@ namespace ImGui
             }
             
             [LinkName("ImFontAtlas_GetTexDataAsAlpha8")]
-            private static extern void GetTexDataAsAlpha8Impl(FontAtlas* self, uchar** out_pixels, int32* out_width, int32* out_height, int32* out_bytes_per_pixel);
+            private static extern void GetTexDataAsAlpha8Impl(Self* self, uchar** out_pixels, int32* out_width, int32* out_height, int32* out_bytes_per_pixel);
             public void GetTexDataAsAlpha8(out uchar* out_pixels, out int32 out_width, out int32 out_height, int32* out_bytes_per_pixel = null) mut
             {
                 out_pixels = ?;
@@ -2250,7 +2261,7 @@ namespace ImGui
             }
             
             [LinkName("ImFontAtlas_GetTexDataAsRGBA32")]
-            private static extern void GetTexDataAsRGBA32Impl(FontAtlas* self, uchar** out_pixels, int32* out_width, int32* out_height, int32* out_bytes_per_pixel);
+            private static extern void GetTexDataAsRGBA32Impl(Self* self, uchar** out_pixels, int32* out_width, int32* out_height, int32* out_bytes_per_pixel);
             public void GetTexDataAsRGBA32(out uchar* out_pixels, out int32 out_width, out int32 out_height, int32* out_bytes_per_pixel = null) mut
             {
                 out_pixels = ?;
@@ -2260,11 +2271,11 @@ namespace ImGui
             }
             
             [LinkName("ImFontAtlas_IsBuilt")]
-            private static extern bool IsBuiltImpl(FontAtlas* self);
+            private static extern bool IsBuiltImpl(Self* self);
             public bool IsBuilt() mut=> IsBuiltImpl(&this);
             
             [LinkName("ImFontAtlas_SetTexID")]
-            private static extern void SetTexIDImpl(FontAtlas* self, TextureID id);
+            private static extern void SetTexIDImpl(Self* self, TextureID id);
             public void SetTexID(TextureID id) mut=> SetTexIDImpl(&this, id);
             
         }
@@ -2288,11 +2299,8 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImFontAtlasCustomRect_destroy")]
-            private static extern void DestroyImpl(FontAtlasCustomRect* ptr);
-            
             [LinkName("ImFontAtlasCustomRect_IsPacked")]
-            private static extern bool IsPackedImpl(FontAtlasCustomRect* self);
+            private static extern bool IsPackedImpl(Self* self);
             public bool IsPacked() mut=> IsPackedImpl(&this);
             
         }
@@ -2334,9 +2342,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImFontConfig_destroy")]
-            private static extern void DestroyImpl(FontConfig* ptr);
-            
         }
         
         [CRepr]
@@ -2369,35 +2374,32 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImFontGlyphRangesBuilder_destroy")]
-            private static extern void DestroyImpl(FontGlyphRangesBuilder* ptr);
-            
             [LinkName("ImFontGlyphRangesBuilder_AddChar")]
-            private static extern void AddCharImpl(FontGlyphRangesBuilder* self, Wchar c);
+            private static extern void AddCharImpl(Self* self, Wchar c);
             public void AddChar(Wchar c) mut=> AddCharImpl(&this, c);
             
             [LinkName("ImFontGlyphRangesBuilder_AddRanges")]
-            private static extern void AddRangesImpl(FontGlyphRangesBuilder* self, Wchar* ranges);
+            private static extern void AddRangesImpl(Self* self, Wchar* ranges);
             public void AddRanges(Wchar* ranges) mut=> AddRangesImpl(&this, ranges);
             
             [LinkName("ImFontGlyphRangesBuilder_AddText")]
-            private static extern void AddTextImpl(FontGlyphRangesBuilder* self, char* text, char* text_end);
+            private static extern void AddTextImpl(Self* self, char* text, char* text_end);
             public void AddText(char* text, char* text_end = null) mut=> AddTextImpl(&this, text, text_end);
             
             [LinkName("ImFontGlyphRangesBuilder_BuildRanges")]
-            private static extern void BuildRangesImpl(FontGlyphRangesBuilder* self, Vector<Wchar>* out_ranges);
-            public void BuildRanges(Vector<Wchar>* out_ranges) mut=> BuildRangesImpl(&this, out_ranges);
+            private static extern void BuildRangesImpl(Self* self, Vector<Wchar*> out_ranges);
+            public void BuildRanges(Vector<Wchar*> out_ranges) mut=> BuildRangesImpl(&this, out_ranges);
             
             [LinkName("ImFontGlyphRangesBuilder_Clear")]
-            private static extern void ClearImpl(FontGlyphRangesBuilder* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImFontGlyphRangesBuilder_GetBit")]
-            private static extern bool GetBitImpl(FontGlyphRangesBuilder* self, size n);
+            private static extern bool GetBitImpl(Self* self, size n);
             public bool GetBit(size n) mut=> GetBitImpl(&this, n);
             
             [LinkName("ImFontGlyphRangesBuilder_SetBit")]
-            private static extern void SetBitImpl(FontGlyphRangesBuilder* self, size n);
+            private static extern void SetBitImpl(Self* self, size n);
             public void SetBit(size n) mut=> SetBitImpl(&this, n);
             
         }
@@ -2427,9 +2429,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiComboPreviewData_destroy")]
-            private static extern void DestroyImpl(ComboPreviewData* ptr);
-            
         }
         
         [CRepr]
@@ -2439,8 +2438,6 @@ namespace ImGui
             public bool FontAtlasOwnedByContext;
             public IO IO;
             public PlatformIO PlatformIO;
-            public Vector<InputEvent> InputEventsQueue;
-            public Vector<InputEvent> InputEventsTrail;
             public Style Style;
             public ConfigFlags ConfigFlagsCurrFrame;
             public ConfigFlags ConfigFlagsLastFrame;
@@ -2459,6 +2456,10 @@ namespace ImGui
             public bool GcCompactAll;
             public bool TestEngineHookItems;
             public void* TestEngine;
+            public Vector<InputEvent> InputEventsQueue;
+            public Vector<InputEvent> InputEventsTrail;
+            public MouseSource InputEventsNextMouseSource;
+            public U32 InputEventsNextEventId;
             public Vector<Window*> Windows;
             public Vector<Window*> WindowsFocusOrder;
             public Vector<Window*> WindowsTempSortBuffer;
@@ -2469,17 +2470,17 @@ namespace ImGui
             public Window* CurrentWindow;
             public Window* HoveredWindow;
             public Window* HoveredWindowUnderMovingWindow;
-            public DockNode* HoveredDockNode;
             public Window* MovingWindow;
             public Window* WheelingWindow;
             public Vec2 WheelingWindowRefMousePos;
-            public float WheelingWindowTimer;
+            public int32 WheelingWindowStartFrame;
+            public float WheelingWindowReleaseTimer;
+            public Vec2 WheelingWindowWheelRemainder;
+            public Vec2 WheelingAxisAvg;
             public ID DebugHookIdInfo;
             public ID HoveredId;
             public ID HoveredIdPreviousFrame;
             public bool HoveredIdAllowOverlap;
-            public bool HoveredIdUsingMouseWheel;
-            public bool HoveredIdPreviousFrameUsingMouseWheel;
             public bool HoveredIdDisabled;
             public float HoveredIdTimer;
             public float HoveredIdNotActiveTimer;
@@ -2502,11 +2503,14 @@ namespace ImGui
             public Window* ActiveIdPreviousFrameWindow;
             public ID LastActiveId;
             public float LastActiveIdTimer;
-            public bool ActiveIdUsingMouseWheel;
+            public KeyOwnerData[140] KeysOwnerData;
+            public KeyRoutingTable KeysRoutingTable;
             public U32 ActiveIdUsingNavDirMask;
+            public bool ActiveIdUsingAllKeyboardKeys;
             public U32 ActiveIdUsingNavInputMask;
-            public BitArrayForNamedKeys ActiveIdUsingKeyInputMask;
+            public ID CurrentFocusScopeId;
             public ItemFlags CurrentItemFlags;
+            public ID DebugLocateId;
             public NextItemData NextItemData;
             public LastItemData LastItemData;
             public NextWindowData NextWindowData;
@@ -2526,18 +2530,17 @@ namespace ImGui
             public ViewportP* MouseLastHoveredViewport;
             public ID PlatformLastFocusedViewportId;
             public PlatformMonitor FallbackMonitor;
-            public int32 ViewportFrontMostStampCount;
+            public int32 ViewportFocusedStampCount;
             public Window* NavWindow;
             public ID NavId;
             public ID NavFocusScopeId;
             public ID NavActivateId;
             public ID NavActivateDownId;
             public ID NavActivatePressedId;
-            public ID NavActivateInputId;
             public ActivateFlags NavActivateFlags;
             public ID NavJustMovedToId;
             public ID NavJustMovedToFocusScopeId;
-            public ModFlags NavJustMovedToKeyMods;
+            public KeyChord NavJustMovedToKeyMods;
             public ID NavNextActivateId;
             public ActivateFlags NavNextActivateFlags;
             public InputSource NavInputSource;
@@ -2556,7 +2559,7 @@ namespace ImGui
             public bool NavMoveForwardToNextFrame;
             public NavMoveFlags NavMoveFlags;
             public ScrollFlags NavMoveScrollFlags;
-            public ModFlags NavMoveKeyMods;
+            public KeyChord NavMoveKeyMods;
             public Dir NavMoveDir;
             public Dir NavMoveDirForDebug;
             public Dir NavMoveClipDir;
@@ -2569,12 +2572,16 @@ namespace ImGui
             public NavItemData NavMoveResultLocalVisible;
             public NavItemData NavMoveResultOther;
             public NavItemData NavTabbingResultFirst;
+            public KeyChord ConfigNavWindowingKeyNext;
+            public KeyChord ConfigNavWindowingKeyPrev;
             public Window* NavWindowingTarget;
             public Window* NavWindowingTargetAnim;
             public Window* NavWindowingListWindow;
             public float NavWindowingTimer;
             public float NavWindowingHighlightAlpha;
             public bool NavWindowingToggleLayer;
+            public Vec2 NavWindowingAccumDeltaPos;
+            public Vec2 NavWindowingAccumDeltaSize;
             public float DimBgRatio;
             public MouseCursor MouseCursor;
             public bool DragDropActive;
@@ -2606,14 +2613,21 @@ namespace ImGui
             public Pool<TabBar> TabBars;
             public Vector<PtrOrIndex> CurrentTabBarStack;
             public Vector<ShrinkWidthItem> ShrinkWidthBuffer;
+            public ID HoverDelayId;
+            public ID HoverDelayIdPreviousFrame;
+            public float HoverDelayTimer;
+            public float HoverDelayClearTimer;
             public Vec2 MouseLastValidPos;
             public InputTextState InputTextState;
+            public InputTextDeactivatedState InputTextDeactivatedState;
             public Font InputTextPasswordFont;
             public ID TempInputId;
             public ColorEditFlags ColorEditOptions;
-            public float ColorEditLastHue;
-            public float ColorEditLastSat;
-            public U32 ColorEditLastColor;
+            public ID ColorEditCurrentID;
+            public ID ColorEditSavedID;
+            public float ColorEditSavedHue;
+            public float ColorEditSavedSat;
+            public U32 ColorEditSavedColor;
             public Vec4 ColorPickerRef;
             public ComboPreviewData ComboPreviewData;
             public float SliderGrabClickOffset;
@@ -2626,7 +2640,6 @@ namespace ImGui
             public float DisabledAlphaBackup;
             public short DisabledStackSize;
             public short TooltipOverrideCount;
-            public float TooltipSlowDelay;
             public Vector<char> ClipboardHandlerData;
             public Vector<ID> MenusIdSubmittedThisFrame;
             public PlatformImeData PlatformImeData;
@@ -2634,6 +2647,7 @@ namespace ImGui
             public ID PlatformImeViewport;
             public char PlatformLocaleDecimalPoint;
             public DockContext DockContext;
+            public function void(Context* ctx, DockNode* node, TabBar* tab_bar) DockNodeWindowMenuHandler;
             public bool SettingsLoaded;
             public float SettingsDirtyTimer;
             public TextBuffer SettingsIniData;
@@ -2642,6 +2656,7 @@ namespace ImGui
             public ChunkStream<TableSettings> SettingsTables;
             public Vector<ContextHook> Hooks;
             public ID HookIdNext;
+            public char*[8] LocalizationTable;
             public bool LogEnabled;
             public LogType LogType;
             public FileHandle LogFile;
@@ -2655,11 +2670,17 @@ namespace ImGui
             public int32 LogDepthToExpandDefault;
             public DebugLogFlags DebugLogFlags;
             public TextBuffer DebugLogBuf;
+            public TextIndex DebugLogIndex;
+            public U8 DebugLogClipperAutoDisableFrames;
+            public U8 DebugLocateFrames;
+            public S8 DebugBeginReturnValueCullDepth;
             public bool DebugItemPickerActive;
+            public U8 DebugItemPickerMouseButton;
             public ID DebugItemPickerBreakId;
             public MetricsConfig DebugMetricsConfig;
             public StackTool DebugStackTool;
-            public float[120] FramerateSecPerFrame;
+            public DockNode* DebugHoveredDockNode;
+            public float[60] FramerateSecPerFrame;
             public int32 FramerateSecPerFrameIdx;
             public int32 FramerateSecPerFrameCount;
             public float FramerateSecPerFrameAccum;
@@ -2674,9 +2695,6 @@ namespace ImGui
             {
                 this = *CtorImpl(shared_font_atlas);
             }
-            
-            [LinkName("ImGuiContext_destroy")]
-            private static extern void DestroyImpl(Context* ptr);
             
         }
         
@@ -2695,9 +2713,6 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
-            
-            [LinkName("ImGuiContextHook_destroy")]
-            private static extern void DestroyImpl(ContextHook* ptr);
             
         }
         
@@ -2719,6 +2734,19 @@ namespace ImGui
         }
         
         [CRepr]
+        public struct DataVarInfo
+        {
+            public DataType Type;
+            public U32 Count;
+            public U32 Offset;
+        
+            [LinkName("ImGuiDataVarInfo_GetVarPtr")]
+            private static extern void* GetVarPtrImpl(Self* self, void* parent);
+            public void* GetVarPtr(void* parent) mut=> GetVarPtrImpl(&this, parent);
+            
+        }
+        
+        [CRepr]
         public struct DockContext
         {
             public Storage Nodes;
@@ -2732,9 +2760,6 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
-            
-            [LinkName("ImGuiDockContext_destroy")]
-            private static extern void DestroyImpl(DockContext* ptr);
             
         }
         
@@ -2790,47 +2815,44 @@ namespace ImGui
                 this = *CtorImpl(id);
             }
             
-            [LinkName("ImGuiDockNode_destroy")]
-            private static extern void DestroyImpl(DockNode* ptr);
-            
             [LinkName("ImGuiDockNode_IsCentralNode")]
-            private static extern bool IsCentralNodeImpl(DockNode* self);
+            private static extern bool IsCentralNodeImpl(Self* self);
             public bool IsCentralNode() mut=> IsCentralNodeImpl(&this);
             
             [LinkName("ImGuiDockNode_IsDockSpace")]
-            private static extern bool IsDockSpaceImpl(DockNode* self);
+            private static extern bool IsDockSpaceImpl(Self* self);
             public bool IsDockSpace() mut=> IsDockSpaceImpl(&this);
             
             [LinkName("ImGuiDockNode_IsEmpty")]
-            private static extern bool IsEmptyImpl(DockNode* self);
+            private static extern bool IsEmptyImpl(Self* self);
             public bool IsEmpty() mut=> IsEmptyImpl(&this);
             
             [LinkName("ImGuiDockNode_IsFloatingNode")]
-            private static extern bool IsFloatingNodeImpl(DockNode* self);
+            private static extern bool IsFloatingNodeImpl(Self* self);
             public bool IsFloatingNode() mut=> IsFloatingNodeImpl(&this);
             
             [LinkName("ImGuiDockNode_IsHiddenTabBar")]
-            private static extern bool IsHiddenTabBarImpl(DockNode* self);
+            private static extern bool IsHiddenTabBarImpl(Self* self);
             public bool IsHiddenTabBar() mut=> IsHiddenTabBarImpl(&this);
             
             [LinkName("ImGuiDockNode_IsLeafNode")]
-            private static extern bool IsLeafNodeImpl(DockNode* self);
+            private static extern bool IsLeafNodeImpl(Self* self);
             public bool IsLeafNode() mut=> IsLeafNodeImpl(&this);
             
             [LinkName("ImGuiDockNode_IsNoTabBar")]
-            private static extern bool IsNoTabBarImpl(DockNode* self);
+            private static extern bool IsNoTabBarImpl(Self* self);
             public bool IsNoTabBar() mut=> IsNoTabBarImpl(&this);
             
             [LinkName("ImGuiDockNode_IsRootNode")]
-            private static extern bool IsRootNodeImpl(DockNode* self);
+            private static extern bool IsRootNodeImpl(Self* self);
             public bool IsRootNode() mut=> IsRootNodeImpl(&this);
             
             [LinkName("ImGuiDockNode_IsSplitNode")]
-            private static extern bool IsSplitNodeImpl(DockNode* self);
+            private static extern bool IsSplitNodeImpl(Self* self);
             public bool IsSplitNode() mut=> IsSplitNodeImpl(&this);
             
             [LinkName("ImGuiDockNode_Rect")]
-            private static extern Rect RectImpl(Rect* pOut, DockNode* self);
+            private static extern Rect RectImpl(Rect* pOut, Self* self);
             public Rect Rect() mut
             {
                 Rect pOut = default;
@@ -2839,11 +2861,11 @@ namespace ImGui
             }
             
             [LinkName("ImGuiDockNode_SetLocalFlags")]
-            private static extern void SetLocalFlagsImpl(DockNode* self, DockNodeFlags flags);
+            private static extern void SetLocalFlagsImpl(Self* self, DockNodeFlags flags);
             public void SetLocalFlags(DockNodeFlags flags) mut=> SetLocalFlagsImpl(&this, flags);
             
             [LinkName("ImGuiDockNode_UpdateMergedFlags")]
-            private static extern void UpdateMergedFlagsImpl(DockNode* self);
+            private static extern void UpdateMergedFlagsImpl(Self* self);
             public void UpdateMergedFlags() mut=> UpdateMergedFlagsImpl(&this);
             
         }
@@ -2880,6 +2902,8 @@ namespace ImGui
             public float MouseDragThreshold;
             public float KeyRepeatDelay;
             public float KeyRepeatRate;
+            public float HoverDelayNormal;
+            public float HoverDelayShort;
             public void* UserData;
             public FontAtlas* Fonts;
             public float FontGlobalScale;
@@ -2898,10 +2922,13 @@ namespace ImGui
             public bool ConfigMacOSXBehaviors;
             public bool ConfigInputTrickleEventQueue;
             public bool ConfigInputTextCursorBlink;
+            public bool ConfigInputTextEnterKeepActive;
             public bool ConfigDragClickToInputText;
             public bool ConfigWindowsResizeFromEdges;
             public bool ConfigWindowsMoveFromTitleBarOnly;
             public float ConfigMemoryCompactTimer;
+            public bool ConfigDebugBeginReturnValueOnce;
+            public bool ConfigDebugBeginReturnValueLoop;
             public char* BackendPlatformName;
             public char* BackendRendererName;
             public void* BackendPlatformUserData;
@@ -2926,20 +2953,22 @@ namespace ImGui
             public int32 MetricsActiveWindows;
             public int32 MetricsActiveAllocations;
             public Vec2 MouseDelta;
-            public int32[645] KeyMap;
-            public bool[645] KeysDown;
+            public int32[652] KeyMap;
+            public bool[652] KeysDown;
+            public float[16] NavInputs;
+            public Context* Ctx;
             public Vec2 MousePos;
             public bool[5] MouseDown;
             public float MouseWheel;
             public float MouseWheelH;
+            public MouseSource MouseSource;
             public ID MouseHoveredViewport;
             public bool KeyCtrl;
             public bool KeyShift;
             public bool KeyAlt;
             public bool KeySuper;
-            public float[20] NavInputs;
-            public ModFlags KeyMods;
-            public KeyData[645] KeysData;
+            public KeyChord KeyMods;
+            public KeyData[652] KeysData;
             public bool WantCaptureMouseUnlessPopupClose;
             public Vec2 MousePosPrev;
             public Vec2[5] MouseClickedPos;
@@ -2951,12 +2980,11 @@ namespace ImGui
             public bool[5] MouseReleased;
             public bool[5] MouseDownOwned;
             public bool[5] MouseDownOwnedUnlessPopupClose;
+            public bool MouseWheelRequestAxisSwap;
             public float[5] MouseDownDuration;
             public float[5] MouseDownDurationPrev;
             public Vec2[5] MouseDragMaxDistanceAbs;
             public float[5] MouseDragMaxDistanceSqr;
-            public float[20] NavInputsDownDuration;
-            public float[20] NavInputsDownDurationPrev;
             public float PenPressure;
             public bool AppFocusLost;
             public bool AppAcceptingEvents;
@@ -2972,63 +3000,64 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiIO_destroy")]
-            private static extern void DestroyImpl(IO* ptr);
-            
             [LinkName("ImGuiIO_AddFocusEvent")]
-            private static extern void AddFocusEventImpl(IO* self, bool focused);
+            private static extern void AddFocusEventImpl(Self* self, bool focused);
             public void AddFocusEvent(bool focused) mut=> AddFocusEventImpl(&this, focused);
             
             [LinkName("ImGuiIO_AddInputCharacter")]
-            private static extern void AddInputCharacterImpl(IO* self, uint32 c);
+            private static extern void AddInputCharacterImpl(Self* self, uint32 c);
             public void AddInputCharacter(uint32 c) mut=> AddInputCharacterImpl(&this, c);
             
             [LinkName("ImGuiIO_AddInputCharacterUTF16")]
-            private static extern void AddInputCharacterUTF16Impl(IO* self, Wchar16 c);
+            private static extern void AddInputCharacterUTF16Impl(Self* self, Wchar16 c);
             public void AddInputCharacterUTF16(Wchar16 c) mut=> AddInputCharacterUTF16Impl(&this, c);
             
             [LinkName("ImGuiIO_AddInputCharactersUTF8")]
-            private static extern void AddInputCharactersUTF8Impl(IO* self, char* str);
+            private static extern void AddInputCharactersUTF8Impl(Self* self, char* str);
             public void AddInputCharactersUTF8(char* str) mut=> AddInputCharactersUTF8Impl(&this, str);
             
             [LinkName("ImGuiIO_AddKeyAnalogEvent")]
-            private static extern void AddKeyAnalogEventImpl(IO* self, Key key, bool down, float v);
+            private static extern void AddKeyAnalogEventImpl(Self* self, Key key, bool down, float v);
             public void AddKeyAnalogEvent(Key key, bool down, float v) mut=> AddKeyAnalogEventImpl(&this, key, down, v);
             
             [LinkName("ImGuiIO_AddKeyEvent")]
-            private static extern void AddKeyEventImpl(IO* self, Key key, bool down);
+            private static extern void AddKeyEventImpl(Self* self, Key key, bool down);
             public void AddKeyEvent(Key key, bool down) mut=> AddKeyEventImpl(&this, key, down);
             
             [LinkName("ImGuiIO_AddMouseButtonEvent")]
-            private static extern void AddMouseButtonEventImpl(IO* self, int32 button, bool down);
+            private static extern void AddMouseButtonEventImpl(Self* self, int32 button, bool down);
             public void AddMouseButtonEvent(int32 button, bool down) mut=> AddMouseButtonEventImpl(&this, button, down);
             
             [LinkName("ImGuiIO_AddMousePosEvent")]
-            private static extern void AddMousePosEventImpl(IO* self, float x, float y);
+            private static extern void AddMousePosEventImpl(Self* self, float x, float y);
             public void AddMousePosEvent(float x, float y) mut=> AddMousePosEventImpl(&this, x, y);
             
+            [LinkName("ImGuiIO_AddMouseSourceEvent")]
+            private static extern void AddMouseSourceEventImpl(Self* self, MouseSource source);
+            public void AddMouseSourceEvent(MouseSource source) mut=> AddMouseSourceEventImpl(&this, source);
+            
             [LinkName("ImGuiIO_AddMouseViewportEvent")]
-            private static extern void AddMouseViewportEventImpl(IO* self, ID id);
+            private static extern void AddMouseViewportEventImpl(Self* self, ID id);
             public void AddMouseViewportEvent(ID id) mut=> AddMouseViewportEventImpl(&this, id);
             
             [LinkName("ImGuiIO_AddMouseWheelEvent")]
-            private static extern void AddMouseWheelEventImpl(IO* self, float wh_x, float wh_y);
-            public void AddMouseWheelEvent(float wh_x, float wh_y) mut=> AddMouseWheelEventImpl(&this, wh_x, wh_y);
+            private static extern void AddMouseWheelEventImpl(Self* self, float wheel_x, float wheel_y);
+            public void AddMouseWheelEvent(float wheel_x, float wheel_y) mut=> AddMouseWheelEventImpl(&this, wheel_x, wheel_y);
             
             [LinkName("ImGuiIO_ClearInputCharacters")]
-            private static extern void ClearInputCharactersImpl(IO* self);
+            private static extern void ClearInputCharactersImpl(Self* self);
             public void ClearInputCharacters() mut=> ClearInputCharactersImpl(&this);
             
             [LinkName("ImGuiIO_ClearInputKeys")]
-            private static extern void ClearInputKeysImpl(IO* self);
+            private static extern void ClearInputKeysImpl(Self* self);
             public void ClearInputKeys() mut=> ClearInputKeysImpl(&this);
             
             [LinkName("ImGuiIO_SetAppAcceptingEvents")]
-            private static extern void SetAppAcceptingEventsImpl(IO* self, bool accepting_events);
+            private static extern void SetAppAcceptingEventsImpl(Self* self, bool accepting_events);
             public void SetAppAcceptingEvents(bool accepting_events) mut=> SetAppAcceptingEventsImpl(&this, accepting_events);
             
             [LinkName("ImGuiIO_SetKeyEventNativeData")]
-            private static extern void SetKeyEventNativeDataImpl(IO* self, Key key, int32 native_keycode, int32 native_scancode, int32 native_legacy_index);
+            private static extern void SetKeyEventNativeDataImpl(Self* self, Key key, int32 native_keycode, int32 native_scancode, int32 native_legacy_index);
             public void SetKeyEventNativeData(Key key, int32 native_keycode, int32 native_scancode, int32 native_legacy_index = -1) mut=> SetKeyEventNativeDataImpl(&this, key, native_keycode, native_scancode, native_legacy_index);
             
         }
@@ -3038,6 +3067,7 @@ namespace ImGui
         {
             public InputEventType Type;
             public InputSource Source;
+            public U32 EventId;
             private InputEventUnion0 Union0 = .();
             public InputEventMousePos MousePos { get { return Union0.MousePos; } set mut { Union0.MousePos = value; } };
             public InputEventMouseWheel MouseWheel { get { return Union0.MouseWheel; } set mut { Union0.MouseWheel = value; } };
@@ -3054,10 +3084,6 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
-            
-            [LinkName("ImGuiInputEvent_destroy")]
-            private static extern void DestroyImpl(InputEvent* ptr);
-            
             [CRepr, Union]
             public struct InputEventUnion0
             {
@@ -3093,6 +3119,7 @@ namespace ImGui
         {
             public int32 Button;
             public bool Down;
+            public MouseSource MouseSource;
         
         }
         
@@ -3101,6 +3128,7 @@ namespace ImGui
         {
             public float PosX;
             public float PosY;
+            public MouseSource MouseSource;
         
         }
         
@@ -3116,6 +3144,7 @@ namespace ImGui
         {
             public float WheelX;
             public float WheelY;
+            public MouseSource MouseSource;
         
         }
         
@@ -3129,6 +3158,7 @@ namespace ImGui
         [CRepr]
         public struct InputTextCallbackData
         {
+            public Context* Ctx;
             public InputTextFlags EventFlag;
             public InputTextFlags Flags;
             public void* UserData;
@@ -3149,34 +3179,51 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiInputTextCallbackData_destroy")]
-            private static extern void DestroyImpl(InputTextCallbackData* ptr);
-            
             [LinkName("ImGuiInputTextCallbackData_ClearSelection")]
-            private static extern void ClearSelectionImpl(InputTextCallbackData* self);
+            private static extern void ClearSelectionImpl(Self* self);
             public void ClearSelection() mut=> ClearSelectionImpl(&this);
             
             [LinkName("ImGuiInputTextCallbackData_DeleteChars")]
-            private static extern void DeleteCharsImpl(InputTextCallbackData* self, int32 pos, int32 bytes_count);
+            private static extern void DeleteCharsImpl(Self* self, int32 pos, int32 bytes_count);
             public void DeleteChars(int32 pos, int32 bytes_count) mut=> DeleteCharsImpl(&this, pos, bytes_count);
             
             [LinkName("ImGuiInputTextCallbackData_HasSelection")]
-            private static extern bool HasSelectionImpl(InputTextCallbackData* self);
+            private static extern bool HasSelectionImpl(Self* self);
             public bool HasSelection() mut=> HasSelectionImpl(&this);
             
             [LinkName("ImGuiInputTextCallbackData_InsertChars")]
-            private static extern void InsertCharsImpl(InputTextCallbackData* self, int32 pos, char* text, char* text_end);
+            private static extern void InsertCharsImpl(Self* self, int32 pos, char* text, char* text_end);
             public void InsertChars(int32 pos, char* text, char* text_end = null) mut=> InsertCharsImpl(&this, pos, text, text_end);
             
             [LinkName("ImGuiInputTextCallbackData_SelectAll")]
-            private static extern void SelectAllImpl(InputTextCallbackData* self);
+            private static extern void SelectAllImpl(Self* self);
             public void SelectAll() mut=> SelectAllImpl(&this);
+            
+        }
+        
+        [CRepr]
+        public struct InputTextDeactivatedState
+        {
+            public ID ID;
+            public Vector<char> TextA;
+        
+            [LinkName("ImGuiInputTextDeactivatedState_ImGuiInputTextDeactivatedState")]
+            private static extern InputTextDeactivatedState* CtorImpl();
+            public this()
+            {
+                this = *CtorImpl();
+            }
+            
+            [LinkName("ImGuiInputTextDeactivatedState_ClearFreeMemory")]
+            private static extern void ClearFreeMemoryImpl(Self* self);
+            public void ClearFreeMemory() mut=> ClearFreeMemoryImpl(&this);
             
         }
         
         [CRepr]
         public struct InputTextState
         {
+            public Context* Ctx;
             public ID ID;
             public int32 CurLenW;
             public int32 CurLenA;
@@ -3200,59 +3247,56 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiInputTextState_destroy")]
-            private static extern void DestroyImpl(InputTextState* ptr);
-            
             [LinkName("ImGuiInputTextState_ClearFreeMemory")]
-            private static extern void ClearFreeMemoryImpl(InputTextState* self);
+            private static extern void ClearFreeMemoryImpl(Self* self);
             public void ClearFreeMemory() mut=> ClearFreeMemoryImpl(&this);
             
             [LinkName("ImGuiInputTextState_ClearSelection")]
-            private static extern void ClearSelectionImpl(InputTextState* self);
+            private static extern void ClearSelectionImpl(Self* self);
             public void ClearSelection() mut=> ClearSelectionImpl(&this);
             
             [LinkName("ImGuiInputTextState_ClearText")]
-            private static extern void ClearTextImpl(InputTextState* self);
+            private static extern void ClearTextImpl(Self* self);
             public void ClearText() mut=> ClearTextImpl(&this);
             
             [LinkName("ImGuiInputTextState_CursorAnimReset")]
-            private static extern void CursorAnimResetImpl(InputTextState* self);
+            private static extern void CursorAnimResetImpl(Self* self);
             public void CursorAnimReset() mut=> CursorAnimResetImpl(&this);
             
             [LinkName("ImGuiInputTextState_CursorClamp")]
-            private static extern void CursorClampImpl(InputTextState* self);
+            private static extern void CursorClampImpl(Self* self);
             public void CursorClamp() mut=> CursorClampImpl(&this);
             
             [LinkName("ImGuiInputTextState_GetCursorPos")]
-            private static extern int32 GetCursorPosImpl(InputTextState* self);
+            private static extern int32 GetCursorPosImpl(Self* self);
             public int32 GetCursorPos() mut=> GetCursorPosImpl(&this);
             
             [LinkName("ImGuiInputTextState_GetRedoAvailCount")]
-            private static extern int32 GetRedoAvailCountImpl(InputTextState* self);
+            private static extern int32 GetRedoAvailCountImpl(Self* self);
             public int32 GetRedoAvailCount() mut=> GetRedoAvailCountImpl(&this);
             
             [LinkName("ImGuiInputTextState_GetSelectionEnd")]
-            private static extern int32 GetSelectionEndImpl(InputTextState* self);
+            private static extern int32 GetSelectionEndImpl(Self* self);
             public int32 GetSelectionEnd() mut=> GetSelectionEndImpl(&this);
             
             [LinkName("ImGuiInputTextState_GetSelectionStart")]
-            private static extern int32 GetSelectionStartImpl(InputTextState* self);
+            private static extern int32 GetSelectionStartImpl(Self* self);
             public int32 GetSelectionStart() mut=> GetSelectionStartImpl(&this);
             
             [LinkName("ImGuiInputTextState_GetUndoAvailCount")]
-            private static extern int32 GetUndoAvailCountImpl(InputTextState* self);
+            private static extern int32 GetUndoAvailCountImpl(Self* self);
             public int32 GetUndoAvailCount() mut=> GetUndoAvailCountImpl(&this);
             
             [LinkName("ImGuiInputTextState_HasSelection")]
-            private static extern bool HasSelectionImpl(InputTextState* self);
+            private static extern bool HasSelectionImpl(Self* self);
             public bool HasSelection() mut=> HasSelectionImpl(&this);
             
             [LinkName("ImGuiInputTextState_OnKeyPressed")]
-            private static extern void OnKeyPressedImpl(InputTextState* self, int32 key);
+            private static extern void OnKeyPressedImpl(Self* self, int32 key);
             public void OnKeyPressed(int32 key) mut=> OnKeyPressedImpl(&this, key);
             
             [LinkName("ImGuiInputTextState_SelectAll")]
-            private static extern void SelectAllImpl(InputTextState* self);
+            private static extern void SelectAllImpl(Self* self);
             public void SelectAll() mut=> SelectAllImpl(&this);
             
         }
@@ -3265,6 +3309,61 @@ namespace ImGui
             public float DownDurationPrev;
             public float AnalogValue;
         
+        }
+        
+        [CRepr]
+        public struct KeyOwnerData
+        {
+            public ID OwnerCurr;
+            public ID OwnerNext;
+            public bool LockThisFrame;
+            public bool LockUntilRelease;
+        
+            [LinkName("ImGuiKeyOwnerData_ImGuiKeyOwnerData")]
+            private static extern KeyOwnerData* CtorImpl();
+            public this()
+            {
+                this = *CtorImpl();
+            }
+            
+        }
+        
+        [CRepr]
+        public struct KeyRoutingData
+        {
+            public KeyRoutingIndex NextEntryIndex;
+            public U16 Mods;
+            public U8 RoutingNextScore;
+            public ID RoutingCurr;
+            public ID RoutingNext;
+        
+            [LinkName("ImGuiKeyRoutingData_ImGuiKeyRoutingData")]
+            private static extern KeyRoutingData* CtorImpl();
+            public this()
+            {
+                this = *CtorImpl();
+            }
+            
+        }
+        
+        [CRepr]
+        public struct KeyRoutingTable
+        {
+            public KeyRoutingIndex[140] Index;
+            public Vector<KeyRoutingData> Entries;
+            public Vector<KeyRoutingData> EntriesNext;
+        
+            [LinkName("ImGuiKeyRoutingTable_ImGuiKeyRoutingTable")]
+            private static extern KeyRoutingTable* CtorImpl();
+            public this()
+            {
+                this = *CtorImpl();
+            }
+            
+            [LinkName("ImGuiKeyRoutingTable_Clear")]
+            private static extern void ClearImpl(Self* self);
+            public void Clear() mut=> ClearImpl(&this);
+            
         }
         
         [CRepr]
@@ -3284,14 +3383,12 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiLastItemData_destroy")]
-            private static extern void DestroyImpl(LastItemData* ptr);
-            
         }
         
         [CRepr]
         public struct ListClipper
         {
+            public Context* Ctx;
             public int32 DisplayStart;
             public int32 DisplayEnd;
             public int32 ItemsCount;
@@ -3306,23 +3403,20 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiListClipper_destroy")]
-            private static extern void DestroyImpl(ListClipper* ptr);
-            
             [LinkName("ImGuiListClipper_Begin")]
-            private static extern void BeginImpl(ListClipper* self, int32 items_count, float items_height);
+            private static extern void BeginImpl(Self* self, int32 items_count, float items_height);
             public void Begin(int32 items_count, float items_height = -1.0f) mut=> BeginImpl(&this, items_count, items_height);
             
             [LinkName("ImGuiListClipper_End")]
-            private static extern void EndImpl(ListClipper* self);
+            private static extern void EndImpl(Self* self);
             public void End() mut=> EndImpl(&this);
             
             [LinkName("ImGuiListClipper_ForceDisplayRangeByIndices")]
-            private static extern void ForceDisplayRangeByIndicesImpl(ListClipper* self, int32 item_min, int32 item_max);
+            private static extern void ForceDisplayRangeByIndicesImpl(Self* self, int32 item_min, int32 item_max);
             public void ForceDisplayRangeByIndices(int32 item_min, int32 item_max) mut=> ForceDisplayRangeByIndicesImpl(&this, item_min, item_max);
             
             [LinkName("ImGuiListClipper_Step")]
-            private static extern bool StepImpl(ListClipper* self);
+            private static extern bool StepImpl(Self* self);
             public bool Step() mut=> StepImpl(&this);
             
         }
@@ -3343,11 +3437,8 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiListClipperData_destroy")]
-            private static extern void DestroyImpl(ListClipperData* ptr);
-            
             [LinkName("ImGuiListClipperData_Reset")]
-            private static extern void ResetImpl(ListClipperData* self, ListClipper* clipper);
+            private static extern void ResetImpl(Self* self, ListClipper* clipper);
             public void Reset(ListClipper* clipper) mut=> ResetImpl(&this, clipper);
             
         }
@@ -3360,6 +3451,14 @@ namespace ImGui
             public bool PosToIndexConvert;
             public S8 PosToIndexOffsetMin;
             public S8 PosToIndexOffsetMax;
+        
+        }
+        
+        [CRepr]
+        public struct LocEntry
+        {
+            public LocKey Key;
+            public char* Text;
         
         }
         
@@ -3382,19 +3481,16 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiMenuColumns_destroy")]
-            private static extern void DestroyImpl(MenuColumns* ptr);
-            
             [LinkName("ImGuiMenuColumns_CalcNextTotalWidth")]
-            private static extern void CalcNextTotalWidthImpl(MenuColumns* self, bool update_offsets);
+            private static extern void CalcNextTotalWidthImpl(Self* self, bool update_offsets);
             public void CalcNextTotalWidth(bool update_offsets) mut=> CalcNextTotalWidthImpl(&this, update_offsets);
             
             [LinkName("ImGuiMenuColumns_DeclColumns")]
-            private static extern float DeclColumnsImpl(MenuColumns* self, float w_icon, float w_label, float w_shortcut, float w_mark);
+            private static extern float DeclColumnsImpl(Self* self, float w_icon, float w_label, float w_shortcut, float w_mark);
             public float DeclColumns(float w_icon, float w_label, float w_shortcut, float w_mark) mut=> DeclColumnsImpl(&this, w_icon, w_label, w_shortcut, w_mark);
             
             [LinkName("ImGuiMenuColumns_Update")]
-            private static extern void UpdateImpl(MenuColumns* self, float spacing, bool window_reappearing);
+            private static extern void UpdateImpl(Self* self, float spacing, bool window_reappearing);
             public void Update(float spacing, bool window_reappearing) mut=> UpdateImpl(&this, spacing, window_reappearing);
             
         }
@@ -3409,20 +3505,11 @@ namespace ImGui
             public bool ShowTablesRects;
             public bool ShowDrawCmdMesh;
             public bool ShowDrawCmdBoundingBoxes;
+            public bool ShowAtlasTintedWithTextColor;
             public bool ShowDockingNodes;
             public int32 ShowWindowsRectsType;
             public int32 ShowTablesRectsType;
         
-            [LinkName("ImGuiMetricsConfig_ImGuiMetricsConfig")]
-            private static extern MetricsConfig* CtorImpl();
-            public this()
-            {
-                this = *CtorImpl();
-            }
-            
-            [LinkName("ImGuiMetricsConfig_destroy")]
-            private static extern void DestroyImpl(MetricsConfig* ptr);
-            
         }
         
         [CRepr]
@@ -3444,11 +3531,8 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiNavItemData_destroy")]
-            private static extern void DestroyImpl(NavItemData* ptr);
-            
             [LinkName("ImGuiNavItemData_Clear")]
-            private static extern void ClearImpl(NavItemData* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
         }
@@ -3469,11 +3553,8 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiNextItemData_destroy")]
-            private static extern void DestroyImpl(NextItemData* ptr);
-            
             [LinkName("ImGuiNextItemData_ClearFlags")]
-            private static extern void ClearFlagsImpl(NextItemData* self);
+            private static extern void ClearFlagsImpl(Self* self);
             public void ClearFlags() mut=> ClearFlagsImpl(&this);
             
         }
@@ -3509,11 +3590,8 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiNextWindowData_destroy")]
-            private static extern void DestroyImpl(NextWindowData* ptr);
-            
             [LinkName("ImGuiNextWindowData_ClearFlags")]
-            private static extern void ClearFlagsImpl(NextWindowData* self);
+            private static extern void ClearFlagsImpl(Self* self);
             public void ClearFlags() mut=> ClearFlagsImpl(&this);
             
         }
@@ -3532,9 +3610,6 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
-            
-            [LinkName("ImGuiOldColumnData_destroy")]
-            private static extern void DestroyImpl(OldColumnData* ptr);
             
         }
         
@@ -3566,9 +3641,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiOldColumns_destroy")]
-            private static extern void DestroyImpl(OldColumns* ptr);
-            
         }
         
         [CRepr]
@@ -3582,9 +3654,6 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
-            
-            [LinkName("ImGuiOnceUponAFrame_destroy")]
-            private static extern void DestroyImpl(OnceUponAFrame* ptr);
             
         }
         
@@ -3607,23 +3676,20 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiPayload_destroy")]
-            private static extern void DestroyImpl(Payload* ptr);
-            
             [LinkName("ImGuiPayload_Clear")]
-            private static extern void ClearImpl(Payload* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImGuiPayload_IsDataType")]
-            private static extern bool IsDataTypeImpl(Payload* self, char* type);
+            private static extern bool IsDataTypeImpl(Self* self, char* type);
             public bool IsDataType(char* type) mut=> IsDataTypeImpl(&this, type);
             
             [LinkName("ImGuiPayload_IsDelivery")]
-            private static extern bool IsDeliveryImpl(Payload* self);
+            private static extern bool IsDeliveryImpl(Self* self);
             public bool IsDelivery() mut=> IsDeliveryImpl(&this);
             
             [LinkName("ImGuiPayload_IsPreview")]
-            private static extern bool IsPreviewImpl(Payload* self);
+            private static extern bool IsPreviewImpl(Self* self);
             public bool IsPreview() mut=> IsPreviewImpl(&this);
             
         }
@@ -3664,9 +3730,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiPlatformIO_destroy")]
-            private static extern void DestroyImpl(PlatformIO* ptr);
-            
         }
         
         [CRepr]
@@ -3682,9 +3745,6 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
-            
-            [LinkName("ImGuiPlatformImeData_destroy")]
-            private static extern void DestroyImpl(PlatformImeData* ptr);
             
         }
         
@@ -3704,9 +3764,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiPlatformMonitor_destroy")]
-            private static extern void DestroyImpl(PlatformMonitor* ptr);
-            
         }
         
         [CRepr]
@@ -3714,7 +3771,7 @@ namespace ImGui
         {
             public ID PopupId;
             public Window* Window;
-            public Window* SourceWindow;
+            public Window* BackupNavWindow;
             public int32 ParentNavLayer;
             public int32 OpenFrameCount;
             public ID OpenParentId;
@@ -3727,9 +3784,6 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
-            
-            [LinkName("ImGuiPopupData_destroy")]
-            private static extern void DestroyImpl(PopupData* ptr);
             
         }
         
@@ -3753,9 +3807,6 @@ namespace ImGui
                 this = *CtorImpl(index);
             }
             
-            [LinkName("ImGuiPtrOrIndex_destroy")]
-            private static extern void DestroyImpl(PtrOrIndex* ptr);
-            
         }
         
         [CRepr]
@@ -3777,9 +3828,6 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
-            
-            [LinkName("ImGuiSettingsHandler_destroy")]
-            private static extern void DestroyImpl(SettingsHandler* ptr);
             
         }
         
@@ -3818,9 +3866,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiStackLevelInfo_destroy")]
-            private static extern void DestroyImpl(StackLevelInfo* ptr);
-            
         }
         
         [CRepr]
@@ -3843,16 +3888,13 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiStackSizes_destroy")]
-            private static extern void DestroyImpl(StackSizes* ptr);
+            [LinkName("ImGuiStackSizes_CompareWithContextState")]
+            private static extern void CompareWithContextStateImpl(Self* self, Context* ctx);
+            public void CompareWithContextState(Context* ctx) mut=> CompareWithContextStateImpl(&this, ctx);
             
-            [LinkName("ImGuiStackSizes_CompareWithCurrentState")]
-            private static extern void CompareWithCurrentStateImpl(StackSizes* self);
-            public void CompareWithCurrentState() mut=> CompareWithCurrentStateImpl(&this);
-            
-            [LinkName("ImGuiStackSizes_SetToCurrentState")]
-            private static extern void SetToCurrentStateImpl(StackSizes* self);
-            public void SetToCurrentState() mut=> SetToCurrentStateImpl(&this);
+            [LinkName("ImGuiStackSizes_SetToContextState")]
+            private static extern void SetToContextStateImpl(Self* self, Context* ctx);
+            public void SetToContextState(Context* ctx) mut=> SetToContextStateImpl(&this, ctx);
             
         }
         
@@ -3873,9 +3915,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiStackTool_destroy")]
-            private static extern void DestroyImpl(StackTool* ptr);
-            
         }
         
         [CRepr]
@@ -3884,63 +3923,63 @@ namespace ImGui
             public Vector<StoragePair> Data;
         
             [LinkName("ImGuiStorage_BuildSortByKey")]
-            private static extern void BuildSortByKeyImpl(Storage* self);
+            private static extern void BuildSortByKeyImpl(Self* self);
             public void BuildSortByKey() mut=> BuildSortByKeyImpl(&this);
             
             [LinkName("ImGuiStorage_Clear")]
-            private static extern void ClearImpl(Storage* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImGuiStorage_GetBool")]
-            private static extern bool GetBoolImpl(Storage* self, ID key, bool default_val);
+            private static extern bool GetBoolImpl(Self* self, ID key, bool default_val);
             public bool GetBool(ID key, bool default_val = false) mut=> GetBoolImpl(&this, key, default_val);
             
             [LinkName("ImGuiStorage_GetBoolRef")]
-            private static extern bool* GetBoolRefImpl(Storage* self, ID key, bool default_val);
+            private static extern bool* GetBoolRefImpl(Self* self, ID key, bool default_val);
             public bool* GetBoolRef(ID key, bool default_val = false) mut=> GetBoolRefImpl(&this, key, default_val);
             
             [LinkName("ImGuiStorage_GetFloat")]
-            private static extern float GetFloatImpl(Storage* self, ID key, float default_val);
+            private static extern float GetFloatImpl(Self* self, ID key, float default_val);
             public float GetFloat(ID key, float default_val = (float) 0.0f) mut=> GetFloatImpl(&this, key, default_val);
             
             [LinkName("ImGuiStorage_GetFloatRef")]
-            private static extern float* GetFloatRefImpl(Storage* self, ID key, float default_val);
+            private static extern float* GetFloatRefImpl(Self* self, ID key, float default_val);
             public float* GetFloatRef(ID key, float default_val = (float) 0.0f) mut=> GetFloatRefImpl(&this, key, default_val);
             
             [LinkName("ImGuiStorage_GetInt")]
-            private static extern int32 GetIntImpl(Storage* self, ID key, int32 default_val);
+            private static extern int32 GetIntImpl(Self* self, ID key, int32 default_val);
             public int32 GetInt(ID key, int32 default_val = (int32) 0) mut=> GetIntImpl(&this, key, default_val);
             
             [LinkName("ImGuiStorage_GetIntRef")]
-            private static extern int32* GetIntRefImpl(Storage* self, ID key, int32 default_val);
+            private static extern int32* GetIntRefImpl(Self* self, ID key, int32 default_val);
             public int32* GetIntRef(ID key, int32 default_val = (int32) 0) mut=> GetIntRefImpl(&this, key, default_val);
             
             [LinkName("ImGuiStorage_GetVoidPtr")]
-            private static extern void* GetVoidPtrImpl(Storage* self, ID key);
+            private static extern void* GetVoidPtrImpl(Self* self, ID key);
             public void* GetVoidPtr(ID key) mut=> GetVoidPtrImpl(&this, key);
             
             [LinkName("ImGuiStorage_GetVoidPtrRef")]
-            private static extern void** GetVoidPtrRefImpl(Storage* self, ID key, void* default_val);
+            private static extern void** GetVoidPtrRefImpl(Self* self, ID key, void* default_val);
             public void** GetVoidPtrRef(ID key, void* default_val = null) mut=> GetVoidPtrRefImpl(&this, key, default_val);
             
             [LinkName("ImGuiStorage_SetAllInt")]
-            private static extern void SetAllIntImpl(Storage* self, int32 val);
+            private static extern void SetAllIntImpl(Self* self, int32 val);
             public void SetAllInt(int32 val) mut=> SetAllIntImpl(&this, val);
             
             [LinkName("ImGuiStorage_SetBool")]
-            private static extern void SetBoolImpl(Storage* self, ID key, bool val);
+            private static extern void SetBoolImpl(Self* self, ID key, bool val);
             public void SetBool(ID key, bool val) mut=> SetBoolImpl(&this, key, val);
             
             [LinkName("ImGuiStorage_SetFloat")]
-            private static extern void SetFloatImpl(Storage* self, ID key, float val);
+            private static extern void SetFloatImpl(Self* self, ID key, float val);
             public void SetFloat(ID key, float val) mut=> SetFloatImpl(&this, key, val);
             
             [LinkName("ImGuiStorage_SetInt")]
-            private static extern void SetIntImpl(Storage* self, ID key, int32 val);
+            private static extern void SetIntImpl(Self* self, ID key, int32 val);
             public void SetInt(ID key, int32 val) mut=> SetIntImpl(&this, key, val);
             
             [LinkName("ImGuiStorage_SetVoidPtr")]
-            private static extern void SetVoidPtrImpl(Storage* self, ID key, void* val);
+            private static extern void SetVoidPtrImpl(Self* self, ID key, void* val);
             public void SetVoidPtr(ID key, void* val) mut=> SetVoidPtrImpl(&this, key, val);
             
         }
@@ -3974,10 +4013,6 @@ namespace ImGui
             {
                 this = *CtorImpl(_key, _val_p);
             }
-            
-            [LinkName("ImGuiStoragePair_destroy")]
-            private static extern void DestroyImpl(StoragePair* ptr);
-            
             [CRepr, Union]
             public struct StoragePairUnion0
             {
@@ -4023,6 +4058,9 @@ namespace ImGui
             public Dir ColorButtonPosition;
             public Vec2 ButtonTextAlign;
             public Vec2 SelectableTextAlign;
+            public float SeparatorTextBorderSize;
+            public Vec2 SeparatorTextAlign;
+            public Vec2 SeparatorTextPadding;
             public Vec2 DisplayWindowPadding;
             public Vec2 DisplaySafeAreaPadding;
             public float MouseCursorScale;
@@ -4040,11 +4078,8 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiStyle_destroy")]
-            private static extern void DestroyImpl(Style* ptr);
-            
             [LinkName("ImGuiStyle_ScaleAllSizes")]
-            private static extern void ScaleAllSizesImpl(Style* self, float scale_factor);
+            private static extern void ScaleAllSizesImpl(Self* self, float scale_factor);
             public void ScaleAllSizes(float scale_factor) mut=> ScaleAllSizesImpl(&this, scale_factor);
             
         }
@@ -4077,10 +4112,6 @@ namespace ImGui
             {
                 this = *CtorImpl(idx, v);
             }
-            
-            [LinkName("ImGuiStyleMod_destroy")]
-            private static extern void DestroyImpl(StyleMod* ptr);
-            
             [CRepr, Union]
             public struct StyleModUnion0
             {
@@ -4132,17 +4163,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiTabBar_destroy")]
-            private static extern void DestroyImpl(TabBar* ptr);
-            
-            [LinkName("ImGuiTabBar_GetTabName")]
-            private static extern char* GetTabNameImpl(TabBar* self, TabItem* tab);
-            public char* GetTabName(TabItem* tab) mut=> GetTabNameImpl(&this, tab);
-            
-            [LinkName("ImGuiTabBar_GetTabOrder")]
-            private static extern int32 GetTabOrderImpl(TabBar* self, TabItem* tab);
-            public int32 GetTabOrder(TabItem* tab) mut=> GetTabOrderImpl(&this, tab);
-            
         }
         
         [CRepr]
@@ -4169,9 +4189,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiTabItem_destroy")]
-            private static extern void DestroyImpl(TabItem* ptr);
-            
         }
         
         [CRepr]
@@ -4184,10 +4201,9 @@ namespace ImGui
             public Span<TableColumn> Columns;
             public Span<TableColumnIdx> DisplayOrderToIndex;
             public Span<TableCellData> RowCellData;
-            public U64 EnabledMaskByDisplayOrder;
-            public U64 EnabledMaskByIndex;
-            public U64 VisibleMaskByIndex;
-            public U64 RequestOutputMaskByIndex;
+            public BitArrayPtr EnabledMaskByDisplayOrder;
+            public BitArrayPtr EnabledMaskByIndex;
+            public BitArrayPtr VisibleMaskByIndex;
             public TableFlags SettingsLoadedFlags;
             public int32 SettingsOffset;
             public int32 LastFrameActive;
@@ -4279,6 +4295,8 @@ namespace ImGui
             public bool IsResetDisplayOrderRequest;
             public bool IsUnfrozenRows;
             public bool IsDefaultSizingPolicy;
+            public bool HasScrollbarYCurr;
+            public bool HasScrollbarYPrev;
             public bool MemoryCompacted;
             public bool HostSkipItems;
         
@@ -4288,9 +4306,6 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
-            
-            [LinkName("ImGuiTable_destroy")]
-            private static extern void DestroyImpl(Table* ptr);
             
         }
         
@@ -4354,9 +4369,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiTableColumn_destroy")]
-            private static extern void DestroyImpl(TableColumn* ptr);
-            
         }
         
         [CRepr]
@@ -4378,9 +4390,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiTableColumnSettings_destroy")]
-            private static extern void DestroyImpl(TableColumnSettings* ptr);
-            
         }
         
         [CRepr]
@@ -4398,16 +4407,15 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiTableColumnSortSpecs_destroy")]
-            private static extern void DestroyImpl(TableColumnSortSpecs* ptr);
-            
         }
         
         [CRepr]
         public struct TableInstanceData
         {
+            public ID TableInstanceID;
             public float LastOuterHeight;
             public float LastFirstRowHeight;
+            public float LastFrozenHeight;
         
             [LinkName("ImGuiTableInstanceData_ImGuiTableInstanceData")]
             private static extern TableInstanceData* CtorImpl();
@@ -4415,9 +4423,6 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
-            
-            [LinkName("ImGuiTableInstanceData_destroy")]
-            private static extern void DestroyImpl(TableInstanceData* ptr);
             
         }
         
@@ -4438,11 +4443,8 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiTableSettings_destroy")]
-            private static extern void DestroyImpl(TableSettings* ptr);
-            
             [LinkName("ImGuiTableSettings_GetColumnSettings")]
-            private static extern TableColumnSettings* GetColumnSettingsImpl(TableSettings* self);
+            private static extern TableColumnSettings* GetColumnSettingsImpl(Self* self);
             public TableColumnSettings* GetColumnSettings() mut=> GetColumnSettingsImpl(&this);
             
         }
@@ -4460,9 +4462,6 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
-            
-            [LinkName("ImGuiTableSortSpecs_destroy")]
-            private static extern void DestroyImpl(TableSortSpecs* ptr);
             
         }
         
@@ -4489,9 +4488,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiTableTempData_destroy")]
-            private static extern void DestroyImpl(TableTempData* ptr);
-            
         }
         
         [CRepr]
@@ -4506,43 +4502,40 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiTextBuffer_destroy")]
-            private static extern void DestroyImpl(TextBuffer* ptr);
-            
             [LinkName("ImGuiTextBuffer_append")]
-            private static extern void AppendImpl(TextBuffer* self, char* str, char* str_end);
+            private static extern void AppendImpl(Self* self, char* str, char* str_end);
             public void Append(char* str, char* str_end = null) mut=> AppendImpl(&this, str, str_end);
             
             [LinkName("ImGuiTextBuffer_appendf")]
-            private static extern void AppendfImpl(TextBuffer* self, char* fmt, ...);
+            private static extern void AppendfImpl(Self* self, char* fmt, ...);
             public void Appendf(char* fmt, params Object[] args) mut=> AppendfImpl(&this, scope String()..AppendF(StringView(fmt), params args));
             
             [LinkName("ImGuiTextBuffer_begin")]
-            private static extern char* BeginImpl(TextBuffer* self);
+            private static extern char* BeginImpl(Self* self);
             public char* Begin() mut=> BeginImpl(&this);
             
             [LinkName("ImGuiTextBuffer_c_str")]
-            private static extern char* CStrImpl(TextBuffer* self);
+            private static extern char* CStrImpl(Self* self);
             public char* CStr() mut=> CStrImpl(&this);
             
             [LinkName("ImGuiTextBuffer_clear")]
-            private static extern void ClearImpl(TextBuffer* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImGuiTextBuffer_empty")]
-            private static extern bool EmptyImpl(TextBuffer* self);
+            private static extern bool EmptyImpl(Self* self);
             public bool Empty() mut=> EmptyImpl(&this);
             
             [LinkName("ImGuiTextBuffer_end")]
-            private static extern char* EndImpl(TextBuffer* self);
+            private static extern char* EndImpl(Self* self);
             public char* End() mut=> EndImpl(&this);
             
             [LinkName("ImGuiTextBuffer_reserve")]
-            private static extern void ReserveImpl(TextBuffer* self, int32 capacity);
+            private static extern void ReserveImpl(Self* self, int32 capacity);
             public void Reserve(int32 capacity) mut=> ReserveImpl(&this, capacity);
             
             [LinkName("ImGuiTextBuffer_size")]
-            private static extern int32 SizeImpl(TextBuffer* self);
+            private static extern int32 SizeImpl(Self* self);
             public int32 Size() mut=> SizeImpl(&this);
             
         }
@@ -4561,28 +4554,53 @@ namespace ImGui
                 this = *CtorImpl(default_filter);
             }
             
-            [LinkName("ImGuiTextFilter_destroy")]
-            private static extern void DestroyImpl(TextFilter* ptr);
-            
             [LinkName("ImGuiTextFilter_Build")]
-            private static extern void BuildImpl(TextFilter* self);
+            private static extern void BuildImpl(Self* self);
             public void Build() mut=> BuildImpl(&this);
             
             [LinkName("ImGuiTextFilter_Clear")]
-            private static extern void ClearImpl(TextFilter* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImGuiTextFilter_Draw")]
-            private static extern bool DrawImpl(TextFilter* self, char* label, float width);
+            private static extern bool DrawImpl(Self* self, char* label, float width);
             public bool Draw(char* label = "Filter(inc,-exc)", float width = (float) 0.0f) mut=> DrawImpl(&this, label, width);
             
             [LinkName("ImGuiTextFilter_IsActive")]
-            private static extern bool IsActiveImpl(TextFilter* self);
+            private static extern bool IsActiveImpl(Self* self);
             public bool IsActive() mut=> IsActiveImpl(&this);
             
             [LinkName("ImGuiTextFilter_PassFilter")]
-            private static extern bool PassFilterImpl(TextFilter* self, char* text, char* text_end);
+            private static extern bool PassFilterImpl(Self* self, char* text, char* text_end);
             public bool PassFilter(char* text, char* text_end = null) mut=> PassFilterImpl(&this, text, text_end);
+            
+        }
+        
+        [CRepr]
+        public struct TextIndex
+        {
+            public Vector<int32> LineOffsets;
+            public int32 EndOffset;
+        
+            [LinkName("ImGuiTextIndex_append")]
+            private static extern void AppendImpl(Self* self, char* base_, int32 old_size, int32 new_size);
+            public void Append(char* base_, int32 old_size, int32 new_size) mut=> AppendImpl(&this, base_, old_size, new_size);
+            
+            [LinkName("ImGuiTextIndex_clear")]
+            private static extern void ClearImpl(Self* self);
+            public void Clear() mut=> ClearImpl(&this);
+            
+            [LinkName("ImGuiTextIndex_get_line_begin")]
+            private static extern char* GetLineBeginImpl(Self* self, char* base_, int32 n);
+            public char* GetLineBegin(char* base_, int32 n) mut=> GetLineBeginImpl(&this, base_, n);
+            
+            [LinkName("ImGuiTextIndex_get_line_end")]
+            private static extern char* GetLineEndImpl(Self* self, char* base_, int32 n);
+            public char* GetLineEnd(char* base_, int32 n) mut=> GetLineEndImpl(&this, base_, n);
+            
+            [LinkName("ImGuiTextIndex_size")]
+            private static extern int32 SizeImpl(Self* self);
+            public int32 Size() mut=> SizeImpl(&this);
             
         }
         
@@ -4606,16 +4624,13 @@ namespace ImGui
                 this = *CtorImpl(_b, _e);
             }
             
-            [LinkName("ImGuiTextRange_destroy")]
-            private static extern void DestroyImpl(TextRange* ptr);
-            
             [LinkName("ImGuiTextRange_empty")]
-            private static extern bool EmptyImpl(TextRange* self);
+            private static extern bool EmptyImpl(Self* self);
             public bool Empty() mut=> EmptyImpl(&this);
             
             [LinkName("ImGuiTextRange_split")]
-            private static extern void SplitImpl(TextRange* self, char separator, Vector<TextRange>* out_);
-            public void Split(char separator, Vector<TextRange>* out_) mut=> SplitImpl(&this, separator, out_);
+            private static extern void SplitImpl(Self* self, char separator, Vector<TextRange*> out_);
+            public void Split(char separator, Vector<TextRange*> out_) mut=> SplitImpl(&this, separator, out_);
             
         }
         
@@ -4635,6 +4650,7 @@ namespace ImGui
             public void* PlatformUserData;
             public void* PlatformHandle;
             public void* PlatformHandleRaw;
+            public bool PlatformWindowCreated;
             public bool PlatformRequestMove;
             public bool PlatformRequestResize;
             public bool PlatformRequestClose;
@@ -4646,11 +4662,8 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiViewport_destroy")]
-            private static extern void DestroyImpl(Viewport* ptr);
-            
             [LinkName("ImGuiViewport_GetCenter")]
-            private static extern Vec2 GetCenterImpl(Vec2* pOut, Viewport* self);
+            private static extern Vec2 GetCenterImpl(Vec2* pOut, Self* self);
             public Vec2 GetCenter() mut
             {
                 Vec2 pOut = default;
@@ -4659,7 +4672,7 @@ namespace ImGui
             }
             
             [LinkName("ImGuiViewport_GetWorkCenter")]
-            private static extern Vec2 GetWorkCenterImpl(Vec2* pOut, Viewport* self);
+            private static extern Vec2 GetWorkCenterImpl(Vec2* pOut, Self* self);
             public Vec2 GetWorkCenter() mut
             {
                 Vec2 pOut = default;
@@ -4673,16 +4686,16 @@ namespace ImGui
         public struct ViewportP
         {
             public Viewport _ImGuiViewport;
+            public Window* Window;
             public int32 Idx;
             public int32 LastFrameActive;
-            public int32 LastFrontMostStampCount;
+            public int32 LastFocusedStampCount;
             public ID LastNameHash;
             public Vec2 LastPos;
             public float Alpha;
             public float LastAlpha;
+            public bool LastFocusedHadNavWindow;
             public short PlatformMonitor;
-            public bool PlatformWindowCreated;
-            public Window* Window;
             public int32[2] DrawListsLastFrame;
             public DrawList*[2] DrawLists;
             public DrawData DrawDataP;
@@ -4702,11 +4715,8 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiViewportP_destroy")]
-            private static extern void DestroyImpl(ViewportP* ptr);
-            
             [LinkName("ImGuiViewportP_CalcWorkRectPos")]
-            private static extern Vec2 CalcWorkRectPosImpl(Vec2* pOut, ViewportP* self, Vec2 off_min);
+            private static extern Vec2 CalcWorkRectPosImpl(Vec2* pOut, Self* self, Vec2 off_min);
             public Vec2 CalcWorkRectPos(Vec2 off_min) mut
             {
                 Vec2 pOut = default;
@@ -4715,7 +4725,7 @@ namespace ImGui
             }
             
             [LinkName("ImGuiViewportP_CalcWorkRectSize")]
-            private static extern Vec2 CalcWorkRectSizeImpl(Vec2* pOut, ViewportP* self, Vec2 off_min, Vec2 off_max);
+            private static extern Vec2 CalcWorkRectSizeImpl(Vec2* pOut, Self* self, Vec2 off_min, Vec2 off_max);
             public Vec2 CalcWorkRectSize(Vec2 off_min, Vec2 off_max) mut
             {
                 Vec2 pOut = default;
@@ -4724,11 +4734,11 @@ namespace ImGui
             }
             
             [LinkName("ImGuiViewportP_ClearRequestFlags")]
-            private static extern void ClearRequestFlagsImpl(ViewportP* self);
+            private static extern void ClearRequestFlagsImpl(Self* self);
             public void ClearRequestFlags() mut=> ClearRequestFlagsImpl(&this);
             
             [LinkName("ImGuiViewportP_GetBuildWorkRect")]
-            private static extern Rect GetBuildWorkRectImpl(Rect* pOut, ViewportP* self);
+            private static extern Rect GetBuildWorkRectImpl(Rect* pOut, Self* self);
             public Rect GetBuildWorkRect() mut
             {
                 Rect pOut = default;
@@ -4737,7 +4747,7 @@ namespace ImGui
             }
             
             [LinkName("ImGuiViewportP_GetMainRect")]
-            private static extern Rect GetMainRectImpl(Rect* pOut, ViewportP* self);
+            private static extern Rect GetMainRectImpl(Rect* pOut, Self* self);
             public Rect GetMainRect() mut
             {
                 Rect pOut = default;
@@ -4746,7 +4756,7 @@ namespace ImGui
             }
             
             [LinkName("ImGuiViewportP_GetWorkRect")]
-            private static extern Rect GetWorkRectImpl(Rect* pOut, ViewportP* self);
+            private static extern Rect GetWorkRectImpl(Rect* pOut, Self* self);
             public Rect GetWorkRect() mut
             {
                 Rect pOut = default;
@@ -4755,7 +4765,7 @@ namespace ImGui
             }
             
             [LinkName("ImGuiViewportP_UpdateWorkRect")]
-            private static extern void UpdateWorkRectImpl(ViewportP* self);
+            private static extern void UpdateWorkRectImpl(Self* self);
             public void UpdateWorkRect() mut=> UpdateWorkRectImpl(&this);
             
         }
@@ -4763,6 +4773,7 @@ namespace ImGui
         [CRepr]
         public struct Window
         {
+            public Context* Ctx;
             public char* Name;
             public ID ID;
             public WindowFlags Flags;
@@ -4781,6 +4792,12 @@ namespace ImGui
             public Vec2 WindowPadding;
             public float WindowRounding;
             public float WindowBorderSize;
+            public float DecoOuterSizeX1;
+            public float DecoOuterSizeY1;
+            public float DecoOuterSizeX2;
+            public float DecoOuterSizeY2;
+            public float DecoInnerSizeX1;
+            public float DecoInnerSizeY1;
             public int32 NameBufLen;
             public ID MoveId;
             public ID TabId;
@@ -4807,6 +4824,7 @@ namespace ImGui
             public bool HasCloseButton;
             public char ResizeBorderHeld;
             public short BeginCount;
+            public short BeginCountPreviousFrame;
             public short BeginOrderWithinParent;
             public short BeginOrderWithinContext;
             public short FocusOrder;
@@ -4858,6 +4876,7 @@ namespace ImGui
             public Window* NavLastChildNavWindow;
             public ID[2] NavLastIds;
             public Rect[2] NavRectRel;
+            public ID NavRootFocusScopeId;
             public int32 MemoryDrawListIdxCapacity;
             public int32 MemoryDrawListVtxCapacity;
             public bool MemoryCompacted;
@@ -4880,35 +4899,32 @@ namespace ImGui
                 this = *CtorImpl(context, name);
             }
             
-            [LinkName("ImGuiWindow_destroy")]
-            private static extern void DestroyImpl(Window* ptr);
-            
             [LinkName("ImGuiWindow_CalcFontSize")]
-            private static extern float CalcFontSizeImpl(Window* self);
+            private static extern float CalcFontSizeImpl(Self* self);
             public float CalcFontSize() mut=> CalcFontSizeImpl(&this);
             
             [LinkName("ImGuiWindow_GetID_Str")]
-            private static extern ID GetIDImpl(Window* self, char* str, char* str_end);
+            private static extern ID GetIDImpl(Self* self, char* str, char* str_end);
             public ID GetID(char* str, char* str_end = null) mut=> GetIDImpl(&this, str, str_end);
             
             [LinkName("ImGuiWindow_GetID_Ptr")]
-            private static extern ID GetIDImpl(Window* self, void* ptr);
+            private static extern ID GetIDImpl(Self* self, void* ptr);
             public ID GetID(void* ptr) mut=> GetIDImpl(&this, ptr);
             
             [LinkName("ImGuiWindow_GetID_Int")]
-            private static extern ID GetIDImpl(Window* self, int32 n);
+            private static extern ID GetIDImpl(Self* self, int32 n);
             public ID GetID(int32 n) mut=> GetIDImpl(&this, n);
             
             [LinkName("ImGuiWindow_GetIDFromRectangle")]
-            private static extern ID GetIDFromRectangleImpl(Window* self, Rect r_abs);
+            private static extern ID GetIDFromRectangleImpl(Self* self, Rect r_abs);
             public ID GetIDFromRectangle(Rect r_abs) mut=> GetIDFromRectangleImpl(&this, r_abs);
             
             [LinkName("ImGuiWindow_MenuBarHeight")]
-            private static extern float MenuBarHeightImpl(Window* self);
+            private static extern float MenuBarHeightImpl(Self* self);
             public float MenuBarHeight() mut=> MenuBarHeightImpl(&this);
             
             [LinkName("ImGuiWindow_MenuBarRect")]
-            private static extern Rect MenuBarRectImpl(Rect* pOut, Window* self);
+            private static extern Rect MenuBarRectImpl(Rect* pOut, Self* self);
             public Rect MenuBarRect() mut
             {
                 Rect pOut = default;
@@ -4917,7 +4933,7 @@ namespace ImGui
             }
             
             [LinkName("ImGuiWindow_Rect")]
-            private static extern Rect RectImpl(Rect* pOut, Window* self);
+            private static extern Rect RectImpl(Rect* pOut, Self* self);
             public Rect Rect() mut
             {
                 Rect pOut = default;
@@ -4926,11 +4942,11 @@ namespace ImGui
             }
             
             [LinkName("ImGuiWindow_TitleBarHeight")]
-            private static extern float TitleBarHeightImpl(Window* self);
+            private static extern float TitleBarHeightImpl(Self* self);
             public float TitleBarHeight() mut=> TitleBarHeightImpl(&this);
             
             [LinkName("ImGuiWindow_TitleBarRect")]
-            private static extern Rect TitleBarRectImpl(Rect* pOut, Window* self);
+            private static extern Rect TitleBarRectImpl(Rect* pOut, Self* self);
             public Rect TitleBarRect() mut
             {
                 Rect pOut = default;
@@ -4959,9 +4975,6 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiWindowClass_destroy")]
-            private static extern void DestroyImpl(WindowClass* ptr);
-            
         }
         
         [CRepr]
@@ -4984,6 +4997,7 @@ namespace ImGui
             public short DockOrder;
             public bool Collapsed;
             public bool WantApply;
+            public bool WantDelete;
         
             [LinkName("ImGuiWindowSettings_ImGuiWindowSettings")]
             private static extern WindowSettings* CtorImpl();
@@ -4992,11 +5006,8 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
-            [LinkName("ImGuiWindowSettings_destroy")]
-            private static extern void DestroyImpl(WindowSettings* ptr);
-            
             [LinkName("ImGuiWindowSettings_GetName")]
-            private static extern char* GetNameImpl(WindowSettings* self);
+            private static extern char* GetNameImpl(Self* self);
             public char* GetName() mut=> GetNameImpl(&this);
             
         }
@@ -5023,6 +5034,7 @@ namespace ImGui
             public float CurrLineTextBaseOffset;
             public float PrevLineTextBaseOffset;
             public bool IsSameLine;
+            public bool IsSetPos;
             public Vec1 Indent;
             public Vec1 ColumnsOffset;
             public Vec1 GroupOffset;
@@ -5030,7 +5042,6 @@ namespace ImGui
             public NavLayer NavLayerCurrent;
             public short NavLayersActiveMask;
             public short NavLayersActiveMaskNext;
-            public ID NavFocusScopeIdCurrent;
             public bool NavHideHighlightOneFrame;
             public bool NavHasScroll;
             public bool MenuBarAppending;
@@ -5085,51 +5096,48 @@ namespace ImGui
                 this = *CtorImpl(x1, y1, x2, y2);
             }
             
-            [LinkName("ImRect_destroy")]
-            private static extern void DestroyImpl(Rect* ptr);
-            
             [LinkName("ImRect_Add_Vec2")]
-            private static extern void AddImpl(Rect* self, Vec2 p);
+            private static extern void AddImpl(Self* self, Vec2 p);
             public void Add(Vec2 p) mut=> AddImpl(&this, p);
             
             [LinkName("ImRect_Add_Rect")]
-            private static extern void AddImpl(Rect* self, Rect r);
+            private static extern void AddImpl(Self* self, Rect r);
             public void Add(Rect r) mut=> AddImpl(&this, r);
             
             [LinkName("ImRect_ClipWith")]
-            private static extern void ClipWithImpl(Rect* self, Rect r);
+            private static extern void ClipWithImpl(Self* self, Rect r);
             public void ClipWith(Rect r) mut=> ClipWithImpl(&this, r);
             
             [LinkName("ImRect_ClipWithFull")]
-            private static extern void ClipWithFullImpl(Rect* self, Rect r);
+            private static extern void ClipWithFullImpl(Self* self, Rect r);
             public void ClipWithFull(Rect r) mut=> ClipWithFullImpl(&this, r);
             
             [LinkName("ImRect_Contains_Vec2")]
-            private static extern bool ContainsImpl(Rect* self, Vec2 p);
+            private static extern bool ContainsImpl(Self* self, Vec2 p);
             public bool Contains(Vec2 p) mut=> ContainsImpl(&this, p);
             
             [LinkName("ImRect_Contains_Rect")]
-            private static extern bool ContainsImpl(Rect* self, Rect r);
+            private static extern bool ContainsImpl(Self* self, Rect r);
             public bool Contains(Rect r) mut=> ContainsImpl(&this, r);
             
             [LinkName("ImRect_Expand_Float")]
-            private static extern void ExpandImpl(Rect* self, float amount);
+            private static extern void ExpandImpl(Self* self, float amount);
             public void Expand(float amount) mut=> ExpandImpl(&this, amount);
             
             [LinkName("ImRect_Expand_Vec2")]
-            private static extern void ExpandImpl(Rect* self, Vec2 amount);
+            private static extern void ExpandImpl(Self* self, Vec2 amount);
             public void Expand(Vec2 amount) mut=> ExpandImpl(&this, amount);
             
             [LinkName("ImRect_Floor")]
-            private static extern void FloorImpl(Rect* self);
+            private static extern void FloorImpl(Self* self);
             public void Floor() mut=> FloorImpl(&this);
             
             [LinkName("ImRect_GetArea")]
-            private static extern float GetAreaImpl(Rect* self);
+            private static extern float GetAreaImpl(Self* self);
             public float GetArea() mut=> GetAreaImpl(&this);
             
             [LinkName("ImRect_GetBL")]
-            private static extern Vec2 GetBLImpl(Vec2* pOut, Rect* self);
+            private static extern Vec2 GetBLImpl(Vec2* pOut, Self* self);
             public Vec2 GetBL() mut
             {
                 Vec2 pOut = default;
@@ -5138,7 +5146,7 @@ namespace ImGui
             }
             
             [LinkName("ImRect_GetBR")]
-            private static extern Vec2 GetBRImpl(Vec2* pOut, Rect* self);
+            private static extern Vec2 GetBRImpl(Vec2* pOut, Self* self);
             public Vec2 GetBR() mut
             {
                 Vec2 pOut = default;
@@ -5147,7 +5155,7 @@ namespace ImGui
             }
             
             [LinkName("ImRect_GetCenter")]
-            private static extern Vec2 GetCenterImpl(Vec2* pOut, Rect* self);
+            private static extern Vec2 GetCenterImpl(Vec2* pOut, Self* self);
             public Vec2 GetCenter() mut
             {
                 Vec2 pOut = default;
@@ -5156,11 +5164,11 @@ namespace ImGui
             }
             
             [LinkName("ImRect_GetHeight")]
-            private static extern float GetHeightImpl(Rect* self);
+            private static extern float GetHeightImpl(Self* self);
             public float GetHeight() mut=> GetHeightImpl(&this);
             
             [LinkName("ImRect_GetSize")]
-            private static extern Vec2 GetSizeImpl(Vec2* pOut, Rect* self);
+            private static extern Vec2 GetSizeImpl(Vec2* pOut, Self* self);
             public Vec2 GetSize() mut
             {
                 Vec2 pOut = default;
@@ -5169,7 +5177,7 @@ namespace ImGui
             }
             
             [LinkName("ImRect_GetTL")]
-            private static extern Vec2 GetTLImpl(Vec2* pOut, Rect* self);
+            private static extern Vec2 GetTLImpl(Vec2* pOut, Self* self);
             public Vec2 GetTL() mut
             {
                 Vec2 pOut = default;
@@ -5178,7 +5186,7 @@ namespace ImGui
             }
             
             [LinkName("ImRect_GetTR")]
-            private static extern Vec2 GetTRImpl(Vec2* pOut, Rect* self);
+            private static extern Vec2 GetTRImpl(Vec2* pOut, Self* self);
             public Vec2 GetTR() mut
             {
                 Vec2 pOut = default;
@@ -5187,19 +5195,19 @@ namespace ImGui
             }
             
             [LinkName("ImRect_GetWidth")]
-            private static extern float GetWidthImpl(Rect* self);
+            private static extern float GetWidthImpl(Self* self);
             public float GetWidth() mut=> GetWidthImpl(&this);
             
             [LinkName("ImRect_IsInverted")]
-            private static extern bool IsInvertedImpl(Rect* self);
+            private static extern bool IsInvertedImpl(Self* self);
             public bool IsInverted() mut=> IsInvertedImpl(&this);
             
             [LinkName("ImRect_Overlaps")]
-            private static extern bool OverlapsImpl(Rect* self, Rect r);
+            private static extern bool OverlapsImpl(Self* self, Rect r);
             public bool Overlaps(Rect r) mut=> OverlapsImpl(&this, r);
             
             [LinkName("ImRect_ToVec4")]
-            private static extern Vec4 ToVec4Impl(Vec4* pOut, Rect* self);
+            private static extern Vec4 ToVec4Impl(Vec4* pOut, Self* self);
             public Vec4 ToVec4() mut
             {
                 Vec4 pOut = default;
@@ -5208,15 +5216,15 @@ namespace ImGui
             }
             
             [LinkName("ImRect_Translate")]
-            private static extern void TranslateImpl(Rect* self, Vec2 d);
+            private static extern void TranslateImpl(Self* self, Vec2 d);
             public void Translate(Vec2 d) mut=> TranslateImpl(&this, d);
             
             [LinkName("ImRect_TranslateX")]
-            private static extern void TranslateXImpl(Rect* self, float dx);
+            private static extern void TranslateXImpl(Self* self, float dx);
             public void TranslateX(float dx) mut=> TranslateXImpl(&this, dx);
             
             [LinkName("ImRect_TranslateY")]
-            private static extern void TranslateYImpl(Rect* self, float dy);
+            private static extern void TranslateYImpl(Self* self, float dy);
             public void TranslateY(float dy) mut=> TranslateYImpl(&this, dy);
             
         }
@@ -5240,9 +5248,6 @@ namespace ImGui
                 this = *CtorImpl(_x);
             }
             
-            [LinkName("ImVec1_destroy")]
-            private static extern void DestroyImpl(Vec1* ptr);
-            
         }
         
         [CRepr]
@@ -5262,9 +5267,6 @@ namespace ImGui
                 this.x = x;
                 this.y = y;
             }
-            
-            [LinkName("ImVec2_destroy")]
-            private static extern void DestroyImpl(Vec2* ptr);
             
         }
         
@@ -5295,9 +5297,6 @@ namespace ImGui
                 this = *CtorImpl(rhs);
             }
             
-            [LinkName("ImVec2ih_destroy")]
-            private static extern void DestroyImpl(Vec2ih* ptr);
-            
         }
         
         [CRepr]
@@ -5323,9 +5322,6 @@ namespace ImGui
             	this.z = z;
             	this.w = w;
             }
-            
-            [LinkName("ImVec4_destroy")]
-            private static extern void DestroyImpl(Vec4* ptr);
             
         }
         
@@ -5404,161 +5400,159 @@ namespace ImGui
                 this = *CtorImpl(src);
             }
             
-            [LinkName("ImVector_destroy")]
-            private static extern void DestroyImpl(Vector<T>* ptr);
-            
             [LinkName("ImVector__grow_capacity")]
-            private static extern int32 GrowCapacityImpl(Vector<T>* self, int32 sz);
+            private static extern int32 GrowCapacityImpl(Self* self, int32 sz);
             public int32 GrowCapacity(int32 sz) mut=> GrowCapacityImpl(&this, sz);
             
             [LinkName("ImVector_back_Nil")]
-            private static extern T* BackImpl(Vector<T>* self);
+            private static extern T* BackImpl(Self* self);
             public T* Back() mut=> BackImpl(&this);
             
             [LinkName("ImVector_begin_Nil")]
-            private static extern T* BeginImpl(Vector<T>* self);
+            private static extern T* BeginImpl(Self* self);
             public T* Begin() mut=> BeginImpl(&this);
             
             [LinkName("ImVector_capacity")]
-            private static extern int32 CapacityImpl(Vector<T>* self);
+            private static extern int32 CapacityImpl(Self* self);
             public int32 Capacity() mut=> CapacityImpl(&this);
             
             [LinkName("ImVector_clear")]
-            private static extern void ClearImpl(Vector<T>* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImVector_clear_delete")]
-            private static extern void ClearDeleteImpl(Vector<T>* self);
+            private static extern void ClearDeleteImpl(Self* self);
             public void ClearDelete() mut=> ClearDeleteImpl(&this);
             
             [LinkName("ImVector_clear_destruct")]
-            private static extern void ClearDestructImpl(Vector<T>* self);
+            private static extern void ClearDestructImpl(Self* self);
             public void ClearDestruct() mut=> ClearDestructImpl(&this);
             
             [LinkName("ImVector_contains")]
-            private static extern bool ContainsImpl(Vector<T>* self, T v);
+            private static extern bool ContainsImpl(Self* self, T v);
             public bool Contains(T v) mut=> ContainsImpl(&this, v);
             
             [LinkName("ImVector_empty")]
-            private static extern bool EmptyImpl(Vector<T>* self);
+            private static extern bool EmptyImpl(Self* self);
             public bool Empty() mut=> EmptyImpl(&this);
             
             [LinkName("ImVector_end_Nil")]
-            private static extern T* EndImpl(Vector<T>* self);
+            private static extern T* EndImpl(Self* self);
             public T* End() mut=> EndImpl(&this);
             
             [LinkName("ImVector_erase_Nil")]
-            private static extern T* EraseImpl(Vector<T>* self, T* it);
+            private static extern T* EraseImpl(Self* self, T* it);
             public T* Erase(T* it) mut=> EraseImpl(&this, it);
             
             [LinkName("ImVector_erase_TPtr")]
-            private static extern T* EraseImpl(Vector<T>* self, T* it, T* it_last);
+            private static extern T* EraseImpl(Self* self, T* it, T* it_last);
             public T* Erase(T* it, T* it_last) mut=> EraseImpl(&this, it, it_last);
             
             [LinkName("ImVector_erase_unsorted")]
-            private static extern T* EraseUnsortedImpl(Vector<T>* self, T* it);
+            private static extern T* EraseUnsortedImpl(Self* self, T* it);
             public T* EraseUnsorted(T* it) mut=> EraseUnsortedImpl(&this, it);
             
             [LinkName("ImVector_find_Nil")]
-            private static extern T* FindImpl(Vector<T>* self, T v);
+            private static extern T* FindImpl(Self* self, T v);
             public T* Find(T v) mut=> FindImpl(&this, v);
             
             [LinkName("ImVector_find_erase")]
-            private static extern bool FindEraseImpl(Vector<T>* self, T v);
+            private static extern bool FindEraseImpl(Self* self, T v);
             public bool FindErase(T v) mut=> FindEraseImpl(&this, v);
             
             [LinkName("ImVector_find_erase_unsorted")]
-            private static extern bool FindEraseUnsortedImpl(Vector<T>* self, T v);
+            private static extern bool FindEraseUnsortedImpl(Self* self, T v);
             public bool FindEraseUnsorted(T v) mut=> FindEraseUnsortedImpl(&this, v);
             
             [LinkName("ImVector_front_Nil")]
-            private static extern T* FrontImpl(Vector<T>* self);
+            private static extern T* FrontImpl(Self* self);
             public T* Front() mut=> FrontImpl(&this);
             
             [LinkName("ImVector_index_from_ptr")]
-            private static extern int32 IndexFromPtrImpl(Vector<T>* self, T* it);
+            private static extern int32 IndexFromPtrImpl(Self* self, T* it);
             public int32 IndexFromPtr(T* it) mut=> IndexFromPtrImpl(&this, it);
             
             [LinkName("ImVector_insert")]
-            private static extern T* InsertImpl(Vector<T>* self, T* it, T v);
+            private static extern T* InsertImpl(Self* self, T* it, T v);
             public T* Insert(T* it, T v) mut=> InsertImpl(&this, it, v);
             
             [LinkName("ImVector_max_size")]
-            private static extern int32 MaxSizeImpl(Vector<T>* self);
+            private static extern int32 MaxSizeImpl(Self* self);
             public int32 MaxSize() mut=> MaxSizeImpl(&this);
             
             [LinkName("ImVector_pop_back")]
-            private static extern void PopBackImpl(Vector<T>* self);
+            private static extern void PopBackImpl(Self* self);
             public void PopBack() mut=> PopBackImpl(&this);
             
             [LinkName("ImVector_push_back")]
-            private static extern void PushBackImpl(Vector<T>* self, T v);
+            private static extern void PushBackImpl(Self* self, T v);
             public void PushBack(T v) mut=> PushBackImpl(&this, v);
             
             [LinkName("ImVector_push_front")]
-            private static extern void PushFrontImpl(Vector<T>* self, T v);
+            private static extern void PushFrontImpl(Self* self, T v);
             public void PushFront(T v) mut=> PushFrontImpl(&this, v);
             
             [LinkName("ImVector_reserve")]
-            private static extern void ReserveImpl(Vector<T>* self, int32 new_capacity);
+            private static extern void ReserveImpl(Self* self, int32 new_capacity);
             public void Reserve(int32 new_capacity) mut=> ReserveImpl(&this, new_capacity);
             
             [LinkName("ImVector_reserve_discard")]
-            private static extern void ReserveDiscardImpl(Vector<T>* self, int32 new_capacity);
+            private static extern void ReserveDiscardImpl(Self* self, int32 new_capacity);
             public void ReserveDiscard(int32 new_capacity) mut=> ReserveDiscardImpl(&this, new_capacity);
             
             [LinkName("ImVector_resize_Nil")]
-            private static extern void ResizeImpl(Vector<T>* self, int32 new_size);
+            private static extern void ResizeImpl(Self* self, int32 new_size);
             public void Resize(int32 new_size) mut=> ResizeImpl(&this, new_size);
             
             [LinkName("ImVector_resize_T")]
-            private static extern void ResizeImpl(Vector<T>* self, int32 new_size, T v);
+            private static extern void ResizeImpl(Self* self, int32 new_size, T v);
             public void Resize(int32 new_size, T v) mut=> ResizeImpl(&this, new_size, v);
             
             [LinkName("ImVector_shrink")]
-            private static extern void ShrinkImpl(Vector<T>* self, int32 new_size);
+            private static extern void ShrinkImpl(Self* self, int32 new_size);
             public void Shrink(int32 new_size) mut=> ShrinkImpl(&this, new_size);
             
             [LinkName("ImVector_size")]
-            private static extern int32 SizeImpl(Vector<T>* self);
+            private static extern int32 SizeImpl(Self* self);
             public int32 Size() mut=> SizeImpl(&this);
             
             [LinkName("ImVector_size_in_bytes")]
-            private static extern int32 SizeInBytesImpl(Vector<T>* self);
+            private static extern int32 SizeInBytesImpl(Self* self);
             public int32 SizeInBytes() mut=> SizeInBytesImpl(&this);
             
             [LinkName("ImVector_swap")]
-            private static extern void SwapImpl(Vector<T>* self, Vector<T>* rhs);
+            private static extern void SwapImpl(Self* self, Vector<T>* rhs);
             public void Swap(ref Vector<T> rhs) mut=> SwapImpl(&this, &rhs);
             
         }
         
         [CRepr]
-        public struct BitArray<T>
+        public struct BitArray<BitCount, Offset> where BitCount : const int where Offset : const int
         {
+            public U32[(BitCount + 32) >> 5] Storage;
         
             [LinkName("ImBitArray_ClearAllBits")]
-            private static extern void ClearAllBitsImpl(BitArray<T>* self);
+            private static extern void ClearAllBitsImpl(Self* self);
             public void ClearAllBits() mut=> ClearAllBitsImpl(&this);
             
             [LinkName("ImBitArray_ClearBit")]
-            private static extern void ClearBitImpl(BitArray<T>* self, int32 n);
+            private static extern void ClearBitImpl(Self* self, int32 n);
             public void ClearBit(int32 n) mut=> ClearBitImpl(&this, n);
             
             [LinkName("ImBitArray_SetAllBits")]
-            private static extern void SetAllBitsImpl(BitArray<T>* self);
+            private static extern void SetAllBitsImpl(Self* self);
             public void SetAllBits() mut=> SetAllBitsImpl(&this);
             
             [LinkName("ImBitArray_SetBit")]
-            private static extern void SetBitImpl(BitArray<T>* self, int32 n);
+            private static extern void SetBitImpl(Self* self, int32 n);
             public void SetBit(int32 n) mut=> SetBitImpl(&this, n);
             
             [LinkName("ImBitArray_SetBitRange")]
-            private static extern void SetBitRangeImpl(BitArray<T>* self, int32 n, int32 n2);
+            private static extern void SetBitRangeImpl(Self* self, int32 n, int32 n2);
             public void SetBitRange(int32 n, int32 n2) mut=> SetBitRangeImpl(&this, n, n2);
             
             [LinkName("ImBitArray_TestBit")]
-            private static extern bool TestBitImpl(BitArray<T>* self, int32 n);
+            private static extern bool TestBitImpl(Self* self, int32 n);
             public bool TestBit(int32 n) mut=> TestBitImpl(&this, n);
             
         }
@@ -5566,49 +5560,50 @@ namespace ImGui
         [CRepr]
         public struct ChunkStream<T>
         {
+            public Vector<char> Buf;
         
             [LinkName("ImChunkStream_alloc_chunk")]
-            private static extern T* AllocChunkImpl(ChunkStream<T>* self, size sz);
+            private static extern T* AllocChunkImpl(Self* self, size sz);
             public T* AllocChunk(size sz) mut=> AllocChunkImpl(&this, sz);
             
             [LinkName("ImChunkStream_begin")]
-            private static extern T* BeginImpl(ChunkStream<T>* self);
+            private static extern T* BeginImpl(Self* self);
             public T* Begin() mut=> BeginImpl(&this);
             
             [LinkName("ImChunkStream_chunk_size")]
-            private static extern int32 ChunkSizeImpl(ChunkStream<T>* self, T* p);
+            private static extern int32 ChunkSizeImpl(Self* self, T* p);
             public int32 ChunkSize(T* p) mut=> ChunkSizeImpl(&this, p);
             
             [LinkName("ImChunkStream_clear")]
-            private static extern void ClearImpl(ChunkStream<T>* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImChunkStream_empty")]
-            private static extern bool EmptyImpl(ChunkStream<T>* self);
+            private static extern bool EmptyImpl(Self* self);
             public bool Empty() mut=> EmptyImpl(&this);
             
             [LinkName("ImChunkStream_end")]
-            private static extern T* EndImpl(ChunkStream<T>* self);
+            private static extern T* EndImpl(Self* self);
             public T* End() mut=> EndImpl(&this);
             
             [LinkName("ImChunkStream_next_chunk")]
-            private static extern T* NextChunkImpl(ChunkStream<T>* self, T* p);
+            private static extern T* NextChunkImpl(Self* self, T* p);
             public T* NextChunk(T* p) mut=> NextChunkImpl(&this, p);
             
             [LinkName("ImChunkStream_offset_from_ptr")]
-            private static extern int32 OffsetFromPtrImpl(ChunkStream<T>* self, T* p);
+            private static extern int32 OffsetFromPtrImpl(Self* self, T* p);
             public int32 OffsetFromPtr(T* p) mut=> OffsetFromPtrImpl(&this, p);
             
             [LinkName("ImChunkStream_ptr_from_offset")]
-            private static extern T* PtrFromOffsetImpl(ChunkStream<T>* self, int32 off);
+            private static extern T* PtrFromOffsetImpl(Self* self, int32 off);
             public T* PtrFromOffset(int32 off) mut=> PtrFromOffsetImpl(&this, off);
             
             [LinkName("ImChunkStream_size")]
-            private static extern int32 SizeImpl(ChunkStream<T>* self);
+            private static extern int32 SizeImpl(Self* self);
             public int32 Size() mut=> SizeImpl(&this);
             
             [LinkName("ImChunkStream_swap")]
-            private static extern void SwapImpl(ChunkStream<T>* self, ChunkStream<T>* rhs);
+            private static extern void SwapImpl(Self* self, ChunkStream<T>* rhs);
             public void Swap(ref ChunkStream<T> rhs) mut=> SwapImpl(&this, &rhs);
             
         }
@@ -5616,87 +5611,96 @@ namespace ImGui
         [CRepr]
         public struct Pool<T>
         {
+            public Vector<T> Buf;
+            public Storage Map;
+            public PoolIdx FreeIdx;
+            public PoolIdx AliveCount;
         
             [LinkName("ImPool_Add")]
-            private static extern T* AddImpl(Pool<T>* self);
+            private static extern T* AddImpl(Self* self);
             public T* Add() mut=> AddImpl(&this);
             
             [LinkName("ImPool_Clear")]
-            private static extern void ClearImpl(Pool<T>* self);
+            private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
             
             [LinkName("ImPool_Contains")]
-            private static extern bool ContainsImpl(Pool<T>* self, T* p);
+            private static extern bool ContainsImpl(Self* self, T* p);
             public bool Contains(T* p) mut=> ContainsImpl(&this, p);
             
             [LinkName("ImPool_GetAliveCount")]
-            private static extern int32 GetAliveCountImpl(Pool<T>* self);
+            private static extern int32 GetAliveCountImpl(Self* self);
             public int32 GetAliveCount() mut=> GetAliveCountImpl(&this);
             
             [LinkName("ImPool_GetBufSize")]
-            private static extern int32 GetBufSizeImpl(Pool<T>* self);
+            private static extern int32 GetBufSizeImpl(Self* self);
             public int32 GetBufSize() mut=> GetBufSizeImpl(&this);
             
             [LinkName("ImPool_GetByIndex")]
-            private static extern T* GetByIndexImpl(Pool<T>* self, PoolIdx n);
+            private static extern T* GetByIndexImpl(Self* self, PoolIdx n);
             public T* GetByIndex(PoolIdx n) mut=> GetByIndexImpl(&this, n);
             
             [LinkName("ImPool_GetByKey")]
-            private static extern T* GetByKeyImpl(Pool<T>* self, ID key);
+            private static extern T* GetByKeyImpl(Self* self, ID key);
             public T* GetByKey(ID key) mut=> GetByKeyImpl(&this, key);
             
             [LinkName("ImPool_GetIndex")]
-            private static extern PoolIdx GetIndexImpl(Pool<T>* self, T* p);
+            private static extern PoolIdx GetIndexImpl(Self* self, T* p);
             public PoolIdx GetIndex(T* p) mut=> GetIndexImpl(&this, p);
             
             [LinkName("ImPool_GetMapSize")]
-            private static extern int32 GetMapSizeImpl(Pool<T>* self);
+            private static extern int32 GetMapSizeImpl(Self* self);
             public int32 GetMapSize() mut=> GetMapSizeImpl(&this);
             
             [LinkName("ImPool_GetOrAddByKey")]
-            private static extern T* GetOrAddByKeyImpl(Pool<T>* self, ID key);
+            private static extern T* GetOrAddByKeyImpl(Self* self, ID key);
             public T* GetOrAddByKey(ID key) mut=> GetOrAddByKeyImpl(&this, key);
             
             [LinkName("ImPool_Remove_TPtr")]
-            private static extern void RemoveImpl(Pool<T>* self, ID key, T* p);
+            private static extern void RemoveImpl(Self* self, ID key, T* p);
             public void Remove(ID key, T* p) mut=> RemoveImpl(&this, key, p);
             
             [LinkName("ImPool_Remove_PoolIdx")]
-            private static extern void RemoveImpl(Pool<T>* self, ID key, PoolIdx idx);
+            private static extern void RemoveImpl(Self* self, ID key, PoolIdx idx);
             public void Remove(ID key, PoolIdx idx) mut=> RemoveImpl(&this, key, idx);
             
             [LinkName("ImPool_Reserve")]
-            private static extern void ReserveImpl(Pool<T>* self, int32 capacity);
+            private static extern void ReserveImpl(Self* self, int32 capacity);
             public void Reserve(int32 capacity) mut=> ReserveImpl(&this, capacity);
             
             [LinkName("ImPool_TryGetMapData")]
-            private static extern T* TryGetMapDataImpl(Pool<T>* self, PoolIdx n);
+            private static extern T* TryGetMapDataImpl(Self* self, PoolIdx n);
             public T* TryGetMapData(PoolIdx n) mut=> TryGetMapDataImpl(&this, n);
             
         }
         
         [CRepr]
-        public struct SpanAllocator<T>
+        public struct SpanAllocator<T> where T : const int
         {
+            public charPtr BasePtr;
+            int32 CurrOff;
+            int32 CurrIdx;
+            int32[T] Offsets;
+            int32[T] Sizes;
         
             [LinkName("ImSpanAllocator_GetArenaSizeInBytes")]
-            private static extern int32 GetArenaSizeInBytesImpl(SpanAllocator<T>* self);
+            private static extern int32 GetArenaSizeInBytesImpl(Self* self);
             public int32 GetArenaSizeInBytes() mut=> GetArenaSizeInBytesImpl(&this);
             
             [LinkName("ImSpanAllocator_GetSpanPtrBegin")]
-            private static extern void* GetSpanPtrBeginImpl(SpanAllocator<T>* self, int32 n);
+            private static extern void* GetSpanPtrBeginImpl(Self* self, int32 n);
             public void* GetSpanPtrBegin(int32 n) mut=> GetSpanPtrBeginImpl(&this, n);
             
             [LinkName("ImSpanAllocator_GetSpanPtrEnd")]
-            private static extern void* GetSpanPtrEndImpl(SpanAllocator<T>* self, int32 n);
+            private static extern void* GetSpanPtrEndImpl(Self* self, int32 n);
             public void* GetSpanPtrEnd(int32 n) mut=> GetSpanPtrEndImpl(&this, n);
             
             [LinkName("ImSpanAllocator_Reserve")]
-            private static extern void ReserveImpl(SpanAllocator<T>* self, int32 n, size sz, int32 a);
+            private static extern void ReserveImpl(Self* self, int32 n, size sz, int32 a);
             public void Reserve(int32 n, size sz, int32 a = (int32) 4) mut=> ReserveImpl(&this, n, sz, a);
             
             [LinkName("ImSpanAllocator_SetArenaBasePtr")]
-            private static extern void SetArenaBasePtrImpl(SpanAllocator<T>* self, void* base_ptr);
+            private static extern void SetArenaBasePtrImpl(Self* self, void* base_ptr);
             public void SetArenaBasePtr(void* base_ptr) mut=> SetArenaBasePtrImpl(&this, base_ptr);
             
         }
@@ -5704,33 +5708,35 @@ namespace ImGui
         [CRepr]
         public struct Span<T>
         {
+            public T* Data;
+            public T* DataEnd;
         
             [LinkName("ImSpan_begin_Nil")]
-            private static extern T* BeginImpl(Span<T>* self);
+            private static extern T* BeginImpl(Self* self);
             public T* Begin() mut=> BeginImpl(&this);
             
             [LinkName("ImSpan_end_Nil")]
-            private static extern T* EndImpl(Span<T>* self);
+            private static extern T* EndImpl(Self* self);
             public T* End() mut=> EndImpl(&this);
             
             [LinkName("ImSpan_index_from_ptr")]
-            private static extern int32 IndexFromPtrImpl(Span<T>* self, T* it);
+            private static extern int32 IndexFromPtrImpl(Self* self, T* it);
             public int32 IndexFromPtr(T* it) mut=> IndexFromPtrImpl(&this, it);
             
             [LinkName("ImSpan_set_Int")]
-            private static extern void SetImpl(Span<T>* self, T* data, int32 size);
+            private static extern void SetImpl(Self* self, T* data, int32 size);
             public void Set(T* data, int32 size) mut=> SetImpl(&this, data, size);
             
             [LinkName("ImSpan_set_TPtr")]
-            private static extern void SetImpl(Span<T>* self, T* data, T* data_end);
+            private static extern void SetImpl(Self* self, T* data, T* data_end);
             public void Set(T* data, T* data_end) mut=> SetImpl(&this, data, data_end);
             
             [LinkName("ImSpan_size")]
-            private static extern int32 SizeImpl(Span<T>* self);
+            private static extern int32 SizeImpl(Self* self);
             public int32 Size() mut=> SizeImpl(&this);
             
             [LinkName("ImSpan_size_in_bytes")]
-            private static extern int32 SizeInBytesImpl(Span<T>* self);
+            private static extern int32 SizeInBytesImpl(Self* self);
             public int32 SizeInBytes() mut=> SizeInBytesImpl(&this);
             
         }
@@ -5900,12 +5906,12 @@ namespace ImGui
         public static bool BeginTableEx(char* name, ID id, int32 columns_count, TableFlags flags = (TableFlags) 0, Vec2 outer_size = Vec2.Zero, float inner_width = (float) 0.0f) => BeginTableExImpl(name, id, columns_count, flags, outer_size, inner_width);
         
         [LinkName("igBeginTooltip")]
-        private static extern void BeginTooltipImpl();
-        public static void BeginTooltip() => BeginTooltipImpl();
+        private static extern bool BeginTooltipImpl();
+        public static bool BeginTooltip() => BeginTooltipImpl();
         
         [LinkName("igBeginTooltipEx")]
-        private static extern void BeginTooltipExImpl(TooltipFlags tooltip_flags, WindowFlags extra_window_flags);
-        public static void BeginTooltipEx(TooltipFlags tooltip_flags, WindowFlags extra_window_flags) => BeginTooltipExImpl(tooltip_flags, extra_window_flags);
+        private static extern bool BeginTooltipExImpl(TooltipFlags tooltip_flags, WindowFlags extra_window_flags);
+        public static bool BeginTooltipEx(TooltipFlags tooltip_flags, WindowFlags extra_window_flags) => BeginTooltipExImpl(tooltip_flags, extra_window_flags);
         
         [LinkName("igBeginViewportSideBar")]
         private static extern bool BeginViewportSideBarImpl(char* name, Viewport* viewport, Dir dir, float size, WindowFlags window_flags);
@@ -6031,6 +6037,10 @@ namespace ImGui
         private static extern void ClearIniSettingsImpl();
         public static void ClearIniSettings() => ClearIniSettingsImpl();
         
+        [LinkName("igClearWindowSettings")]
+        private static extern void ClearWindowSettingsImpl(char* name);
+        public static void ClearWindowSettings(char* name) => ClearWindowSettingsImpl(name);
+        
         [LinkName("igCloseButton")]
         private static extern bool CloseButtonImpl(ID id, Vec2 pos);
         public static bool CloseButton(ID id, Vec2 pos) => CloseButtonImpl(id, pos);
@@ -6100,11 +6110,11 @@ namespace ImGui
         
         [LinkName("igColorEdit3")]
         private static extern bool ColorEdit3Impl(char* label, float[3] col, ColorEditFlags flags);
-        public static bool ColorEdit3(char* label, float[3] col, ColorEditFlags flags = (ColorEditFlags) 0) => ColorEdit3Impl(label, col, flags);
+        public static bool ColorEdit3(char* label, ref float[3] col, ColorEditFlags flags = (ColorEditFlags) 0) => ColorEdit3Impl(label, col, flags);
         
         [LinkName("igColorEdit4")]
         private static extern bool ColorEdit4Impl(char* label, float[4] col, ColorEditFlags flags);
-        public static bool ColorEdit4(char* label, float[4] col, ColorEditFlags flags = (ColorEditFlags) 0) => ColorEdit4Impl(label, col, flags);
+        public static bool ColorEdit4(char* label, ref float[4] col, ColorEditFlags flags = (ColorEditFlags) 0) => ColorEdit4Impl(label, col, flags);
         
         [LinkName("igColorEditOptionsPopup")]
         private static extern void ColorEditOptionsPopupImpl(float* col, ColorEditFlags flags);
@@ -6112,11 +6122,11 @@ namespace ImGui
         
         [LinkName("igColorPicker3")]
         private static extern bool ColorPicker3Impl(char* label, float[3] col, ColorEditFlags flags);
-        public static bool ColorPicker3(char* label, float[3] col, ColorEditFlags flags = (ColorEditFlags) 0) => ColorPicker3Impl(label, col, flags);
+        public static bool ColorPicker3(char* label, ref float[3] col, ColorEditFlags flags = (ColorEditFlags) 0) => ColorPicker3Impl(label, col, flags);
         
         [LinkName("igColorPicker4")]
         private static extern bool ColorPicker4Impl(char* label, float[4] col, ColorEditFlags flags, float* ref_col);
-        public static bool ColorPicker4(char* label, float[4] col, ColorEditFlags flags = (ColorEditFlags) 0, float* ref_col = null) => ColorPicker4Impl(label, col, flags, ref_col);
+        public static bool ColorPicker4(char* label, ref float[4] col, ColorEditFlags flags = (ColorEditFlags) 0, float* ref_col = null) => ColorPicker4Impl(label, col, flags, ref_col);
         
         [LinkName("igColorPickerOptionsPopup")]
         private static extern void ColorPickerOptionsPopupImpl(float* ref_col, ColorEditFlags flags);
@@ -6141,6 +6151,14 @@ namespace ImGui
         [LinkName("igCombo_FnBoolPtr")]
         private static extern bool ComboImpl(char* label, int32* current_item, function bool(void* data, int32 idx, char** outext) items_getter, void* data, int32 items_count, int32 popup_max_height_in_items);
         public static bool Combo(char* label, int32* current_item, function bool(void* data, int32 idx, char** outext) items_getter, void* data, int32 items_count, int32 popup_max_height_in_items = -1) => ComboImpl(label, current_item, items_getter, data, items_count, popup_max_height_in_items);
+        
+        [LinkName("igConvertShortcutMod")]
+        private static extern KeyChord ConvertShortcutModImpl(KeyChord key_chord);
+        public static KeyChord ConvertShortcutMod(KeyChord key_chord) => ConvertShortcutModImpl(key_chord);
+        
+        [LinkName("igConvertSingleModFlagToKey")]
+        private static extern Key ConvertSingleModFlagToKeyImpl(Context* ctx, Key key);
+        public static Key ConvertSingleModFlagToKey(Context* ctx, Key key) => ConvertSingleModFlagToKeyImpl(ctx, key);
         
         [LinkName("igCreateContext")]
         private static extern Context* CreateContextImpl(FontAtlas* shared_font_atlas);
@@ -6197,6 +6215,18 @@ namespace ImGui
         [LinkName("igDebugHookIdInfo")]
         private static extern void DebugHookIdInfoImpl(ID id, DataType data_type, void* data_id, void* data_id_end);
         public static void DebugHookIdInfo(ID id, DataType data_type, void* data_id, void* data_id_end) => DebugHookIdInfoImpl(id, data_type, data_id, data_id_end);
+        
+        [LinkName("igDebugLocateItem")]
+        private static extern void DebugLocateItemImpl(ID target_id);
+        public static void DebugLocateItem(ID target_id) => DebugLocateItemImpl(target_id);
+        
+        [LinkName("igDebugLocateItemOnHover")]
+        private static extern void DebugLocateItemOnHoverImpl(ID target_id);
+        public static void DebugLocateItemOnHover(ID target_id) => DebugLocateItemOnHoverImpl(target_id);
+        
+        [LinkName("igDebugLocateItemResolveWithLastItem")]
+        private static extern void DebugLocateItemResolveWithLastItemImpl();
+        public static void DebugLocateItemResolveWithLastItem() => DebugLocateItemResolveWithLastItemImpl();
         
         [LinkName("igDebugLog")]
         private static extern void DebugLogImpl(char* fmt, ...);
@@ -6262,12 +6292,16 @@ namespace ImGui
         public static void DebugNodeWindowSettings(WindowSettings* settings) => DebugNodeWindowSettingsImpl(settings);
         
         [LinkName("igDebugNodeWindowsList")]
-        private static extern void DebugNodeWindowsListImpl(Vector<Window*>* windows, char* label);
-        public static void DebugNodeWindowsList(Vector<Window*>* windows, char* label) => DebugNodeWindowsListImpl(windows, label);
+        private static extern void DebugNodeWindowsListImpl(Vector<Window**> windows, char* label);
+        public static void DebugNodeWindowsList(Vector<Window**> windows, char* label) => DebugNodeWindowsListImpl(windows, label);
         
         [LinkName("igDebugNodeWindowsListByBeginStackParent")]
         private static extern void DebugNodeWindowsListByBeginStackParentImpl(Window** windows, int32 windows_size, Window* parent_in_begin_stack);
         public static void DebugNodeWindowsListByBeginStackParent(Window** windows, int32 windows_size, Window* parent_in_begin_stack) => DebugNodeWindowsListByBeginStackParentImpl(windows, windows_size, parent_in_begin_stack);
+        
+        [LinkName("igDebugRenderKeyboardPreview")]
+        private static extern void DebugRenderKeyboardPreviewImpl(DrawList* draw_list);
+        public static void DebugRenderKeyboardPreview(DrawList* draw_list) => DebugRenderKeyboardPreviewImpl(draw_list);
         
         [LinkName("igDebugRenderViewportThumbnail")]
         private static extern void DebugRenderViewportThumbnailImpl(DrawList* draw_list, ViewportP* viewport, Rect bb);
@@ -6298,12 +6332,12 @@ namespace ImGui
         public static ID DockBuilderAddNode(ID node_id = (ID) 0, DockNodeFlags flags = (DockNodeFlags) 0) => DockBuilderAddNodeImpl(node_id, flags);
         
         [LinkName("igDockBuilderCopyDockSpace")]
-        private static extern void DockBuilderCopyDockSpaceImpl(ID src_dockspace_id, ID dst_dockspace_id, Vector<char*>* in_window_remap_pairs);
-        public static void DockBuilderCopyDockSpace(ID src_dockspace_id, ID dst_dockspace_id, Vector<char*>* in_window_remap_pairs) => DockBuilderCopyDockSpaceImpl(src_dockspace_id, dst_dockspace_id, in_window_remap_pairs);
+        private static extern void DockBuilderCopyDockSpaceImpl(ID src_dockspace_id, ID dst_dockspace_id, Vector<char**> in_window_remap_pairs);
+        public static void DockBuilderCopyDockSpace(ID src_dockspace_id, ID dst_dockspace_id, Vector<char**> in_window_remap_pairs) => DockBuilderCopyDockSpaceImpl(src_dockspace_id, dst_dockspace_id, in_window_remap_pairs);
         
         [LinkName("igDockBuilderCopyNode")]
-        private static extern void DockBuilderCopyNodeImpl(ID src_node_id, ID dst_node_id, Vector<ID>* out_node_remap_pairs);
-        public static void DockBuilderCopyNode(ID src_node_id, ID dst_node_id, Vector<ID>* out_node_remap_pairs) => DockBuilderCopyNodeImpl(src_node_id, dst_node_id, out_node_remap_pairs);
+        private static extern void DockBuilderCopyNodeImpl(ID src_node_id, ID dst_node_id, Vector<ID*> out_node_remap_pairs);
+        public static void DockBuilderCopyNode(ID src_node_id, ID dst_node_id, Vector<ID*> out_node_remap_pairs) => DockBuilderCopyNodeImpl(src_node_id, dst_node_id, out_node_remap_pairs);
         
         [LinkName("igDockBuilderCopyWindowSettings")]
         private static extern void DockBuilderCopyWindowSettingsImpl(char* src_name, char* dst_name);
@@ -6363,11 +6397,11 @@ namespace ImGui
         }
         
         [LinkName("igDockContextCalcDropPosForDocking")]
-        private static extern bool DockContextCalcDropPosForDockingImpl(Window* target, DockNode* target_node, Window* payload, Dir split_dir, bool split_outer, Vec2* out_pos);
-        public static bool DockContextCalcDropPosForDocking(Window* target, DockNode* target_node, Window* payload, Dir split_dir, bool split_outer, out Vec2 out_pos)
+        private static extern bool DockContextCalcDropPosForDockingImpl(Window* target, DockNode* target_node, Window* payload_window, DockNode* payload_node, Dir split_dir, bool split_outer, Vec2* out_pos);
+        public static bool DockContextCalcDropPosForDocking(Window* target, DockNode* target_node, Window* payload_window, DockNode* payload_node, Dir split_dir, bool split_outer, out Vec2 out_pos)
         {
             out_pos = ?;
-            return DockContextCalcDropPosForDockingImpl(target, target_node, payload, split_dir, split_outer, &out_pos);
+            return DockContextCalcDropPosForDockingImpl(target, target_node, payload_window, payload_node, split_dir, split_outer, &out_pos);
         }
         
         [LinkName("igDockContextClearNodes")]
@@ -6377,6 +6411,14 @@ namespace ImGui
         [LinkName("igDockContextEndFrame")]
         private static extern void DockContextEndFrameImpl(Context* ctx);
         public static void DockContextEndFrame(Context* ctx) => DockContextEndFrameImpl(ctx);
+        
+        [LinkName("igDockContextFindNodeByID")]
+        private static extern DockNode* DockContextFindNodeByIDImpl(Context* ctx, ID id);
+        #if IMGUI_USE_REF
+        public static ref DockNode DockContextFindNodeByID(Context* ctx, ID id) { return ref *DockContextFindNodeByIDImpl(ctx, id); }
+        #else
+        public static DockNode* DockContextFindNodeByID(Context* ctx, ID id) => DockContextFindNodeByIDImpl(ctx, id);
+        #endif
         
         [LinkName("igDockContextGenNodeID")]
         private static extern ID DockContextGenNodeIDImpl(Context* ctx);
@@ -6393,6 +6435,14 @@ namespace ImGui
         [LinkName("igDockContextNewFrameUpdateUndocking")]
         private static extern void DockContextNewFrameUpdateUndockingImpl(Context* ctx);
         public static void DockContextNewFrameUpdateUndocking(Context* ctx) => DockContextNewFrameUpdateUndockingImpl(ctx);
+        
+        [LinkName("igDockContextProcessUndockNode")]
+        private static extern void DockContextProcessUndockNodeImpl(Context* ctx, DockNode* node);
+        public static void DockContextProcessUndockNode(Context* ctx, DockNode* node) => DockContextProcessUndockNodeImpl(ctx, node);
+        
+        [LinkName("igDockContextProcessUndockWindow")]
+        private static extern void DockContextProcessUndockWindowImpl(Context* ctx, Window* window, bool clear_persistent_docking_ref);
+        public static void DockContextProcessUndockWindow(Context* ctx, Window* window, bool clear_persistent_docking_ref = true) => DockContextProcessUndockWindowImpl(ctx, window, clear_persistent_docking_ref);
         
         [LinkName("igDockContextQueueDock")]
         private static extern void DockContextQueueDockImpl(Context* ctx, Window* target, DockNode* target_node, Window* payload, Dir split_dir, float split_ratio, bool split_outer);
@@ -6442,6 +6492,10 @@ namespace ImGui
         private static extern bool DockNodeIsInHierarchyOfImpl(DockNode* node, DockNode* parent);
         public static bool DockNodeIsInHierarchyOf(DockNode* node, DockNode* parent) => DockNodeIsInHierarchyOfImpl(node, parent);
         
+        [LinkName("igDockNodeWindowMenuHandler_Default")]
+        private static extern void DockNodeWindowMenuHandlerDefaultImpl(Context* ctx, DockNode* node, TabBar* tab_bar);
+        public static void DockNodeWindowMenuHandlerDefault(Context* ctx, DockNode* node, TabBar* tab_bar) => DockNodeWindowMenuHandlerDefaultImpl(ctx, node, tab_bar);
+        
         [LinkName("igDockSpace")]
         private static extern ID DockSpaceImpl(ID id, Vec2 size, DockNodeFlags flags, WindowClass* window_class);
         public static ID DockSpace(ID id, Vec2 size = Vec2.Zero, DockNodeFlags flags = (DockNodeFlags) 0, WindowClass* window_class = null) => DockSpaceImpl(id, size, flags, window_class);
@@ -6460,15 +6514,15 @@ namespace ImGui
         
         [LinkName("igDragFloat2")]
         private static extern bool DragFloat2Impl(char* label, float[2] v, float v_speed, float v_min, float v_max, char* format, SliderFlags flags);
-        public static bool DragFloat2(char* label, float[2] v, float v_speed = (float) 1.0f, float v_min = (float) 0.0f, float v_max = (float) 0.0f, char* format = "%.3f", SliderFlags flags = (SliderFlags) 0) => DragFloat2Impl(label, v, v_speed, v_min, v_max, format, flags);
+        public static bool DragFloat2(char* label, ref float[2] v, float v_speed = (float) 1.0f, float v_min = (float) 0.0f, float v_max = (float) 0.0f, char* format = "%.3f", SliderFlags flags = (SliderFlags) 0) => DragFloat2Impl(label, v, v_speed, v_min, v_max, format, flags);
         
         [LinkName("igDragFloat3")]
         private static extern bool DragFloat3Impl(char* label, float[3] v, float v_speed, float v_min, float v_max, char* format, SliderFlags flags);
-        public static bool DragFloat3(char* label, float[3] v, float v_speed = (float) 1.0f, float v_min = (float) 0.0f, float v_max = (float) 0.0f, char* format = "%.3f", SliderFlags flags = (SliderFlags) 0) => DragFloat3Impl(label, v, v_speed, v_min, v_max, format, flags);
+        public static bool DragFloat3(char* label, ref float[3] v, float v_speed = (float) 1.0f, float v_min = (float) 0.0f, float v_max = (float) 0.0f, char* format = "%.3f", SliderFlags flags = (SliderFlags) 0) => DragFloat3Impl(label, v, v_speed, v_min, v_max, format, flags);
         
         [LinkName("igDragFloat4")]
         private static extern bool DragFloat4Impl(char* label, float[4] v, float v_speed, float v_min, float v_max, char* format, SliderFlags flags);
-        public static bool DragFloat4(char* label, float[4] v, float v_speed = (float) 1.0f, float v_min = (float) 0.0f, float v_max = (float) 0.0f, char* format = "%.3f", SliderFlags flags = (SliderFlags) 0) => DragFloat4Impl(label, v, v_speed, v_min, v_max, format, flags);
+        public static bool DragFloat4(char* label, ref float[4] v, float v_speed = (float) 1.0f, float v_min = (float) 0.0f, float v_max = (float) 0.0f, char* format = "%.3f", SliderFlags flags = (SliderFlags) 0) => DragFloat4Impl(label, v, v_speed, v_min, v_max, format, flags);
         
         [LinkName("igDragFloatRange2")]
         private static extern bool DragFloatRange2Impl(char* label, float* v_current_min, float* v_current_max, float v_speed, float v_min, float v_max, char* format, char* format_max, SliderFlags flags);
@@ -6480,15 +6534,15 @@ namespace ImGui
         
         [LinkName("igDragInt2")]
         private static extern bool DragInt2Impl(char* label, int32[2] v, float v_speed, int32 v_min, int32 v_max, char* format, SliderFlags flags);
-        public static bool DragInt2(char* label, int32[2] v, float v_speed = (float) 1.0f, int32 v_min = (int32) 0, int32 v_max = (int32) 0, char* format = "%d", SliderFlags flags = (SliderFlags) 0) => DragInt2Impl(label, v, v_speed, v_min, v_max, format, flags);
+        public static bool DragInt2(char* label, ref int32[2] v, float v_speed = (float) 1.0f, int32 v_min = (int32) 0, int32 v_max = (int32) 0, char* format = "%d", SliderFlags flags = (SliderFlags) 0) => DragInt2Impl(label, v, v_speed, v_min, v_max, format, flags);
         
         [LinkName("igDragInt3")]
         private static extern bool DragInt3Impl(char* label, int32[3] v, float v_speed, int32 v_min, int32 v_max, char* format, SliderFlags flags);
-        public static bool DragInt3(char* label, int32[3] v, float v_speed = (float) 1.0f, int32 v_min = (int32) 0, int32 v_max = (int32) 0, char* format = "%d", SliderFlags flags = (SliderFlags) 0) => DragInt3Impl(label, v, v_speed, v_min, v_max, format, flags);
+        public static bool DragInt3(char* label, ref int32[3] v, float v_speed = (float) 1.0f, int32 v_min = (int32) 0, int32 v_max = (int32) 0, char* format = "%d", SliderFlags flags = (SliderFlags) 0) => DragInt3Impl(label, v, v_speed, v_min, v_max, format, flags);
         
         [LinkName("igDragInt4")]
         private static extern bool DragInt4Impl(char* label, int32[4] v, float v_speed, int32 v_min, int32 v_max, char* format, SliderFlags flags);
-        public static bool DragInt4(char* label, int32[4] v, float v_speed = (float) 1.0f, int32 v_min = (int32) 0, int32 v_max = (int32) 0, char* format = "%d", SliderFlags flags = (SliderFlags) 0) => DragInt4Impl(label, v, v_speed, v_min, v_max, format, flags);
+        public static bool DragInt4(char* label, ref int32[4] v, float v_speed = (float) 1.0f, int32 v_min = (int32) 0, int32 v_max = (int32) 0, char* format = "%d", SliderFlags flags = (SliderFlags) 0) => DragInt4Impl(label, v, v_speed, v_min, v_max, format, flags);
         
         [LinkName("igDragIntRange2")]
         private static extern bool DragIntRange2Impl(char* label, int32* v_current_min, int32* v_current_max, float v_speed, int32 v_min, int32 v_max, char* format, char* format_max, SliderFlags flags);
@@ -6594,6 +6648,10 @@ namespace ImGui
         private static extern void ErrorCheckEndWindowRecoverImpl(ErrorLogCallback log_callback, void* user_data);
         public static void ErrorCheckEndWindowRecover(ErrorLogCallback log_callback, void* user_data = null) => ErrorCheckEndWindowRecoverImpl(log_callback, user_data);
         
+        [LinkName("igErrorCheckUsingSetCursorPosToExtendParentBoundaries")]
+        private static extern void ErrorCheckUsingSetCursorPosToExtendParentBoundariesImpl();
+        public static void ErrorCheckUsingSetCursorPosToExtendParentBoundaries() => ErrorCheckUsingSetCursorPosToExtendParentBoundariesImpl();
+        
         [LinkName("igFindBestWindowPosForPopup")]
         private static extern Vec2 FindBestWindowPosForPopupImpl(Vec2* pOut, Window* window);
         public static Vec2 FindBestWindowPosForPopup(Window* window)
@@ -6634,14 +6692,6 @@ namespace ImGui
         public static ref OldColumns FindOrCreateColumns(Window* window, ID id) { return ref *FindOrCreateColumnsImpl(window, id); }
         #else
         public static OldColumns* FindOrCreateColumns(Window* window, ID id) => FindOrCreateColumnsImpl(window, id);
-        #endif
-        
-        [LinkName("igFindOrCreateWindowSettings")]
-        private static extern WindowSettings* FindOrCreateWindowSettingsImpl(char* name);
-        #if IMGUI_USE_REF
-        public static ref WindowSettings FindOrCreateWindowSettings(char* name) { return ref *FindOrCreateWindowSettingsImpl(name); }
-        #else
-        public static WindowSettings* FindOrCreateWindowSettings(char* name) => FindOrCreateWindowSettingsImpl(name);
         #endif
         
         [LinkName("igFindRenderedTextEnd")]
@@ -6696,17 +6746,25 @@ namespace ImGui
         private static extern int32 FindWindowDisplayIndexImpl(Window* window);
         public static int32 FindWindowDisplayIndex(Window* window) => FindWindowDisplayIndexImpl(window);
         
-        [LinkName("igFindWindowSettings")]
-        private static extern WindowSettings* FindWindowSettingsImpl(ID id);
+        [LinkName("igFindWindowSettingsByID")]
+        private static extern WindowSettings* FindWindowSettingsByIDImpl(ID id);
         #if IMGUI_USE_REF
-        public static ref WindowSettings FindWindowSettings(ID id) { return ref *FindWindowSettingsImpl(id); }
+        public static ref WindowSettings FindWindowSettingsByID(ID id) { return ref *FindWindowSettingsByIDImpl(id); }
         #else
-        public static WindowSettings* FindWindowSettings(ID id) => FindWindowSettingsImpl(id);
+        public static WindowSettings* FindWindowSettingsByID(ID id) => FindWindowSettingsByIDImpl(id);
+        #endif
+        
+        [LinkName("igFindWindowSettingsByWindow")]
+        private static extern WindowSettings* FindWindowSettingsByWindowImpl(Window* window);
+        #if IMGUI_USE_REF
+        public static ref WindowSettings FindWindowSettingsByWindow(Window* window) { return ref *FindWindowSettingsByWindowImpl(window); }
+        #else
+        public static WindowSettings* FindWindowSettingsByWindow(Window* window) => FindWindowSettingsByWindowImpl(window);
         #endif
         
         [LinkName("igFocusTopMostWindowUnderOne")]
-        private static extern void FocusTopMostWindowUnderOneImpl(Window* under_this_window, Window* ignore_window);
-        public static void FocusTopMostWindowUnderOne(Window* under_this_window, Window* ignore_window) => FocusTopMostWindowUnderOneImpl(under_this_window, ignore_window);
+        private static extern void FocusTopMostWindowUnderOneImpl(Window* under_this_window, Window* ignore_window, Viewport* filter_viewport);
+        public static void FocusTopMostWindowUnderOne(Window* under_this_window, Window* ignore_window, Viewport* filter_viewport) => FocusTopMostWindowUnderOneImpl(under_this_window, ignore_window, filter_viewport);
         
         [LinkName("igFocusWindow")]
         private static extern void FocusWindowImpl(Window* window);
@@ -6831,6 +6889,18 @@ namespace ImGui
         public static Context* GetCurrentContext() => GetCurrentContextImpl();
         #endif
         
+        [LinkName("igGetCurrentFocusScope")]
+        private static extern ID GetCurrentFocusScopeImpl();
+        public static ID GetCurrentFocusScope() => GetCurrentFocusScopeImpl();
+        
+        [LinkName("igGetCurrentTabBar")]
+        private static extern TabBar* GetCurrentTabBarImpl();
+        #if IMGUI_USE_REF
+        public static ref TabBar GetCurrentTabBar() { return ref *GetCurrentTabBarImpl(); }
+        #else
+        public static TabBar* GetCurrentTabBar() => GetCurrentTabBarImpl();
+        #endif
+        
         [LinkName("igGetCurrentTable")]
         private static extern Table* GetCurrentTableImpl();
         #if IMGUI_USE_REF
@@ -6926,14 +6996,6 @@ namespace ImGui
         private static extern ID GetFocusIDImpl();
         public static ID GetFocusID() => GetFocusIDImpl();
         
-        [LinkName("igGetFocusScope")]
-        private static extern ID GetFocusScopeImpl();
-        public static ID GetFocusScope() => GetFocusScopeImpl();
-        
-        [LinkName("igGetFocusedFocusScope")]
-        private static extern ID GetFocusedFocusScopeImpl();
-        public static ID GetFocusedFocusScope() => GetFocusedFocusScopeImpl();
-        
         [LinkName("igGetFont")]
         private static extern Font* GetFontImpl();
         #if IMGUI_USE_REF
@@ -7007,9 +7069,13 @@ namespace ImGui
         private static extern ID GetIDImpl(void* ptr_id);
         public static ID GetID(void* ptr_id) => GetIDImpl(ptr_id);
         
-        [LinkName("igGetIDWithSeed")]
+        [LinkName("igGetIDWithSeed_Str")]
         private static extern ID GetIDWithSeedImpl(char* str_id_begin, char* str_id_end, ID seed);
         public static ID GetIDWithSeed(char* str_id_begin, char* str_id_end, ID seed) => GetIDWithSeedImpl(str_id_begin, str_id_end, seed);
+        
+        [LinkName("igGetIDWithSeed_Int")]
+        private static extern ID GetIDWithSeedImpl(int32 n, ID seed);
+        public static ID GetIDWithSeed(int32 n, ID seed) => GetIDWithSeedImpl(n, seed);
         
         [LinkName("igGetIO")]
         private static extern IO* GetIOImpl();
@@ -7066,7 +7132,22 @@ namespace ImGui
         private static extern ItemStatusFlags GetItemStatusFlagsImpl();
         public static ItemStatusFlags GetItemStatusFlags() => GetItemStatusFlagsImpl();
         
-        [LinkName("igGetKeyData")]
+        [LinkName("igGetKeyChordName")]
+        private static extern void GetKeyChordNameImpl(KeyChord key_chord, char* out_buf, int32 out_buf_size);
+        public static void GetKeyChordName(KeyChord key_chord, out char out_buf, int32 out_buf_size)
+        {
+            out_buf = ?;
+        }
+        
+        [LinkName("igGetKeyData_ContextPtr")]
+        private static extern KeyData* GetKeyDataImpl(Context* ctx, Key key);
+        #if IMGUI_USE_REF
+        public static ref KeyData GetKeyData(Context* ctx, Key key) { return ref *GetKeyDataImpl(ctx, key); }
+        #else
+        public static KeyData* GetKeyData(Context* ctx, Key key) => GetKeyDataImpl(ctx, key);
+        #endif
+        
+        [LinkName("igGetKeyData_Key")]
         private static extern KeyData* GetKeyDataImpl(Key key);
         #if IMGUI_USE_REF
         public static ref KeyData GetKeyData(Key key) { return ref *GetKeyDataImpl(key); }
@@ -7075,8 +7156,17 @@ namespace ImGui
         #endif
         
         [LinkName("igGetKeyIndex")]
-        private static extern int32 GetKeyIndexImpl(Key key);
-        public static int32 GetKeyIndex(Key key) => GetKeyIndexImpl(key);
+        private static extern Key GetKeyIndexImpl(Key key);
+        public static Key GetKeyIndex(Key key) => GetKeyIndexImpl(key);
+        
+        [LinkName("igGetKeyMagnitude2d")]
+        private static extern Vec2 GetKeyMagnitude2dImpl(Vec2* pOut, Key key_left, Key key_right, Key key_up, Key key_down);
+        public static Vec2 GetKeyMagnitude2d(Key key_left, Key key_right, Key key_up, Key key_down)
+        {
+            Vec2 pOut = default;
+            GetKeyMagnitude2dImpl(&pOut, key_left, key_right, key_up, key_down);
+            return pOut;
+        }
         
         [LinkName("igGetKeyName")]
         private static extern char* GetKeyNameImpl(Key key);
@@ -7084,6 +7174,18 @@ namespace ImGui
         public static ref char GetKeyName(Key key) { return ref *GetKeyNameImpl(key); }
         #else
         public static char* GetKeyName(Key key) => GetKeyNameImpl(key);
+        #endif
+        
+        [LinkName("igGetKeyOwner")]
+        private static extern ID GetKeyOwnerImpl(Key key);
+        public static ID GetKeyOwner(Key key) => GetKeyOwnerImpl(key);
+        
+        [LinkName("igGetKeyOwnerData")]
+        private static extern KeyOwnerData* GetKeyOwnerDataImpl(Context* ctx, Key key);
+        #if IMGUI_USE_REF
+        public static ref KeyOwnerData GetKeyOwnerData(Context* ctx, Key key) { return ref *GetKeyOwnerDataImpl(ctx, key); }
+        #else
+        public static KeyOwnerData* GetKeyOwnerData(Context* ctx, Key key) => GetKeyOwnerDataImpl(ctx, key);
         #endif
         
         [LinkName("igGetKeyPressedAmount")]
@@ -7097,10 +7199,6 @@ namespace ImGui
         #else
         public static Viewport* GetMainViewport() => GetMainViewportImpl();
         #endif
-        
-        [LinkName("igGetMergedModFlags")]
-        private static extern ModFlags GetMergedModFlagsImpl();
-        public static ModFlags GetMergedModFlags() => GetMergedModFlagsImpl();
         
         [LinkName("igGetMouseClickedCount")]
         private static extern int32 GetMouseClickedCountImpl(MouseButton button);
@@ -7137,26 +7235,9 @@ namespace ImGui
             return pOut;
         }
         
-        [LinkName("igGetNavInputAmount")]
-        private static extern float GetNavInputAmountImpl(NavInput n, NavReadMode mode);
-        public static float GetNavInputAmount(NavInput n, NavReadMode mode) => GetNavInputAmountImpl(n, mode);
-        
-        [LinkName("igGetNavInputAmount2d")]
-        private static extern Vec2 GetNavInputAmount2dImpl(Vec2* pOut, NavDirSourceFlags dir_sources, NavReadMode mode, float slow_factor, float fast_factor);
-        public static Vec2 GetNavInputAmount2d(NavDirSourceFlags dir_sources, NavReadMode mode, float slow_factor = (float) 0.0f, float fast_factor = (float) 0.0f)
-        {
-            Vec2 pOut = default;
-            GetNavInputAmount2dImpl(&pOut, dir_sources, mode, slow_factor, fast_factor);
-            return pOut;
-        }
-        
-        [LinkName("igGetNavInputName")]
-        private static extern char* GetNavInputNameImpl(NavInput n);
-        #if IMGUI_USE_REF
-        public static ref char GetNavInputName(NavInput n) { return ref *GetNavInputNameImpl(n); }
-        #else
-        public static char* GetNavInputName(NavInput n) => GetNavInputNameImpl(n);
-        #endif
+        [LinkName("igGetNavTweakPressedAmount")]
+        private static extern float GetNavTweakPressedAmountImpl(Axis axis);
+        public static float GetNavTweakPressedAmount(Axis axis) => GetNavTweakPressedAmountImpl(axis);
         
         [LinkName("igGetPlatformIO")]
         private static extern PlatformIO* GetPlatformIOImpl();
@@ -7191,6 +7272,14 @@ namespace ImGui
         private static extern float GetScrollYImpl();
         public static float GetScrollY() => GetScrollYImpl();
         
+        [LinkName("igGetShortcutRoutingData")]
+        private static extern KeyRoutingData* GetShortcutRoutingDataImpl(KeyChord key_chord);
+        #if IMGUI_USE_REF
+        public static ref KeyRoutingData GetShortcutRoutingData(KeyChord key_chord) { return ref *GetShortcutRoutingDataImpl(key_chord); }
+        #else
+        public static KeyRoutingData* GetShortcutRoutingData(KeyChord key_chord) => GetShortcutRoutingDataImpl(key_chord);
+        #endif
+        
         [LinkName("igGetStateStorage")]
         private static extern Storage* GetStateStorageImpl();
         #if IMGUI_USE_REF
@@ -7221,6 +7310,14 @@ namespace ImGui
         public static ref Vec4 GetStyleColorVec4(Col idx) { return ref *GetStyleColorVec4Impl(idx); }
         #else
         public static Vec4* GetStyleColorVec4(Col idx) => GetStyleColorVec4Impl(idx);
+        #endif
+        
+        [LinkName("igGetStyleVarInfo")]
+        private static extern DataVarInfo* GetStyleVarInfoImpl(StyleVar idx);
+        #if IMGUI_USE_REF
+        public static ref DataVarInfo GetStyleVarInfo(StyleVar idx) { return ref *GetStyleVarInfoImpl(idx); }
+        #else
+        public static DataVarInfo* GetStyleVarInfo(StyleVar idx) => GetStyleVarInfoImpl(idx);
         #endif
         
         [LinkName("igGetTextLineHeight")]
@@ -7254,6 +7351,10 @@ namespace ImGui
         [LinkName("igGetTreeNodeToLabelSpacing")]
         private static extern float GetTreeNodeToLabelSpacingImpl();
         public static float GetTreeNodeToLabelSpacing() => GetTreeNodeToLabelSpacingImpl();
+        
+        [LinkName("igGetTypematicRepeatRate")]
+        private static extern void GetTypematicRepeatRateImpl(InputFlags flags, float* repeat_delay, float* repeat_rate);
+        public static void GetTypematicRepeatRate(InputFlags flags, float* repeat_delay, float* repeat_rate) => GetTypematicRepeatRateImpl(flags, repeat_delay, repeat_rate);
         
         [LinkName("igGetVersion")]
         private static extern char* GetVersionImpl();
@@ -7424,9 +7525,17 @@ namespace ImGui
             return pOut;
         }
         
+        [LinkName("igImBitArrayClearAllBits")]
+        private static extern void ImBitArrayClearAllBitsImpl(U32* arr, int32 bitcount);
+        public static void ImBitArrayClearAllBits(U32* arr, int32 bitcount) => ImBitArrayClearAllBitsImpl(arr, bitcount);
+        
         [LinkName("igImBitArrayClearBit")]
         private static extern void ImBitArrayClearBitImpl(U32* arr, int32 n);
         public static void ImBitArrayClearBit(U32* arr, int32 n) => ImBitArrayClearBitImpl(arr, n);
+        
+        [LinkName("igImBitArrayGetStorageSizeInBytes")]
+        private static extern size ImBitArrayGetStorageSizeInBytesImpl(int32 bitcount);
+        public static size ImBitArrayGetStorageSizeInBytes(int32 bitcount) => ImBitArrayGetStorageSizeInBytesImpl(bitcount);
         
         [LinkName("igImBitArraySetBit")]
         private static extern void ImBitArraySetBitImpl(U32* arr, int32 n);
@@ -7460,6 +7569,10 @@ namespace ImGui
         [LinkName("igImDot")]
         private static extern float ImDotImpl(Vec2 a, Vec2 b);
         public static float ImDot(Vec2 a, Vec2 b) => ImDotImpl(a, b);
+        
+        [LinkName("igImExponentialMovingAverage")]
+        private static extern float ImExponentialMovingAverageImpl(float avg, float sample, int32 n);
+        public static float ImExponentialMovingAverage(float avg, float sample, int32 n) => ImExponentialMovingAverageImpl(avg, sample, n);
         
         [LinkName("igImFileClose")]
         private static extern bool ImFileCloseImpl(FileHandle file);
@@ -7525,11 +7638,11 @@ namespace ImGui
         
         [LinkName("igImFontAtlasBuildMultiplyCalcLookupTable")]
         private static extern void ImFontAtlasBuildMultiplyCalcLookupTableImpl(uchar[256] out_table, float in_multiply_factor);
-        public static void ImFontAtlasBuildMultiplyCalcLookupTable(uchar[256] out_table, float in_multiply_factor) => ImFontAtlasBuildMultiplyCalcLookupTableImpl(out_table, in_multiply_factor);
+        public static void ImFontAtlasBuildMultiplyCalcLookupTable(ref uchar[256] out_table, float in_multiply_factor) => ImFontAtlasBuildMultiplyCalcLookupTableImpl(out_table, in_multiply_factor);
         
         [LinkName("igImFontAtlasBuildMultiplyRectAlpha8")]
         private static extern void ImFontAtlasBuildMultiplyRectAlpha8Impl(uchar[256] table, uchar* pixels, int32 x, int32 y, int32 w, int32 h, int32 stride);
-        public static void ImFontAtlasBuildMultiplyRectAlpha8(uchar[256] table, uchar* pixels, int32 x, int32 y, int32 w, int32 h, int32 stride) => ImFontAtlasBuildMultiplyRectAlpha8Impl(table, pixels, x, y, w, h, stride);
+        public static void ImFontAtlasBuildMultiplyRectAlpha8(ref uchar[256] table, uchar* pixels, int32 x, int32 y, int32 w, int32 h, int32 stride) => ImFontAtlasBuildMultiplyRectAlpha8Impl(table, pixels, x, y, w, h, stride);
         
         [LinkName("igImFontAtlasBuildPackCustomRects")]
         private static extern void ImFontAtlasBuildPackCustomRectsImpl(FontAtlas* atlas, void* stbrp_context_opaque);
@@ -7572,12 +7685,12 @@ namespace ImGui
         public static Dir ImGetDirQuadrantFromDelta(float dx, float dy) => ImGetDirQuadrantFromDeltaImpl(dx, dy);
         
         [LinkName("igImHashData")]
-        private static extern ID ImHashDataImpl(void* data, size data_size, U32 seed);
-        public static ID ImHashData(void* data, size data_size, U32 seed = (U32) 0) => ImHashDataImpl(data, data_size, seed);
+        private static extern ID ImHashDataImpl(void* data, size data_size, ID seed);
+        public static ID ImHashData(void* data, size data_size, ID seed = (ID) 0) => ImHashDataImpl(data, data_size, seed);
         
         [LinkName("igImHashStr")]
-        private static extern ID ImHashStrImpl(char* data, size data_size, U32 seed);
-        public static ID ImHashStr(char* data, size data_size = (size) 0, U32 seed = (U32) 0) => ImHashStrImpl(data, data_size, seed);
+        private static extern ID ImHashStrImpl(char* data, size data_size, ID seed);
+        public static ID ImHashStr(char* data, size data_size = (size) 0, ID seed = (ID) 0) => ImHashStrImpl(data, data_size, seed);
         
         [LinkName("igImInvLength")]
         private static extern float ImInvLengthImpl(Vec2 lhs, float fail_value);
@@ -7850,9 +7963,9 @@ namespace ImGui
         [LinkName("igImTextCharToUtf8")]
         private static extern char* ImTextCharToUtf8Impl(char[5] out_buf, uint32 c);
         #if IMGUI_USE_REF
-        public static ref char ImTextCharToUtf8(char[5] out_buf, uint32 c) { return ref *ImTextCharToUtf8Impl(out_buf, c); }
+        public static ref char ImTextCharToUtf8(ref char[5] out_buf, uint32 c) { return ref *ImTextCharToUtf8Impl(out_buf, c); }
         #else
-        public static char* ImTextCharToUtf8(char[5] out_buf, uint32 c) => ImTextCharToUtf8Impl(out_buf, c);
+        public static char* ImTextCharToUtf8(ref char[5] out_buf, uint32 c) => ImTextCharToUtf8Impl(out_buf, c);
         #endif
         
         [LinkName("igImTextCountCharsFromUtf8")]
@@ -7882,6 +7995,10 @@ namespace ImGui
             out_buf = ?;
             return ImTextStrToUtf8Impl(&out_buf, out_buf_size, in_text, in_text_end);
         }
+        
+        [LinkName("igImToUpper")]
+        private static extern char ImToUpperImpl(char c);
+        public static char ImToUpper(char c) => ImToUpperImpl(c);
         
         [LinkName("igImTriangleArea")]
         private static extern float ImTriangleAreaImpl(Vec2 a, Vec2 b, Vec2 c);
@@ -7918,12 +8035,12 @@ namespace ImGui
         public static void Image(TextureID user_texture_id, Vec2 size, Vec2 uv0 = Vec2.Zero, Vec2 uv1 = Vec2.Ones, Vec4 tint_col = Vec4.Ones, Vec4 border_col = Vec4.Zero) => ImageImpl(user_texture_id, size, uv0, uv1, tint_col, border_col);
         
         [LinkName("igImageButton")]
-        private static extern bool ImageButtonImpl(TextureID user_texture_id, Vec2 size, Vec2 uv0, Vec2 uv1, int32 frame_padding, Vec4 bg_col, Vec4 tint_col);
-        public static bool ImageButton(TextureID user_texture_id, Vec2 size, Vec2 uv0 = Vec2.Zero, Vec2 uv1 = Vec2.Ones, int32 frame_padding = -1, Vec4 bg_col = Vec4.Zero, Vec4 tint_col = Vec4.Ones) => ImageButtonImpl(user_texture_id, size, uv0, uv1, frame_padding, bg_col, tint_col);
+        private static extern bool ImageButtonImpl(char* str_id, TextureID user_texture_id, Vec2 size, Vec2 uv0, Vec2 uv1, Vec4 bg_col, Vec4 tint_col);
+        public static bool ImageButton(char* str_id, TextureID user_texture_id, Vec2 size, Vec2 uv0 = Vec2.Zero, Vec2 uv1 = Vec2.Ones, Vec4 bg_col = Vec4.Zero, Vec4 tint_col = Vec4.Ones) => ImageButtonImpl(str_id, user_texture_id, size, uv0, uv1, bg_col, tint_col);
         
         [LinkName("igImageButtonEx")]
-        private static extern bool ImageButtonExImpl(ID id, TextureID texture_id, Vec2 size, Vec2 uv0, Vec2 uv1, Vec2 padding, Vec4 bg_col, Vec4 tint_col);
-        public static bool ImageButtonEx(ID id, TextureID texture_id, Vec2 size, Vec2 uv0, Vec2 uv1, Vec2 padding, Vec4 bg_col, Vec4 tint_col) => ImageButtonExImpl(id, texture_id, size, uv0, uv1, padding, bg_col, tint_col);
+        private static extern bool ImageButtonExImpl(ID id, TextureID texture_id, Vec2 size, Vec2 uv0, Vec2 uv1, Vec4 bg_col, Vec4 tint_col, ButtonFlags flags);
+        public static bool ImageButtonEx(ID id, TextureID texture_id, Vec2 size, Vec2 uv0, Vec2 uv1, Vec4 bg_col, Vec4 tint_col, ButtonFlags flags = (ButtonFlags) 0) => ImageButtonExImpl(id, texture_id, size, uv0, uv1, bg_col, tint_col, flags);
         
         [LinkName("igIndent")]
         private static extern void IndentImpl(float indent_w);
@@ -7943,15 +8060,15 @@ namespace ImGui
         
         [LinkName("igInputFloat2")]
         private static extern bool InputFloat2Impl(char* label, float[2] v, char* format, InputTextFlags flags);
-        public static bool InputFloat2(char* label, float[2] v, char* format = "%.3f", InputTextFlags flags = (InputTextFlags) 0) => InputFloat2Impl(label, v, format, flags);
+        public static bool InputFloat2(char* label, ref float[2] v, char* format = "%.3f", InputTextFlags flags = (InputTextFlags) 0) => InputFloat2Impl(label, v, format, flags);
         
         [LinkName("igInputFloat3")]
         private static extern bool InputFloat3Impl(char* label, float[3] v, char* format, InputTextFlags flags);
-        public static bool InputFloat3(char* label, float[3] v, char* format = "%.3f", InputTextFlags flags = (InputTextFlags) 0) => InputFloat3Impl(label, v, format, flags);
+        public static bool InputFloat3(char* label, ref float[3] v, char* format = "%.3f", InputTextFlags flags = (InputTextFlags) 0) => InputFloat3Impl(label, v, format, flags);
         
         [LinkName("igInputFloat4")]
         private static extern bool InputFloat4Impl(char* label, float[4] v, char* format, InputTextFlags flags);
-        public static bool InputFloat4(char* label, float[4] v, char* format = "%.3f", InputTextFlags flags = (InputTextFlags) 0) => InputFloat4Impl(label, v, format, flags);
+        public static bool InputFloat4(char* label, ref float[4] v, char* format = "%.3f", InputTextFlags flags = (InputTextFlags) 0) => InputFloat4Impl(label, v, format, flags);
         
         [LinkName("igInputInt")]
         private static extern bool InputIntImpl(char* label, int32* v, int32 step, int32 step_fast, InputTextFlags flags);
@@ -7959,15 +8076,15 @@ namespace ImGui
         
         [LinkName("igInputInt2")]
         private static extern bool InputInt2Impl(char* label, int32[2] v, InputTextFlags flags);
-        public static bool InputInt2(char* label, int32[2] v, InputTextFlags flags = (InputTextFlags) 0) => InputInt2Impl(label, v, flags);
+        public static bool InputInt2(char* label, ref int32[2] v, InputTextFlags flags = (InputTextFlags) 0) => InputInt2Impl(label, v, flags);
         
         [LinkName("igInputInt3")]
         private static extern bool InputInt3Impl(char* label, int32[3] v, InputTextFlags flags);
-        public static bool InputInt3(char* label, int32[3] v, InputTextFlags flags = (InputTextFlags) 0) => InputInt3Impl(label, v, flags);
+        public static bool InputInt3(char* label, ref int32[3] v, InputTextFlags flags = (InputTextFlags) 0) => InputInt3Impl(label, v, flags);
         
         [LinkName("igInputInt4")]
         private static extern bool InputInt4Impl(char* label, int32[4] v, InputTextFlags flags);
-        public static bool InputInt4(char* label, int32[4] v, InputTextFlags flags = (InputTextFlags) 0) => InputInt4Impl(label, v, flags);
+        public static bool InputInt4(char* label, ref int32[4] v, InputTextFlags flags = (InputTextFlags) 0) => InputInt4Impl(label, v, flags);
         
         [LinkName("igInputScalar")]
         private static extern bool InputScalarImpl(char* label, DataType data_type, void* p_data, void* p_step, void* p_step_fast, char* format, InputTextFlags flags);
@@ -7980,6 +8097,10 @@ namespace ImGui
         [LinkName("igInputText")]
         private static extern bool InputTextImpl(char* label, char* buf, size buf_size, InputTextFlags flags, InputTextCallback callback, void* user_data);
         public static bool InputText(char* label, char* buf, size buf_size, InputTextFlags flags = (InputTextFlags) 0, InputTextCallback callback = null, void* user_data = null) => InputTextImpl(label, buf, buf_size, flags, callback, user_data);
+        
+        [LinkName("igInputTextDeactivateHook")]
+        private static extern void InputTextDeactivateHookImpl(ID id);
+        public static void InputTextDeactivateHook(ID id) => InputTextDeactivateHookImpl(id);
         
         [LinkName("igInputTextEx")]
         private static extern bool InputTextExImpl(char* label, char* hint, char* buf, int32 buf_size, Vec2 size_arg, InputTextFlags flags, InputTextCallback callback, void* user_data);
@@ -7997,17 +8118,13 @@ namespace ImGui
         private static extern bool InvisibleButtonImpl(char* str_id, Vec2 size, ButtonFlags flags);
         public static bool InvisibleButton(char* str_id, Vec2 size, ButtonFlags flags = (ButtonFlags) 0) => InvisibleButtonImpl(str_id, size, flags);
         
-        [LinkName("igIsActiveIdUsingKey")]
-        private static extern bool IsActiveIdUsingKeyImpl(Key key);
-        public static bool IsActiveIdUsingKey(Key key) => IsActiveIdUsingKeyImpl(key);
-        
         [LinkName("igIsActiveIdUsingNavDir")]
         private static extern bool IsActiveIdUsingNavDirImpl(Dir dir);
         public static bool IsActiveIdUsingNavDir(Dir dir) => IsActiveIdUsingNavDirImpl(dir);
         
-        [LinkName("igIsActiveIdUsingNavInput")]
-        private static extern bool IsActiveIdUsingNavInputImpl(NavInput input);
-        public static bool IsActiveIdUsingNavInput(NavInput input) => IsActiveIdUsingNavInputImpl(input);
+        [LinkName("igIsAliasKey")]
+        private static extern bool IsAliasKeyImpl(Key key);
+        public static bool IsAliasKey(Key key) => IsAliasKeyImpl(key);
         
         [LinkName("igIsAnyItemActive")]
         private static extern bool IsAnyItemActiveImpl();
@@ -8085,37 +8202,61 @@ namespace ImGui
         private static extern bool IsItemVisibleImpl();
         public static bool IsItemVisible() => IsItemVisibleImpl();
         
-        [LinkName("igIsKeyDown")]
+        [LinkName("igIsKeyDown_Nil")]
         private static extern bool IsKeyDownImpl(Key key);
         public static bool IsKeyDown(Key key) => IsKeyDownImpl(key);
         
-        [LinkName("igIsKeyPressed")]
+        [LinkName("igIsKeyDown_ID")]
+        private static extern bool IsKeyDownImpl(Key key, ID owner_id);
+        public static bool IsKeyDown(Key key, ID owner_id) => IsKeyDownImpl(key, owner_id);
+        
+        [LinkName("igIsKeyPressed_Bool")]
         private static extern bool IsKeyPressedImpl(Key key, bool repeat_);
         public static bool IsKeyPressed(Key key, bool repeat_ = true) => IsKeyPressedImpl(key, repeat_);
+        
+        [LinkName("igIsKeyPressed_ID")]
+        private static extern bool IsKeyPressedImpl(Key key, ID owner_id, InputFlags flags);
+        public static bool IsKeyPressed(Key key, ID owner_id, InputFlags flags = (InputFlags) 0) => IsKeyPressedImpl(key, owner_id, flags);
         
         [LinkName("igIsKeyPressedMap")]
         private static extern bool IsKeyPressedMapImpl(Key key, bool repeat_);
         public static bool IsKeyPressedMap(Key key, bool repeat_ = true) => IsKeyPressedMapImpl(key, repeat_);
         
-        [LinkName("igIsKeyReleased")]
+        [LinkName("igIsKeyReleased_Nil")]
         private static extern bool IsKeyReleasedImpl(Key key);
         public static bool IsKeyReleased(Key key) => IsKeyReleasedImpl(key);
+        
+        [LinkName("igIsKeyReleased_ID")]
+        private static extern bool IsKeyReleasedImpl(Key key, ID owner_id);
+        public static bool IsKeyReleased(Key key, ID owner_id) => IsKeyReleasedImpl(key, owner_id);
+        
+        [LinkName("igIsKeyboardKey")]
+        private static extern bool IsKeyboardKeyImpl(Key key);
+        public static bool IsKeyboardKey(Key key) => IsKeyboardKeyImpl(key);
         
         [LinkName("igIsLegacyKey")]
         private static extern bool IsLegacyKeyImpl(Key key);
         public static bool IsLegacyKey(Key key) => IsLegacyKeyImpl(key);
         
-        [LinkName("igIsMouseClicked")]
+        [LinkName("igIsMouseClicked_Bool")]
         private static extern bool IsMouseClickedImpl(MouseButton button, bool repeat_);
         public static bool IsMouseClicked(MouseButton button, bool repeat_ = false) => IsMouseClickedImpl(button, repeat_);
+        
+        [LinkName("igIsMouseClicked_ID")]
+        private static extern bool IsMouseClickedImpl(MouseButton button, ID owner_id, InputFlags flags);
+        public static bool IsMouseClicked(MouseButton button, ID owner_id, InputFlags flags = (InputFlags) 0) => IsMouseClickedImpl(button, owner_id, flags);
         
         [LinkName("igIsMouseDoubleClicked")]
         private static extern bool IsMouseDoubleClickedImpl(MouseButton button);
         public static bool IsMouseDoubleClicked(MouseButton button) => IsMouseDoubleClickedImpl(button);
         
-        [LinkName("igIsMouseDown")]
+        [LinkName("igIsMouseDown_Nil")]
         private static extern bool IsMouseDownImpl(MouseButton button);
         public static bool IsMouseDown(MouseButton button) => IsMouseDownImpl(button);
+        
+        [LinkName("igIsMouseDown_ID")]
+        private static extern bool IsMouseDownImpl(MouseButton button, ID owner_id);
+        public static bool IsMouseDown(MouseButton button, ID owner_id) => IsMouseDownImpl(button, owner_id);
         
         [LinkName("igIsMouseDragPastThreshold")]
         private static extern bool IsMouseDragPastThresholdImpl(MouseButton button, float lock_threshold);
@@ -8129,25 +8270,29 @@ namespace ImGui
         private static extern bool IsMouseHoveringRectImpl(Vec2 r_min, Vec2 r_max, bool clip);
         public static bool IsMouseHoveringRect(Vec2 r_min, Vec2 r_max, bool clip = true) => IsMouseHoveringRectImpl(r_min, r_max, clip);
         
+        [LinkName("igIsMouseKey")]
+        private static extern bool IsMouseKeyImpl(Key key);
+        public static bool IsMouseKey(Key key) => IsMouseKeyImpl(key);
+        
         [LinkName("igIsMousePosValid")]
         private static extern bool IsMousePosValidImpl(Vec2* mouse_pos);
         public static bool IsMousePosValid(Vec2* mouse_pos = null) => IsMousePosValidImpl(mouse_pos);
         
-        [LinkName("igIsMouseReleased")]
+        [LinkName("igIsMouseReleased_Nil")]
         private static extern bool IsMouseReleasedImpl(MouseButton button);
         public static bool IsMouseReleased(MouseButton button) => IsMouseReleasedImpl(button);
+        
+        [LinkName("igIsMouseReleased_ID")]
+        private static extern bool IsMouseReleasedImpl(MouseButton button, ID owner_id);
+        public static bool IsMouseReleased(MouseButton button, ID owner_id) => IsMouseReleasedImpl(button, owner_id);
         
         [LinkName("igIsNamedKey")]
         private static extern bool IsNamedKeyImpl(Key key);
         public static bool IsNamedKey(Key key) => IsNamedKeyImpl(key);
         
-        [LinkName("igIsNavInputDown")]
-        private static extern bool IsNavInputDownImpl(NavInput n);
-        public static bool IsNavInputDown(NavInput n) => IsNavInputDownImpl(n);
-        
-        [LinkName("igIsNavInputTest")]
-        private static extern bool IsNavInputTestImpl(NavInput n, NavReadMode rm);
-        public static bool IsNavInputTest(NavInput n, NavReadMode rm) => IsNavInputTestImpl(n, rm);
+        [LinkName("igIsNamedKeyOrModKey")]
+        private static extern bool IsNamedKeyOrModKeyImpl(Key key);
+        public static bool IsNamedKeyOrModKey(Key key) => IsNamedKeyOrModKeyImpl(key);
         
         [LinkName("igIsPopupOpen_Str")]
         private static extern bool IsPopupOpenImpl(char* str_id, PopupFlags flags);
@@ -8180,6 +8325,10 @@ namespace ImGui
         [LinkName("igIsWindowCollapsed")]
         private static extern bool IsWindowCollapsedImpl();
         public static bool IsWindowCollapsed() => IsWindowCollapsedImpl();
+        
+        [LinkName("igIsWindowContentHoverable")]
+        private static extern bool IsWindowContentHoverableImpl(Window* window, HoveredFlags flags);
+        public static bool IsWindowContentHoverable(Window* window, HoveredFlags flags = (HoveredFlags) 0) => IsWindowContentHoverableImpl(window, flags);
         
         [LinkName("igIsWindowDocked")]
         private static extern bool IsWindowDockedImpl();
@@ -8240,6 +8389,18 @@ namespace ImGui
         [LinkName("igLoadIniSettingsFromMemory")]
         private static extern void LoadIniSettingsFromMemoryImpl(char* ini_data, size ini_size);
         public static void LoadIniSettingsFromMemory(char* ini_data, size ini_size = (size) 0) => LoadIniSettingsFromMemoryImpl(ini_data, ini_size);
+        
+        [LinkName("igLocalizeGetMsg")]
+        private static extern char* LocalizeGetMsgImpl(LocKey key);
+        #if IMGUI_USE_REF
+        public static ref char LocalizeGetMsg(LocKey key) { return ref *LocalizeGetMsgImpl(key); }
+        #else
+        public static char* LocalizeGetMsg(LocKey key) => LocalizeGetMsgImpl(key);
+        #endif
+        
+        [LinkName("igLocalizeRegisterEntries")]
+        private static extern void LocalizeRegisterEntriesImpl(LocEntry* entries, int32 count);
+        public static void LocalizeRegisterEntries(LocEntry* entries, int32 count) => LocalizeRegisterEntriesImpl(entries, count);
         
         [LinkName("igLogBegin")]
         private static extern void LogBeginImpl(LogType type, int32 auto_open_depth);
@@ -8317,6 +8478,10 @@ namespace ImGui
         private static extern bool MenuItemExImpl(char* label, char* icon, char* shortcut, bool selected, bool enabled);
         public static bool MenuItemEx(char* label, char* icon, char* shortcut = null, bool selected = false, bool enabled = true) => MenuItemExImpl(label, icon, shortcut, selected, enabled);
         
+        [LinkName("igMouseButtonToKey")]
+        private static extern Key MouseButtonToKeyImpl(MouseButton button);
+        public static Key MouseButtonToKey(MouseButton button) => MouseButtonToKeyImpl(button);
+        
         [LinkName("igNavInitRequestApplyResult")]
         private static extern void NavInitRequestApplyResultImpl();
         public static void NavInitRequestApplyResult() => NavInitRequestApplyResultImpl();
@@ -8382,8 +8547,8 @@ namespace ImGui
         public static void OpenPopupOnItemClick(char* str_id = null, PopupFlags popup_flags = (PopupFlags) 1) => OpenPopupOnItemClickImpl(str_id, popup_flags);
         
         [LinkName("igPlotEx")]
-        private static extern int32 PlotExImpl(PlotType plot_type, char* label, function float(void* data, int32 idx) values_getter, void* data, int32 values_count, int32 values_offset, char* overlay_text, float scale_min, float scale_max, Vec2 frame_size);
-        public static int32 PlotEx(PlotType plot_type, char* label, function float(void* data, int32 idx) values_getter, void* data, int32 values_count, int32 values_offset, char* overlay_text, float scale_min, float scale_max, Vec2 frame_size) => PlotExImpl(plot_type, label, values_getter, data, values_count, values_offset, overlay_text, scale_min, scale_max, frame_size);
+        private static extern int32 PlotExImpl(PlotType plot_type, char* label, function float(void* data, int32 idx) values_getter, void* data, int32 values_count, int32 values_offset, char* overlay_text, float scale_min, float scale_max, Vec2 size_arg);
+        public static int32 PlotEx(PlotType plot_type, char* label, function float(void* data, int32 idx) values_getter, void* data, int32 values_count, int32 values_offset, char* overlay_text, float scale_min, float scale_max, Vec2 size_arg) => PlotExImpl(plot_type, label, values_getter, data, values_count, values_offset, overlay_text, scale_min, scale_max, size_arg);
         
         [LinkName("igPlotHistogram_FloatPtr")]
         private static extern void PlotHistogramImpl(char* label, float* values, int32 values_count, int32 values_offset, char* overlay_text, float scale_min, float scale_max, Vec2 graph_size, int32 stride);
@@ -8400,10 +8565,6 @@ namespace ImGui
         [LinkName("igPlotLines_FnFloatPtr")]
         private static extern void PlotLinesImpl(char* label, function float(void* data, int32 idx) values_getter, void* data, int32 values_count, int32 values_offset, char* overlay_text, float scale_min, float scale_max, Vec2 graph_size);
         public static void PlotLines(char* label, function float(void* data, int32 idx) values_getter, void* data, int32 values_count, int32 values_offset = (int32) 0, char* overlay_text = null, float scale_min = float.MaxValue, float scale_max = float.MaxValue, Vec2 graph_size = Vec2.Zero) => PlotLinesImpl(label, values_getter, data, values_count, values_offset, overlay_text, scale_min, scale_max, graph_size);
-        
-        [LinkName("igPopAllowKeyboardFocus")]
-        private static extern void PopAllowKeyboardFocusImpl();
-        public static void PopAllowKeyboardFocus() => PopAllowKeyboardFocusImpl();
         
         [LinkName("igPopButtonRepeat")]
         private static extern void PopButtonRepeatImpl();
@@ -8445,6 +8606,10 @@ namespace ImGui
         private static extern void PopStyleVarImpl(int32 count);
         public static void PopStyleVar(int32 count = (int32) 1) => PopStyleVarImpl(count);
         
+        [LinkName("igPopTabStop")]
+        private static extern void PopTabStopImpl();
+        public static void PopTabStop() => PopTabStopImpl();
+        
         [LinkName("igPopTextWrapPos")]
         private static extern void PopTextWrapPosImpl();
         public static void PopTextWrapPos() => PopTextWrapPosImpl();
@@ -8452,10 +8617,6 @@ namespace ImGui
         [LinkName("igProgressBar")]
         private static extern void ProgressBarImpl(float fraction, Vec2 size_arg, char* overlay);
         public static void ProgressBar(float fraction, Vec2 size_arg = .(-float.MinValue,0), char* overlay = null) => ProgressBarImpl(fraction, size_arg, overlay);
-        
-        [LinkName("igPushAllowKeyboardFocus")]
-        private static extern void PushAllowKeyboardFocusImpl(bool allow_keyboard_focus);
-        public static void PushAllowKeyboardFocus(bool allow_keyboard_focus) => PushAllowKeyboardFocusImpl(allow_keyboard_focus);
         
         [LinkName("igPushButtonRepeat")]
         private static extern void PushButtonRepeatImpl(bool repeat_);
@@ -8529,6 +8690,10 @@ namespace ImGui
         private static extern void PushStyleVarImpl(StyleVar idx, Vec2 val);
         public static void PushStyleVar(StyleVar idx, Vec2 val) => PushStyleVarImpl(idx, val);
         
+        [LinkName("igPushTabStop")]
+        private static extern void PushTabStopImpl(bool tab_stop);
+        public static void PushTabStop(bool tab_stop) => PushTabStopImpl(tab_stop);
+        
         [LinkName("igPushTextWrapPos")]
         private static extern void PushTextWrapPosImpl(float wrap_local_pos_x);
         public static void PushTextWrapPos(float wrap_local_pos_x = (float) 0.0f) => PushTextWrapPosImpl(wrap_local_pos_x);
@@ -8576,6 +8741,10 @@ namespace ImGui
         [LinkName("igRenderColorRectWithAlphaCheckerboard")]
         private static extern void RenderColorRectWithAlphaCheckerboardImpl(DrawList* draw_list, Vec2 p_min, Vec2 p_max, U32 fill_col, float grid_step, Vec2 grid_off, float rounding, DrawFlags flags);
         public static void RenderColorRectWithAlphaCheckerboard(DrawList* draw_list, Vec2 p_min, Vec2 p_max, U32 fill_col, float grid_step, Vec2 grid_off, float rounding = (float) 0.0f, DrawFlags flags = (DrawFlags) 0) => RenderColorRectWithAlphaCheckerboardImpl(draw_list, p_min, p_max, fill_col, grid_step, grid_off, rounding, flags);
+        
+        [LinkName("igRenderDragDropTargetRect")]
+        private static extern void RenderDragDropTargetRectImpl(Rect bb);
+        public static void RenderDragDropTargetRect(Rect bb) => RenderDragDropTargetRectImpl(bb);
         
         [LinkName("igRenderFrame")]
         private static extern void RenderFrameImpl(Vec2 p_min, Vec2 p_max, U32 fill_col, bool border, float rounding);
@@ -8694,17 +8863,21 @@ namespace ImGui
         private static extern void SeparatorExImpl(SeparatorFlags flags);
         public static void SeparatorEx(SeparatorFlags flags) => SeparatorExImpl(flags);
         
+        [LinkName("igSeparatorText")]
+        private static extern void SeparatorTextImpl(char* label);
+        public static void SeparatorText(char* label) => SeparatorTextImpl(label);
+        
+        [LinkName("igSeparatorTextEx")]
+        private static extern void SeparatorTextExImpl(ID id, char* label, char* label_end, float extra_width);
+        public static void SeparatorTextEx(ID id, char* label, char* label_end, float extra_width) => SeparatorTextExImpl(id, label, label_end, extra_width);
+        
         [LinkName("igSetActiveID")]
         private static extern void SetActiveIDImpl(ID id, Window* window);
         public static void SetActiveID(ID id, Window* window) => SetActiveIDImpl(id, window);
         
-        [LinkName("igSetActiveIdUsingKey")]
-        private static extern void SetActiveIdUsingKeyImpl(Key key);
-        public static void SetActiveIdUsingKey(Key key) => SetActiveIdUsingKeyImpl(key);
-        
-        [LinkName("igSetActiveIdUsingNavAndKeys")]
-        private static extern void SetActiveIdUsingNavAndKeysImpl();
-        public static void SetActiveIdUsingNavAndKeys() => SetActiveIdUsingNavAndKeysImpl();
+        [LinkName("igSetActiveIdUsingAllKeyboardKeys")]
+        private static extern void SetActiveIdUsingAllKeyboardKeysImpl();
+        public static void SetActiveIdUsingAllKeyboardKeys() => SetActiveIdUsingAllKeyboardKeysImpl();
         
         [LinkName("igSetAllocatorFunctions")]
         private static extern void SetAllocatorFunctionsImpl(MemAllocFunc alloc_func, MemFreeFunc free_func, void* user_data);
@@ -8774,9 +8947,17 @@ namespace ImGui
         private static extern void SetItemDefaultFocusImpl();
         public static void SetItemDefaultFocus() => SetItemDefaultFocusImpl();
         
-        [LinkName("igSetItemUsingMouseWheel")]
-        private static extern void SetItemUsingMouseWheelImpl();
-        public static void SetItemUsingMouseWheel() => SetItemUsingMouseWheelImpl();
+        [LinkName("igSetItemKeyOwner")]
+        private static extern void SetItemKeyOwnerImpl(Key key, InputFlags flags);
+        public static void SetItemKeyOwner(Key key, InputFlags flags = (InputFlags) 0) => SetItemKeyOwnerImpl(key, flags);
+        
+        [LinkName("igSetKeyOwner")]
+        private static extern void SetKeyOwnerImpl(Key key, ID owner_id, InputFlags flags);
+        public static void SetKeyOwner(Key key, ID owner_id, InputFlags flags = (InputFlags) 0) => SetKeyOwnerImpl(key, owner_id, flags);
+        
+        [LinkName("igSetKeyOwnersForKeyChord")]
+        private static extern void SetKeyOwnersForKeyChordImpl(KeyChord key, ID owner_id, InputFlags flags);
+        public static void SetKeyOwnersForKeyChord(KeyChord key, ID owner_id, InputFlags flags = (InputFlags) 0) => SetKeyOwnersForKeyChordImpl(key, owner_id, flags);
         
         [LinkName("igSetKeyboardFocusHere")]
         private static extern void SetKeyboardFocusHereImpl(int32 offset);
@@ -8898,6 +9079,10 @@ namespace ImGui
         private static extern void SetScrollYImpl(Window* window, float scroll_y);
         public static void SetScrollY(Window* window, float scroll_y) => SetScrollYImpl(window, scroll_y);
         
+        [LinkName("igSetShortcutRouting")]
+        private static extern bool SetShortcutRoutingImpl(KeyChord key_chord, ID owner_id, InputFlags flags);
+        public static bool SetShortcutRouting(KeyChord key_chord, ID owner_id = (ID) 0, InputFlags flags = (InputFlags) 0) => SetShortcutRoutingImpl(key_chord, owner_id, flags);
+        
         [LinkName("igSetStateStorage")]
         private static extern void SetStateStorageImpl(Storage* storage);
         public static void SetStateStorage(Storage* storage) => SetStateStorageImpl(storage);
@@ -8942,6 +9127,10 @@ namespace ImGui
         private static extern void SetWindowFontScaleImpl(float scale);
         public static void SetWindowFontScale(float scale) => SetWindowFontScaleImpl(scale);
         
+        [LinkName("igSetWindowHiddendAndSkipItemsForCurrentFrame")]
+        private static extern void SetWindowHiddendAndSkipItemsForCurrentFrameImpl(Window* window);
+        public static void SetWindowHiddendAndSkipItemsForCurrentFrame(Window* window) => SetWindowHiddendAndSkipItemsForCurrentFrameImpl(window);
+        
         [LinkName("igSetWindowHitTestHole")]
         private static extern void SetWindowHitTestHoleImpl(Window* window, Vec2 pos, Vec2 size);
         public static void SetWindowHitTestHole(Window* window, Vec2 pos, Vec2 size) => SetWindowHitTestHoleImpl(window, pos, size);
@@ -8981,6 +9170,10 @@ namespace ImGui
         [LinkName("igShadeVertsLinearUV")]
         private static extern void ShadeVertsLinearUVImpl(DrawList* draw_list, int32 vert_start_idx, int32 vert_end_idx, Vec2 a, Vec2 b, Vec2 uv_a, Vec2 uv_b, bool clamp);
         public static void ShadeVertsLinearUV(DrawList* draw_list, int32 vert_start_idx, int32 vert_end_idx, Vec2 a, Vec2 b, Vec2 uv_a, Vec2 uv_b, bool clamp) => ShadeVertsLinearUVImpl(draw_list, vert_start_idx, vert_end_idx, a, b, uv_a, uv_b, clamp);
+        
+        [LinkName("igShortcut")]
+        private static extern bool ShortcutImpl(KeyChord key_chord, ID owner_id, InputFlags flags);
+        public static bool Shortcut(KeyChord key_chord, ID owner_id = (ID) 0, InputFlags flags = (InputFlags) 0) => ShortcutImpl(key_chord, owner_id, flags);
         
         [LinkName("igShowAboutWindow")]
         private static extern void ShowAboutWindowImpl(bool* p_open);
@@ -9048,15 +9241,15 @@ namespace ImGui
         
         [LinkName("igSliderFloat2")]
         private static extern bool SliderFloat2Impl(char* label, float[2] v, float v_min, float v_max, char* format, SliderFlags flags);
-        public static bool SliderFloat2(char* label, float[2] v, float v_min, float v_max, char* format = "%.3f", SliderFlags flags = (SliderFlags) 0) => SliderFloat2Impl(label, v, v_min, v_max, format, flags);
+        public static bool SliderFloat2(char* label, ref float[2] v, float v_min, float v_max, char* format = "%.3f", SliderFlags flags = (SliderFlags) 0) => SliderFloat2Impl(label, v, v_min, v_max, format, flags);
         
         [LinkName("igSliderFloat3")]
         private static extern bool SliderFloat3Impl(char* label, float[3] v, float v_min, float v_max, char* format, SliderFlags flags);
-        public static bool SliderFloat3(char* label, float[3] v, float v_min, float v_max, char* format = "%.3f", SliderFlags flags = (SliderFlags) 0) => SliderFloat3Impl(label, v, v_min, v_max, format, flags);
+        public static bool SliderFloat3(char* label, ref float[3] v, float v_min, float v_max, char* format = "%.3f", SliderFlags flags = (SliderFlags) 0) => SliderFloat3Impl(label, v, v_min, v_max, format, flags);
         
         [LinkName("igSliderFloat4")]
         private static extern bool SliderFloat4Impl(char* label, float[4] v, float v_min, float v_max, char* format, SliderFlags flags);
-        public static bool SliderFloat4(char* label, float[4] v, float v_min, float v_max, char* format = "%.3f", SliderFlags flags = (SliderFlags) 0) => SliderFloat4Impl(label, v, v_min, v_max, format, flags);
+        public static bool SliderFloat4(char* label, ref float[4] v, float v_min, float v_max, char* format = "%.3f", SliderFlags flags = (SliderFlags) 0) => SliderFloat4Impl(label, v, v_min, v_max, format, flags);
         
         [LinkName("igSliderInt")]
         private static extern bool SliderIntImpl(char* label, int32* v, int32 v_min, int32 v_max, char* format, SliderFlags flags);
@@ -9064,15 +9257,15 @@ namespace ImGui
         
         [LinkName("igSliderInt2")]
         private static extern bool SliderInt2Impl(char* label, int32[2] v, int32 v_min, int32 v_max, char* format, SliderFlags flags);
-        public static bool SliderInt2(char* label, int32[2] v, int32 v_min, int32 v_max, char* format = "%d", SliderFlags flags = (SliderFlags) 0) => SliderInt2Impl(label, v, v_min, v_max, format, flags);
+        public static bool SliderInt2(char* label, ref int32[2] v, int32 v_min, int32 v_max, char* format = "%d", SliderFlags flags = (SliderFlags) 0) => SliderInt2Impl(label, v, v_min, v_max, format, flags);
         
         [LinkName("igSliderInt3")]
         private static extern bool SliderInt3Impl(char* label, int32[3] v, int32 v_min, int32 v_max, char* format, SliderFlags flags);
-        public static bool SliderInt3(char* label, int32[3] v, int32 v_min, int32 v_max, char* format = "%d", SliderFlags flags = (SliderFlags) 0) => SliderInt3Impl(label, v, v_min, v_max, format, flags);
+        public static bool SliderInt3(char* label, ref int32[3] v, int32 v_min, int32 v_max, char* format = "%d", SliderFlags flags = (SliderFlags) 0) => SliderInt3Impl(label, v, v_min, v_max, format, flags);
         
         [LinkName("igSliderInt4")]
         private static extern bool SliderInt4Impl(char* label, int32[4] v, int32 v_min, int32 v_max, char* format, SliderFlags flags);
-        public static bool SliderInt4(char* label, int32[4] v, int32 v_min, int32 v_max, char* format = "%d", SliderFlags flags = (SliderFlags) 0) => SliderInt4Impl(label, v, v_min, v_max, format, flags);
+        public static bool SliderInt4(char* label, ref int32[4] v, int32 v_min, int32 v_max, char* format = "%d", SliderFlags flags = (SliderFlags) 0) => SliderInt4Impl(label, v, v_min, v_max, format, flags);
         
         [LinkName("igSliderScalar")]
         private static extern bool SliderScalarImpl(char* label, DataType data_type, void* p_data, void* p_min, void* p_max, char* format, SliderFlags flags);
@@ -9138,9 +9331,41 @@ namespace ImGui
         public static TabItem* TabBarFindTabByID(TabBar* tab_bar, ID tab_id) => TabBarFindTabByIDImpl(tab_bar, tab_id);
         #endif
         
+        [LinkName("igTabBarFindTabByOrder")]
+        private static extern TabItem* TabBarFindTabByOrderImpl(TabBar* tab_bar, int32 order);
+        #if IMGUI_USE_REF
+        public static ref TabItem TabBarFindTabByOrder(TabBar* tab_bar, int32 order) { return ref *TabBarFindTabByOrderImpl(tab_bar, order); }
+        #else
+        public static TabItem* TabBarFindTabByOrder(TabBar* tab_bar, int32 order) => TabBarFindTabByOrderImpl(tab_bar, order);
+        #endif
+        
+        [LinkName("igTabBarGetCurrentTab")]
+        private static extern TabItem* TabBarGetCurrentTabImpl(TabBar* tab_bar);
+        #if IMGUI_USE_REF
+        public static ref TabItem TabBarGetCurrentTab(TabBar* tab_bar) { return ref *TabBarGetCurrentTabImpl(tab_bar); }
+        #else
+        public static TabItem* TabBarGetCurrentTab(TabBar* tab_bar) => TabBarGetCurrentTabImpl(tab_bar);
+        #endif
+        
+        [LinkName("igTabBarGetTabName")]
+        private static extern char* TabBarGetTabNameImpl(TabBar* tab_bar, TabItem* tab);
+        #if IMGUI_USE_REF
+        public static ref char TabBarGetTabName(TabBar* tab_bar, TabItem* tab) { return ref *TabBarGetTabNameImpl(tab_bar, tab); }
+        #else
+        public static char* TabBarGetTabName(TabBar* tab_bar, TabItem* tab) => TabBarGetTabNameImpl(tab_bar, tab);
+        #endif
+        
+        [LinkName("igTabBarGetTabOrder")]
+        private static extern int32 TabBarGetTabOrderImpl(TabBar* tab_bar, TabItem* tab);
+        public static int32 TabBarGetTabOrder(TabBar* tab_bar, TabItem* tab) => TabBarGetTabOrderImpl(tab_bar, tab);
+        
         [LinkName("igTabBarProcessReorder")]
         private static extern bool TabBarProcessReorderImpl(TabBar* tab_bar);
         public static bool TabBarProcessReorder(TabBar* tab_bar) => TabBarProcessReorderImpl(tab_bar);
+        
+        [LinkName("igTabBarQueueFocus")]
+        private static extern void TabBarQueueFocusImpl(TabBar* tab_bar, TabItem* tab);
+        public static void TabBarQueueFocus(TabBar* tab_bar, TabItem* tab) => TabBarQueueFocusImpl(tab_bar, tab);
         
         [LinkName("igTabBarQueueReorder")]
         private static extern void TabBarQueueReorderImpl(TabBar* tab_bar, TabItem* tab, int32 offset);
@@ -9162,12 +9387,21 @@ namespace ImGui
         private static extern bool TabItemButtonImpl(char* label, TabItemFlags flags);
         public static bool TabItemButton(char* label, TabItemFlags flags = (TabItemFlags) 0) => TabItemButtonImpl(label, flags);
         
-        [LinkName("igTabItemCalcSize")]
-        private static extern Vec2 TabItemCalcSizeImpl(Vec2* pOut, char* label, bool has_close_button);
-        public static Vec2 TabItemCalcSize(char* label, bool has_close_button)
+        [LinkName("igTabItemCalcSize_Str")]
+        private static extern Vec2 TabItemCalcSizeImpl(Vec2* pOut, char* label, bool has_close_button_or_unsaved_marker);
+        public static Vec2 TabItemCalcSize(char* label, bool has_close_button_or_unsaved_marker)
         {
             Vec2 pOut = default;
-            TabItemCalcSizeImpl(&pOut, label, has_close_button);
+            TabItemCalcSizeImpl(&pOut, label, has_close_button_or_unsaved_marker);
+            return pOut;
+        }
+        
+        [LinkName("igTabItemCalcSize_WindowPtr")]
+        private static extern Vec2 TabItemCalcSizeImpl(Vec2* pOut, Window* window);
+        public static Vec2 TabItemCalcSize(Window* window)
+        {
+            Vec2 pOut = default;
+            TabItemCalcSizeImpl(&pOut, window);
             return pOut;
         }
         
@@ -9190,6 +9424,10 @@ namespace ImGui
         [LinkName("igTableBeginCell")]
         private static extern void TableBeginCellImpl(Table* table, int32 column_n);
         public static void TableBeginCell(Table* table, int32 column_n) => TableBeginCellImpl(table, column_n);
+        
+        [LinkName("igTableBeginContextMenuPopup")]
+        private static extern bool TableBeginContextMenuPopupImpl(Table* table);
+        public static bool TableBeginContextMenuPopup(Table* table) => TableBeginContextMenuPopupImpl(table);
         
         [LinkName("igTableBeginInitMemory")]
         private static extern void TableBeginInitMemoryImpl(Table* table, int32 columns_count);
@@ -9311,6 +9549,10 @@ namespace ImGui
         #else
         public static TableInstanceData* TableGetInstanceData(Table* table, int32 instance_no) => TableGetInstanceDataImpl(table, instance_no);
         #endif
+        
+        [LinkName("igTableGetInstanceID")]
+        private static extern ID TableGetInstanceIDImpl(Table* table, int32 instance_no);
+        public static ID TableGetInstanceID(Table* table, int32 instance_no) => TableGetInstanceIDImpl(table, instance_no);
         
         [LinkName("igTableGetMaxColumnWidth")]
         private static extern float TableGetMaxColumnWidthImpl(Table* table, int32 column_n);
@@ -9468,6 +9710,14 @@ namespace ImGui
         private static extern bool TempInputTextImpl(Rect bb, ID id, char* label, char* buf, int32 buf_size, InputTextFlags flags);
         public static bool TempInputText(Rect bb, ID id, char* label, char* buf, int32 buf_size, InputTextFlags flags) => TempInputTextImpl(bb, id, label, buf, buf_size, flags);
         
+        [LinkName("igTestKeyOwner")]
+        private static extern bool TestKeyOwnerImpl(Key key, ID owner_id);
+        public static bool TestKeyOwner(Key key, ID owner_id) => TestKeyOwnerImpl(key, owner_id);
+        
+        [LinkName("igTestShortcutRouting")]
+        private static extern bool TestShortcutRoutingImpl(KeyChord key_chord, ID owner_id);
+        public static bool TestShortcutRouting(KeyChord key_chord, ID owner_id) => TestShortcutRoutingImpl(key_chord, owner_id);
+        
         [LinkName("igText")]
         private static extern void TextImpl(char* fmt, ...);
         public static void Text(char* fmt, params Object[] args) => TextImpl(scope String()..AppendF(StringView(fmt), params args));
@@ -9512,10 +9762,6 @@ namespace ImGui
         private static extern bool TreeNodeBehaviorImpl(ID id, TreeNodeFlags flags, char* label, char* label_end);
         public static bool TreeNodeBehavior(ID id, TreeNodeFlags flags, char* label, char* label_end = null) => TreeNodeBehaviorImpl(id, flags, label, label_end);
         
-        [LinkName("igTreeNodeBehaviorIsOpen")]
-        private static extern bool TreeNodeBehaviorIsOpenImpl(ID id, TreeNodeFlags flags);
-        public static bool TreeNodeBehaviorIsOpen(ID id, TreeNodeFlags flags = (TreeNodeFlags) 0) => TreeNodeBehaviorIsOpenImpl(id, flags);
-        
         [LinkName("igTreeNodeEx_Str")]
         private static extern bool TreeNodeExImpl(char* label, TreeNodeFlags flags);
         public static bool TreeNodeEx(char* label, TreeNodeFlags flags = (TreeNodeFlags) 0) => TreeNodeExImpl(label, flags);
@@ -9528,6 +9774,14 @@ namespace ImGui
         private static extern bool TreeNodeExImpl(void* ptr_id, TreeNodeFlags flags, char* fmt, ...);
         public static bool TreeNodeEx(void* ptr_id, TreeNodeFlags flags, char* fmt, params Object[] args) => TreeNodeExImpl(ptr_id, flags, scope String()..AppendF(StringView(fmt), params args));
         
+        [LinkName("igTreeNodeSetOpen")]
+        private static extern void TreeNodeSetOpenImpl(ID id, bool open);
+        public static void TreeNodeSetOpen(ID id, bool open) => TreeNodeSetOpenImpl(id, open);
+        
+        [LinkName("igTreeNodeUpdateNextOpen")]
+        private static extern bool TreeNodeUpdateNextOpenImpl(ID id, TreeNodeFlags flags);
+        public static bool TreeNodeUpdateNextOpen(ID id, TreeNodeFlags flags) => TreeNodeUpdateNextOpenImpl(id, flags);
+        
         [LinkName("igTreePop")]
         private static extern void TreePopImpl();
         public static void TreePop() => TreePopImpl();
@@ -9538,7 +9792,7 @@ namespace ImGui
         
         [LinkName("igTreePush_Ptr")]
         private static extern void TreePushImpl(void* ptr_id);
-        public static void TreePush(void* ptr_id = null) => TreePushImpl(ptr_id);
+        public static void TreePush(void* ptr_id) => TreePushImpl(ptr_id);
         
         [LinkName("igTreePushOverrideID")]
         private static extern void TreePushOverrideIDImpl(ID id);

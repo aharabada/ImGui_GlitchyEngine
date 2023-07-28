@@ -1,5 +1,5 @@
 // -- GENERATION INFORMATION --
-// Date: 04/19/2023 06:29:50
+// Date: 28.07.2023 13:10:09
 // Constructors: 96
 // Destructors: 75
 // Enums: 73
@@ -162,7 +162,7 @@ namespace ImGui
         public typealias Wchar16 = ushort;
         public typealias Wchar32 = uint32;
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DrawFlags : int32
         {
             None = 0,
@@ -182,7 +182,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DrawListFlags : int32
         {
             None = 0,
@@ -193,7 +193,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum FontAtlasFlags : int32
         {
             None = 0,
@@ -203,7 +203,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ActivateFlags : int32
         {
             None = 0,
@@ -213,8 +213,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum Axis : int32
+        [AllowDuplicates, CRepr]
+        public enum Axis  : int32
         {
             None = -1,
             X = 0,
@@ -222,7 +222,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum BackendFlags : int32
         {
             None = 0,
@@ -236,8 +236,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum ButtonFlagsPrivate : int32
+        [AllowDuplicates, CRepr]
+        public enum ButtonFlagsPrivate  : int32
         {
             ButtonFlags_PressedOnClick = 16,
             ButtonFlags_PressedOnClickRelease = 32,
@@ -261,7 +261,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ButtonFlags : int32
         {
             None = 0,
@@ -273,7 +273,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum Col : int32
         {
             Text = 0,
@@ -335,7 +335,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ColorEditFlags : int32
         {
             None = 0,
@@ -370,14 +370,14 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum ComboFlagsPrivate : int32
+        [AllowDuplicates, CRepr]
+        public enum ComboFlagsPrivate  : int32
         {
             ComboFlags_CustomPreview = 1048576,
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ComboFlags : int32
         {
             None = 0,
@@ -392,7 +392,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum Cond : int32
         {
             None = 0,
@@ -403,7 +403,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ConfigFlags : int32
         {
             None = 0,
@@ -422,8 +422,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum ContextHookType : int32
+        [AllowDuplicates, CRepr]
+        public enum ContextHookType  : int32
         {
             NewFramePre = 0,
             NewFramePost = 1,
@@ -436,7 +436,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DataAuthority : int32
         {
             Auto = 0,
@@ -445,8 +445,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum DataTypePrivate : int32
+        [AllowDuplicates, CRepr]
+        public enum DataTypePrivate  : int32
         {
             DataType_String = 11,
             DataType_Pointer = 12,
@@ -454,7 +454,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DataType : int32
         {
             S8 = 0,
@@ -471,7 +471,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DebugLogFlags : int32
         {
             None = 0,
@@ -489,7 +489,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum Dir : int32
         {
             None = -1,
@@ -501,8 +501,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum DockNodeFlagsPrivate : int32
+        [AllowDuplicates, CRepr]
+        public enum DockNodeFlagsPrivate  : int32
         {
             DockNodeFlags_DockSpace = 1024,
             DockNodeFlags_CentralNode = 2048,
@@ -526,7 +526,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DockNodeFlags : int32
         {
             None = 0,
@@ -539,8 +539,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum DockNodeState : int32
+        [AllowDuplicates, CRepr]
+        public enum DockNodeState  : int32
         {
             Unknown = 0,
             HostWindowHiddenBecauseSingleWindow = 1,
@@ -549,7 +549,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum DragDropFlags : int32
         {
             None = 0,
@@ -566,7 +566,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum FocusedFlags : int32
         {
             None = 0,
@@ -579,7 +579,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum HoveredFlags : int32
         {
             None = 0,
@@ -601,8 +601,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum InputEventType : int32
+        [AllowDuplicates, CRepr]
+        public enum InputEventType  : int32
         {
             None = 0,
             MousePos = 1,
@@ -616,7 +616,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum InputFlags : int32
         {
             None = 0,
@@ -646,8 +646,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum InputSource : int32
+        [AllowDuplicates, CRepr]
+        public enum InputSource  : int32
         {
             None = 0,
             Mouse = 1,
@@ -658,8 +658,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum InputTextFlagsPrivate : int32
+        [AllowDuplicates, CRepr]
+        public enum InputTextFlagsPrivate  : int32
         {
             InputTextFlags_Multiline = 67108864,
             InputTextFlags_NoMarkEdited = 134217728,
@@ -667,7 +667,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum InputTextFlags : int32
         {
             None = 0,
@@ -695,7 +695,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ItemFlags : int32
         {
             None = 0,
@@ -712,7 +712,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ItemStatusFlags : int32
         {
             None = 0,
@@ -729,8 +729,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum Key : int32
+        [AllowDuplicates, CRepr]
+        public enum Key  : int32
         {
             None = 0,
             Tab = 512,
@@ -889,7 +889,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum LayoutType : int32
         {
             Horizontal = 0,
@@ -897,8 +897,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum LocKey : int32
+        [AllowDuplicates, CRepr]
+        public enum LocKey  : int32
         {
             TableSizeOne = 0,
             TableSizeAllFit = 1,
@@ -912,8 +912,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum LogType : int32
+        [AllowDuplicates, CRepr]
+        public enum LogType  : int32
         {
             None = 0,
             TTY = 1,
@@ -923,7 +923,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum MouseButton : int32
         {
             Left = 0,
@@ -933,7 +933,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum MouseCursor : int32
         {
             None = -1,
@@ -950,8 +950,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum MouseSource : int32
+        [AllowDuplicates, CRepr]
+        public enum MouseSource  : int32
         {
             Mouse = 0,
             TouchScreen = 1,
@@ -960,7 +960,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum NavHighlightFlags : int32
         {
             None = 0,
@@ -971,8 +971,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum NavInput : int32
+        [AllowDuplicates, CRepr]
+        public enum NavInput  : int32
         {
             Activate = 0,
             Cancel = 1,
@@ -994,8 +994,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum NavLayer : int32
+        [AllowDuplicates, CRepr]
+        public enum NavLayer  : int32
         {
             Main = 0,
             Menu = 1,
@@ -1003,7 +1003,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum NavMoveFlags : int32
         {
             None = 0,
@@ -1023,7 +1023,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum NextItemDataFlags : int32
         {
             None = 0,
@@ -1032,7 +1032,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum NextWindowDataFlags : int32
         {
             None = 0,
@@ -1050,7 +1050,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum OldColumnFlags : int32
         {
             None = 0,
@@ -1062,15 +1062,15 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum PlotType : int32
+        [AllowDuplicates, CRepr]
+        public enum PlotType  : int32
         {
             Lines = 0,
             Histogram = 1,
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum PopupFlags : int32
         {
             None = 0,
@@ -1087,8 +1087,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum PopupPositionPolicy : int32
+        [AllowDuplicates, CRepr]
+        public enum PopupPositionPolicy  : int32
         {
             Default = 0,
             ComboBox = 1,
@@ -1096,7 +1096,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ScrollFlags : int32
         {
             None = 0,
@@ -1112,8 +1112,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum SelectableFlagsPrivate : int32
+        [AllowDuplicates, CRepr]
+        public enum SelectableFlagsPrivate  : int32
         {
             SelectableFlags_NoHoldingActiveID = 1048576,
             SelectableFlags_SelectOnNav = 2097152,
@@ -1126,7 +1126,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum SelectableFlags : int32
         {
             None = 0,
@@ -1138,7 +1138,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum SeparatorFlags : int32
         {
             None = 0,
@@ -1148,15 +1148,15 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum SliderFlagsPrivate : int32
+        [AllowDuplicates, CRepr]
+        public enum SliderFlagsPrivate  : int32
         {
             SliderFlags_Vertical = 1048576,
             SliderFlags_ReadOnly = 2097152,
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum SliderFlags : int32
         {
             None = 0,
@@ -1168,7 +1168,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum SortDirection : int32
         {
             None = 0,
@@ -1177,7 +1177,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum StyleVar : int32
         {
             Alpha = 0,
@@ -1212,8 +1212,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum TabBarFlagsPrivate : int32
+        [AllowDuplicates, CRepr]
+        public enum TabBarFlagsPrivate  : int32
         {
             TabBarFlags_DockNode = 1048576,
             TabBarFlags_IsFocused = 2097152,
@@ -1221,7 +1221,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TabBarFlags : int32
         {
             None = 0,
@@ -1238,8 +1238,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum TabItemFlagsPrivate : int32
+        [AllowDuplicates, CRepr]
+        public enum TabItemFlagsPrivate  : int32
         {
             TabItemFlags_SectionMask_ = 192,
             TabItemFlags_NoCloseButton = 1048576,
@@ -1249,7 +1249,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TabItemFlags : int32
         {
             None = 0,
@@ -1264,7 +1264,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TableBgTarget : int32
         {
             None = 0,
@@ -1274,7 +1274,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TableColumnFlags : int32
         {
             None = 0,
@@ -1307,7 +1307,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TableFlags : int32
         {
             None = 0,
@@ -1349,7 +1349,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TableRowFlags : int32
         {
             None = 0,
@@ -1357,7 +1357,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TextFlags : int32
         {
             None = 0,
@@ -1365,7 +1365,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TooltipFlags : int32
         {
             None = 0,
@@ -1373,14 +1373,14 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum TreeNodeFlagsPrivate : int32
+        [AllowDuplicates, CRepr]
+        public enum TreeNodeFlagsPrivate  : int32
         {
             TreeNodeFlags_ClipLabelForTrailingButton = 1048576,
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum TreeNodeFlags : int32
         {
             None = 0,
@@ -1402,7 +1402,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum ViewportFlags : int32
         {
             None = 0,
@@ -1423,8 +1423,8 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
-        public enum WindowDockStyleCol : int32
+        [AllowDuplicates, CRepr]
+        public enum WindowDockStyleCol  : int32
         {
             Text = 0,
             Tab = 1,
@@ -1436,7 +1436,7 @@ namespace ImGui
         
         }
         
-        [AllowDuplicates]
+        [AllowDuplicates, CRepr]
         public enum WindowFlags : int32
         {
             None = 0,
@@ -1510,36 +1510,49 @@ namespace ImGui
             private static extern Color* CtorImpl();
             public this()
             {
-                this = *CtorImpl();
+                var ptr = CtorImpl();
+                this = *ptr;
+                DestroyImpl(ptr);
             }
             
             [LinkName("ImColor_ImColor_Float")]
             private static extern Color* CtorImpl(float r, float g, float b, float a);
             public this(float r, float g, float b, float a = (float) 1.0f)
             {
-                this = *CtorImpl(r, g, b, a);
+                var ptr = CtorImpl(r, g, b, a);
+                this = *ptr;
+                DestroyImpl(ptr);
             }
             
             [LinkName("ImColor_ImColor_Vec4")]
             private static extern Color* CtorImpl(Vec4 col);
             public this(Vec4 col)
             {
-                this = *CtorImpl(col);
+                var ptr = CtorImpl(col);
+                this = *ptr;
+                DestroyImpl(ptr);
             }
             
             [LinkName("ImColor_ImColor_Int")]
             private static extern Color* CtorImpl(int32 r, int32 g, int32 b, int32 a);
             public this(int32 r, int32 g, int32 b, int32 a = (int32) 255)
             {
-                this = *CtorImpl(r, g, b, a);
+                var ptr = CtorImpl(r, g, b, a);
+                this = *ptr;
+                DestroyImpl(ptr);
             }
             
             [LinkName("ImColor_ImColor_U32")]
             private static extern Color* CtorImpl(U32 rgba);
             public this(U32 rgba)
             {
-                this = *CtorImpl(rgba);
+                var ptr = CtorImpl(rgba);
+                this = *ptr;
+                DestroyImpl(ptr);
             }
+            
+            [LinkName("ImColor_destroy")]
+            private static extern void DestroyImpl(Color* ptr);
             
             [LinkName("ImColor_SetHSV")]
             private static extern void SetHSVImpl(Self* self, float h, float s, float v, float a);
@@ -1572,6 +1585,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImDrawCmd_destroy")]
+            private static extern void DestroyImpl(DrawCmd* ptr);
             
             [LinkName("ImDrawCmd_GetTexID")]
             private static extern TextureID GetTexIDImpl(Self* self);
@@ -1607,6 +1623,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImDrawData_destroy")]
+            private static extern void DestroyImpl(DrawData* ptr);
             
             [LinkName("ImDrawData_Clear")]
             private static extern void ClearImpl(Self* self);
@@ -1670,6 +1689,9 @@ namespace ImGui
             {
                 this = *CtorImpl(shared_data);
             }
+            
+            [LinkName("ImDrawList_destroy")]
+            private static extern void DestroyImpl(DrawList* ptr);
             
             [LinkName("ImDrawList_AddBezierCubic")]
             private static extern void AddBezierCubicImpl(Self* self, Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, U32 col, float thickness, int32 num_segments);
@@ -1954,6 +1976,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImDrawListSharedData_destroy")]
+            private static extern void DestroyImpl(DrawListSharedData* ptr);
+            
             [LinkName("ImDrawListSharedData_SetCircleTessellationMaxError")]
             private static extern void SetCircleTessellationMaxErrorImpl(Self* self, float max_error);
             public void SetCircleTessellationMaxError(float max_error) mut=> SetCircleTessellationMaxErrorImpl(&this, max_error);
@@ -1973,6 +1998,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImDrawListSplitter_destroy")]
+            private static extern void DestroyImpl(DrawListSplitter* ptr);
             
             [LinkName("ImDrawListSplitter_Clear")]
             private static extern void ClearImpl(Self* self);
@@ -2035,6 +2063,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImFont_destroy")]
+            private static extern void DestroyImpl(Font* ptr);
             
             [LinkName("ImFont_AddGlyph")]
             private static extern void AddGlyphImpl(Self* self, FontConfig* src_cfg, Wchar c, float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, float advance_x);
@@ -2139,6 +2170,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImFontAtlas_destroy")]
+            private static extern void DestroyImpl(FontAtlas* ptr);
             
             [LinkName("ImFontAtlas_AddCustomRectFontGlyph")]
             private static extern int32 AddCustomRectFontGlyphImpl(Self* self, Font* font, Wchar id, int32 width, int32 height, float advance_x, Vec2 offset);
@@ -2299,6 +2333,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImFontAtlasCustomRect_destroy")]
+            private static extern void DestroyImpl(FontAtlasCustomRect* ptr);
+            
             [LinkName("ImFontAtlasCustomRect_IsPacked")]
             private static extern bool IsPackedImpl(Self* self);
             public bool IsPacked() mut=> IsPackedImpl(&this);
@@ -2342,6 +2379,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImFontConfig_destroy")]
+            private static extern void DestroyImpl(FontConfig* ptr);
+            
         }
         
         [CRepr]
@@ -2374,6 +2414,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImFontGlyphRangesBuilder_destroy")]
+            private static extern void DestroyImpl(FontGlyphRangesBuilder* ptr);
+            
             [LinkName("ImFontGlyphRangesBuilder_AddChar")]
             private static extern void AddCharImpl(Self* self, Wchar c);
             public void AddChar(Wchar c) mut=> AddCharImpl(&this, c);
@@ -2387,8 +2430,8 @@ namespace ImGui
             public void AddText(char* text, char* text_end = null) mut=> AddTextImpl(&this, text, text_end);
             
             [LinkName("ImFontGlyphRangesBuilder_BuildRanges")]
-            private static extern void BuildRangesImpl(Self* self, Vector<Wchar*> out_ranges);
-            public void BuildRanges(Vector<Wchar*> out_ranges) mut=> BuildRangesImpl(&this, out_ranges);
+            private static extern void BuildRangesImpl(Self* self, Vector<Wchar>* out_ranges);
+            public void BuildRanges(Vector<Wchar>* out_ranges) mut=> BuildRangesImpl(&this, out_ranges);
             
             [LinkName("ImFontGlyphRangesBuilder_Clear")]
             private static extern void ClearImpl(Self* self);
@@ -2428,6 +2471,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiComboPreviewData_destroy")]
+            private static extern void DestroyImpl(ComboPreviewData* ptr);
             
         }
         
@@ -2696,6 +2742,9 @@ namespace ImGui
                 this = *CtorImpl(shared_font_atlas);
             }
             
+            [LinkName("ImGuiContext_destroy")]
+            private static extern void DestroyImpl(Context* ptr);
+            
         }
         
         [CRepr]
@@ -2713,6 +2762,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiContextHook_destroy")]
+            private static extern void DestroyImpl(ContextHook* ptr);
             
         }
         
@@ -2760,6 +2812,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiDockContext_destroy")]
+            private static extern void DestroyImpl(DockContext* ptr);
             
         }
         
@@ -2814,6 +2869,9 @@ namespace ImGui
             {
                 this = *CtorImpl(id);
             }
+            
+            [LinkName("ImGuiDockNode_destroy")]
+            private static extern void DestroyImpl(DockNode* ptr);
             
             [LinkName("ImGuiDockNode_IsCentralNode")]
             private static extern bool IsCentralNodeImpl(Self* self);
@@ -3000,6 +3058,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiIO_destroy")]
+            private static extern void DestroyImpl(IO* ptr);
+            
             [LinkName("ImGuiIO_AddFocusEvent")]
             private static extern void AddFocusEventImpl(Self* self, bool focused);
             public void AddFocusEvent(bool focused) mut=> AddFocusEventImpl(&this, focused);
@@ -3084,6 +3145,10 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiInputEvent_destroy")]
+            private static extern void DestroyImpl(InputEvent* ptr);
+            
             [CRepr, Union]
             public struct InputEventUnion0
             {
@@ -3179,6 +3244,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiInputTextCallbackData_destroy")]
+            private static extern void DestroyImpl(InputTextCallbackData* ptr);
+            
             [LinkName("ImGuiInputTextCallbackData_ClearSelection")]
             private static extern void ClearSelectionImpl(Self* self);
             public void ClearSelection() mut=> ClearSelectionImpl(&this);
@@ -3214,6 +3282,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiInputTextDeactivatedState_destroy")]
+            private static extern void DestroyImpl(InputTextDeactivatedState* ptr);
+            
             [LinkName("ImGuiInputTextDeactivatedState_ClearFreeMemory")]
             private static extern void ClearFreeMemoryImpl(Self* self);
             public void ClearFreeMemory() mut=> ClearFreeMemoryImpl(&this);
@@ -3246,6 +3317,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiInputTextState_destroy")]
+            private static extern void DestroyImpl(InputTextState* ptr);
             
             [LinkName("ImGuiInputTextState_ClearFreeMemory")]
             private static extern void ClearFreeMemoryImpl(Self* self);
@@ -3326,6 +3400,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiKeyOwnerData_destroy")]
+            private static extern void DestroyImpl(KeyOwnerData* ptr);
+            
         }
         
         [CRepr]
@@ -3344,6 +3421,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiKeyRoutingData_destroy")]
+            private static extern void DestroyImpl(KeyRoutingData* ptr);
+            
         }
         
         [CRepr]
@@ -3359,6 +3439,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiKeyRoutingTable_destroy")]
+            private static extern void DestroyImpl(KeyRoutingTable* ptr);
             
             [LinkName("ImGuiKeyRoutingTable_Clear")]
             private static extern void ClearImpl(Self* self);
@@ -3383,6 +3466,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiLastItemData_destroy")]
+            private static extern void DestroyImpl(LastItemData* ptr);
+            
         }
         
         [CRepr]
@@ -3402,6 +3488,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiListClipper_destroy")]
+            private static extern void DestroyImpl(ListClipper* ptr);
             
             [LinkName("ImGuiListClipper_Begin")]
             private static extern void BeginImpl(Self* self, int32 items_count, float items_height);
@@ -3436,6 +3525,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiListClipperData_destroy")]
+            private static extern void DestroyImpl(ListClipperData* ptr);
             
             [LinkName("ImGuiListClipperData_Reset")]
             private static extern void ResetImpl(Self* self, ListClipper* clipper);
@@ -3480,6 +3572,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiMenuColumns_destroy")]
+            private static extern void DestroyImpl(MenuColumns* ptr);
             
             [LinkName("ImGuiMenuColumns_CalcNextTotalWidth")]
             private static extern void CalcNextTotalWidthImpl(Self* self, bool update_offsets);
@@ -3531,6 +3626,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiNavItemData_destroy")]
+            private static extern void DestroyImpl(NavItemData* ptr);
+            
             [LinkName("ImGuiNavItemData_Clear")]
             private static extern void ClearImpl(Self* self);
             public void Clear() mut=> ClearImpl(&this);
@@ -3552,6 +3650,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiNextItemData_destroy")]
+            private static extern void DestroyImpl(NextItemData* ptr);
             
             [LinkName("ImGuiNextItemData_ClearFlags")]
             private static extern void ClearFlagsImpl(Self* self);
@@ -3590,6 +3691,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiNextWindowData_destroy")]
+            private static extern void DestroyImpl(NextWindowData* ptr);
+            
             [LinkName("ImGuiNextWindowData_ClearFlags")]
             private static extern void ClearFlagsImpl(Self* self);
             public void ClearFlags() mut=> ClearFlagsImpl(&this);
@@ -3610,6 +3714,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiOldColumnData_destroy")]
+            private static extern void DestroyImpl(OldColumnData* ptr);
             
         }
         
@@ -3641,6 +3748,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiOldColumns_destroy")]
+            private static extern void DestroyImpl(OldColumns* ptr);
+            
         }
         
         [CRepr]
@@ -3654,6 +3764,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiOnceUponAFrame_destroy")]
+            private static extern void DestroyImpl(OnceUponAFrame* ptr);
             
         }
         
@@ -3675,6 +3788,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiPayload_destroy")]
+            private static extern void DestroyImpl(Payload* ptr);
             
             [LinkName("ImGuiPayload_Clear")]
             private static extern void ClearImpl(Self* self);
@@ -3730,6 +3846,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiPlatformIO_destroy")]
+            private static extern void DestroyImpl(PlatformIO* ptr);
+            
         }
         
         [CRepr]
@@ -3745,6 +3864,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiPlatformImeData_destroy")]
+            private static extern void DestroyImpl(PlatformImeData* ptr);
             
         }
         
@@ -3763,6 +3885,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiPlatformMonitor_destroy")]
+            private static extern void DestroyImpl(PlatformMonitor* ptr);
             
         }
         
@@ -3784,6 +3909,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiPopupData_destroy")]
+            private static extern void DestroyImpl(PopupData* ptr);
             
         }
         
@@ -3807,6 +3935,9 @@ namespace ImGui
                 this = *CtorImpl(index);
             }
             
+            [LinkName("ImGuiPtrOrIndex_destroy")]
+            private static extern void DestroyImpl(PtrOrIndex* ptr);
+            
         }
         
         [CRepr]
@@ -3828,6 +3959,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiSettingsHandler_destroy")]
+            private static extern void DestroyImpl(SettingsHandler* ptr);
             
         }
         
@@ -3866,6 +4000,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiStackLevelInfo_destroy")]
+            private static extern void DestroyImpl(StackLevelInfo* ptr);
+            
         }
         
         [CRepr]
@@ -3887,6 +4024,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiStackSizes_destroy")]
+            private static extern void DestroyImpl(StackSizes* ptr);
             
             [LinkName("ImGuiStackSizes_CompareWithContextState")]
             private static extern void CompareWithContextStateImpl(Self* self, Context* ctx);
@@ -3914,6 +4054,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiStackTool_destroy")]
+            private static extern void DestroyImpl(StackTool* ptr);
             
         }
         
@@ -4013,6 +4156,10 @@ namespace ImGui
             {
                 this = *CtorImpl(_key, _val_p);
             }
+            
+            [LinkName("ImGuiStoragePair_destroy")]
+            private static extern void DestroyImpl(StoragePair* ptr);
+            
             [CRepr, Union]
             public struct StoragePairUnion0
             {
@@ -4078,6 +4225,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiStyle_destroy")]
+            private static extern void DestroyImpl(Style* ptr);
+            
             [LinkName("ImGuiStyle_ScaleAllSizes")]
             private static extern void ScaleAllSizesImpl(Self* self, float scale_factor);
             public void ScaleAllSizes(float scale_factor) mut=> ScaleAllSizesImpl(&this, scale_factor);
@@ -4112,6 +4262,10 @@ namespace ImGui
             {
                 this = *CtorImpl(idx, v);
             }
+            
+            [LinkName("ImGuiStyleMod_destroy")]
+            private static extern void DestroyImpl(StyleMod* ptr);
+            
             [CRepr, Union]
             public struct StyleModUnion0
             {
@@ -4163,6 +4317,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTabBar_destroy")]
+            private static extern void DestroyImpl(TabBar* ptr);
+            
         }
         
         [CRepr]
@@ -4188,6 +4345,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiTabItem_destroy")]
+            private static extern void DestroyImpl(TabItem* ptr);
             
         }
         
@@ -4307,6 +4467,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTable_destroy")]
+            private static extern void DestroyImpl(Table* ptr);
+            
         }
         
         [CRepr]
@@ -4369,6 +4532,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTableColumn_destroy")]
+            private static extern void DestroyImpl(TableColumn* ptr);
+            
         }
         
         [CRepr]
@@ -4390,6 +4556,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTableColumnSettings_destroy")]
+            private static extern void DestroyImpl(TableColumnSettings* ptr);
+            
         }
         
         [CRepr]
@@ -4407,6 +4576,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTableColumnSortSpecs_destroy")]
+            private static extern void DestroyImpl(TableColumnSortSpecs* ptr);
+            
         }
         
         [CRepr]
@@ -4423,6 +4595,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiTableInstanceData_destroy")]
+            private static extern void DestroyImpl(TableInstanceData* ptr);
             
         }
         
@@ -4443,6 +4618,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTableSettings_destroy")]
+            private static extern void DestroyImpl(TableSettings* ptr);
+            
             [LinkName("ImGuiTableSettings_GetColumnSettings")]
             private static extern TableColumnSettings* GetColumnSettingsImpl(Self* self);
             public TableColumnSettings* GetColumnSettings() mut=> GetColumnSettingsImpl(&this);
@@ -4462,6 +4640,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiTableSortSpecs_destroy")]
+            private static extern void DestroyImpl(TableSortSpecs* ptr);
             
         }
         
@@ -4488,6 +4669,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiTableTempData_destroy")]
+            private static extern void DestroyImpl(TableTempData* ptr);
+            
         }
         
         [CRepr]
@@ -4501,6 +4685,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiTextBuffer_destroy")]
+            private static extern void DestroyImpl(TextBuffer* ptr);
             
             [LinkName("ImGuiTextBuffer_append")]
             private static extern void AppendImpl(Self* self, char* str, char* str_end);
@@ -4553,6 +4740,9 @@ namespace ImGui
             {
                 this = *CtorImpl(default_filter);
             }
+            
+            [LinkName("ImGuiTextFilter_destroy")]
+            private static extern void DestroyImpl(TextFilter* ptr);
             
             [LinkName("ImGuiTextFilter_Build")]
             private static extern void BuildImpl(Self* self);
@@ -4624,13 +4814,16 @@ namespace ImGui
                 this = *CtorImpl(_b, _e);
             }
             
+            [LinkName("ImGuiTextRange_destroy")]
+            private static extern void DestroyImpl(TextRange* ptr);
+            
             [LinkName("ImGuiTextRange_empty")]
             private static extern bool EmptyImpl(Self* self);
             public bool Empty() mut=> EmptyImpl(&this);
             
             [LinkName("ImGuiTextRange_split")]
-            private static extern void SplitImpl(Self* self, char separator, Vector<TextRange*> out_);
-            public void Split(char separator, Vector<TextRange*> out_) mut=> SplitImpl(&this, separator, out_);
+            private static extern void SplitImpl(Self* self, char separator, Vector<TextRange>* out_);
+            public void Split(char separator, Vector<TextRange>* out_) mut=> SplitImpl(&this, separator, out_);
             
         }
         
@@ -4661,6 +4854,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiViewport_destroy")]
+            private static extern void DestroyImpl(Viewport* ptr);
             
             [LinkName("ImGuiViewport_GetCenter")]
             private static extern Vec2 GetCenterImpl(Vec2* pOut, Self* self);
@@ -4714,6 +4910,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiViewportP_destroy")]
+            private static extern void DestroyImpl(ViewportP* ptr);
             
             [LinkName("ImGuiViewportP_CalcWorkRectPos")]
             private static extern Vec2 CalcWorkRectPosImpl(Vec2* pOut, Self* self, Vec2 off_min);
@@ -4899,6 +5098,9 @@ namespace ImGui
                 this = *CtorImpl(context, name);
             }
             
+            [LinkName("ImGuiWindow_destroy")]
+            private static extern void DestroyImpl(Window* ptr);
+            
             [LinkName("ImGuiWindow_CalcFontSize")]
             private static extern float CalcFontSizeImpl(Self* self);
             public float CalcFontSize() mut=> CalcFontSizeImpl(&this);
@@ -4975,6 +5177,9 @@ namespace ImGui
                 this = *CtorImpl();
             }
             
+            [LinkName("ImGuiWindowClass_destroy")]
+            private static extern void DestroyImpl(WindowClass* ptr);
+            
         }
         
         [CRepr]
@@ -5005,6 +5210,9 @@ namespace ImGui
             {
                 this = *CtorImpl();
             }
+            
+            [LinkName("ImGuiWindowSettings_destroy")]
+            private static extern void DestroyImpl(WindowSettings* ptr);
             
             [LinkName("ImGuiWindowSettings_GetName")]
             private static extern char* GetNameImpl(Self* self);
@@ -5095,6 +5303,9 @@ namespace ImGui
             {
                 this = *CtorImpl(x1, y1, x2, y2);
             }
+            
+            [LinkName("ImRect_destroy")]
+            private static extern void DestroyImpl(Rect* ptr);
             
             [LinkName("ImRect_Add_Vec2")]
             private static extern void AddImpl(Self* self, Vec2 p);
@@ -5248,6 +5459,9 @@ namespace ImGui
                 this = *CtorImpl(_x);
             }
             
+            [LinkName("ImVec1_destroy")]
+            private static extern void DestroyImpl(Vec1* ptr);
+            
         }
         
         [CRepr]
@@ -5267,6 +5481,9 @@ namespace ImGui
                 this.x = x;
                 this.y = y;
             }
+            
+            [LinkName("ImVec2_destroy")]
+            private static extern void DestroyImpl(Vec2* ptr);
             
         }
         
@@ -5297,6 +5514,9 @@ namespace ImGui
                 this = *CtorImpl(rhs);
             }
             
+            [LinkName("ImVec2ih_destroy")]
+            private static extern void DestroyImpl(Vec2ih* ptr);
+            
         }
         
         [CRepr]
@@ -5322,6 +5542,9 @@ namespace ImGui
             	this.z = z;
             	this.w = w;
             }
+            
+            [LinkName("ImVec4_destroy")]
+            private static extern void DestroyImpl(Vec4* ptr);
             
         }
         
@@ -5399,6 +5622,9 @@ namespace ImGui
             {
                 this = *CtorImpl(src);
             }
+            
+            [LinkName("ImVector_destroy")]
+            private static extern void DestroyImpl(Vector<T>* ptr);
             
             [LinkName("ImVector__grow_capacity")]
             private static extern int32 GrowCapacityImpl(Self* self, int32 sz);
@@ -6292,8 +6518,8 @@ namespace ImGui
         public static void DebugNodeWindowSettings(WindowSettings* settings) => DebugNodeWindowSettingsImpl(settings);
         
         [LinkName("igDebugNodeWindowsList")]
-        private static extern void DebugNodeWindowsListImpl(Vector<Window**> windows, char* label);
-        public static void DebugNodeWindowsList(Vector<Window**> windows, char* label) => DebugNodeWindowsListImpl(windows, label);
+        private static extern void DebugNodeWindowsListImpl(Vector<Window*>* windows, char* label);
+        public static void DebugNodeWindowsList(Vector<Window*>* windows, char* label) => DebugNodeWindowsListImpl(windows, label);
         
         [LinkName("igDebugNodeWindowsListByBeginStackParent")]
         private static extern void DebugNodeWindowsListByBeginStackParentImpl(Window** windows, int32 windows_size, Window* parent_in_begin_stack);
@@ -6332,12 +6558,12 @@ namespace ImGui
         public static ID DockBuilderAddNode(ID node_id = (ID) 0, DockNodeFlags flags = (DockNodeFlags) 0) => DockBuilderAddNodeImpl(node_id, flags);
         
         [LinkName("igDockBuilderCopyDockSpace")]
-        private static extern void DockBuilderCopyDockSpaceImpl(ID src_dockspace_id, ID dst_dockspace_id, Vector<char**> in_window_remap_pairs);
-        public static void DockBuilderCopyDockSpace(ID src_dockspace_id, ID dst_dockspace_id, Vector<char**> in_window_remap_pairs) => DockBuilderCopyDockSpaceImpl(src_dockspace_id, dst_dockspace_id, in_window_remap_pairs);
+        private static extern void DockBuilderCopyDockSpaceImpl(ID src_dockspace_id, ID dst_dockspace_id, Vector<char*>* in_window_remap_pairs);
+        public static void DockBuilderCopyDockSpace(ID src_dockspace_id, ID dst_dockspace_id, Vector<char*>* in_window_remap_pairs) => DockBuilderCopyDockSpaceImpl(src_dockspace_id, dst_dockspace_id, in_window_remap_pairs);
         
         [LinkName("igDockBuilderCopyNode")]
-        private static extern void DockBuilderCopyNodeImpl(ID src_node_id, ID dst_node_id, Vector<ID*> out_node_remap_pairs);
-        public static void DockBuilderCopyNode(ID src_node_id, ID dst_node_id, Vector<ID*> out_node_remap_pairs) => DockBuilderCopyNodeImpl(src_node_id, dst_node_id, out_node_remap_pairs);
+        private static extern void DockBuilderCopyNodeImpl(ID src_node_id, ID dst_node_id, Vector<ID>* out_node_remap_pairs);
+        public static void DockBuilderCopyNode(ID src_node_id, ID dst_node_id, Vector<ID>* out_node_remap_pairs) => DockBuilderCopyNodeImpl(src_node_id, dst_node_id, out_node_remap_pairs);
         
         [LinkName("igDockBuilderCopyWindowSettings")]
         private static extern void DockBuilderCopyWindowSettingsImpl(char* src_name, char* dst_name);

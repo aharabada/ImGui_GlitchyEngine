@@ -9,7 +9,29 @@ namespace ImGuizmo
 		// -- Auto-Generated --
 
         [AllowDuplicates, CRepr]
-        public enum MODE 
+        public enum COLOR  : int32
+        {
+            DIRECTION_X = 0,
+            DIRECTION_Y = 1,
+            DIRECTION_Z = 2,
+            PLANE_X = 3,
+            PLANE_Y = 4,
+            PLANE_Z = 5,
+            SELECTION = 6,
+            INACTIVE = 7,
+            TRANSLATION_LINE = 8,
+            SCALE_LINE = 9,
+            ROTATION_USING_BORDER = 10,
+            ROTATION_USING_FILL = 11,
+            HATCHED_AXIS_LINES = 12,
+            TEXT = 13,
+            TEXT_SHADOW = 14,
+            COUNT = 15,
+        
+        }
+        
+        [AllowDuplicates, CRepr]
+        public enum MODE  : int32
         {
             LOCAL = 0,
             WORLD = 1,
@@ -17,7 +39,7 @@ namespace ImGuizmo
         }
         
         [AllowDuplicates, CRepr]
-        public enum OPERATION 
+        public enum OPERATION  : int32
         {
             TRANSLATE_X = 1,
             TRANSLATE_Y = 2,
@@ -65,6 +87,14 @@ namespace ImGuizmo
         private static extern void EnableImpl(bool enable);
         public static void Enable(bool enable) => EnableImpl(enable);
         
+        [LinkName("ImGuizmo_GetStyle")]
+        private static extern Style* GetStyleImpl();
+        #if IMGUI_USE_REF
+        public static ref Style GetStyle() { return ref *GetStyleImpl(); }
+        #else
+        public static Style* GetStyle() => GetStyleImpl();
+        #endif
+        
         [LinkName("ImGuizmo_IsOver_Nil")]
         private static extern bool IsOverImpl();
         public static bool IsOver() => IsOverImpl();
@@ -77,6 +107,10 @@ namespace ImGuizmo
         private static extern bool IsUsingImpl();
         public static bool IsUsing() => IsUsingImpl();
         
+        [LinkName("ImGuizmo_IsUsingAny")]
+        private static extern bool IsUsingAnyImpl();
+        public static bool IsUsingAny() => IsUsingAnyImpl();
+        
         [LinkName("ImGuizmo_Manipulate")]
         private static extern bool ManipulateImpl(float* view, float* projection, OPERATION operation, MODE mode, float* matrix, float* deltaMatrix, float* snap, float* localBounds, float* boundsSnap);
         public static bool Manipulate(float* view, float* projection, OPERATION operation, MODE mode, float* matrix, float* deltaMatrix = null, float* snap = null, float* localBounds = null, float* boundsSnap = null) => ManipulateImpl(view, projection, operation, mode, matrix, deltaMatrix, snap, localBounds, boundsSnap);
@@ -84,6 +118,10 @@ namespace ImGuizmo
         [LinkName("ImGuizmo_RecomposeMatrixFromComponents")]
         private static extern void RecomposeMatrixFromComponentsImpl(float* translation, float* rotation, float* scale, float* matrix);
         public static void RecomposeMatrixFromComponents(float* translation, float* rotation, float* scale, float* matrix) => RecomposeMatrixFromComponentsImpl(translation, rotation, scale, matrix);
+        
+        [LinkName("ImGuizmo_SetAxisLimit")]
+        private static extern void SetAxisLimitImpl(float value);
+        public static void SetAxisLimit(float value) => SetAxisLimitImpl(value);
         
         [LinkName("ImGuizmo_SetDrawlist")]
         private static extern void SetDrawlistImpl(DrawList* drawlist);
@@ -105,12 +143,30 @@ namespace ImGuizmo
         private static extern void SetOrthographicImpl(bool isOrthographic);
         public static void SetOrthographic(bool isOrthographic) => SetOrthographicImpl(isOrthographic);
         
+        [LinkName("ImGuizmo_SetPlaneLimit")]
+        private static extern void SetPlaneLimitImpl(float value);
+        public static void SetPlaneLimit(float value) => SetPlaneLimitImpl(value);
+        
         [LinkName("ImGuizmo_SetRect")]
         private static extern void SetRectImpl(float x, float y, float width, float height);
         public static void SetRect(float x, float y, float width, float height) => SetRectImpl(x, y, width, height);
         
-        [LinkName("ImGuizmo_ViewManipulate")]
+        [LinkName("ImGuizmo_ViewManipulate_Float")]
         private static extern void ViewManipulateImpl(float* view, float length, Vec2 position, Vec2 size, U32 backgroundColor);
         public static void ViewManipulate(float* view, float length, Vec2 position, Vec2 size, U32 backgroundColor) => ViewManipulateImpl(view, length, position, size, backgroundColor);
+        
+        [LinkName("ImGuizmo_ViewManipulate_FloatPtr")]
+        private static extern void ViewManipulateImpl(float* view, float* projection, OPERATION operation, MODE mode, float* matrix, float length, Vec2 position, Vec2 size, U32 backgroundColor);
+        public static void ViewManipulate(float* view, float* projection, OPERATION operation, MODE mode, float* matrix, float length, Vec2 position, Vec2 size, U32 backgroundColor) => ViewManipulateImpl(view, projection, operation, mode, matrix, length, position, size, backgroundColor);
+        
+        [LinkName("Style_Style")]
+        private static extern Style* CtorImpl();
+        public this()
+        {
+            this = *CtorImpl();
+        }
+        
+        [LinkName("Style_destroy")]
+        private static extern void DestroyImpl(Style* ptr);
     }
 }

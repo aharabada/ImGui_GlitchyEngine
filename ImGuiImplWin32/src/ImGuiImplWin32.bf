@@ -24,6 +24,10 @@ namespace ImGui
         private static extern bool InitImpl(void* hwnd);
         public static bool Init(void* hwnd) => InitImpl(hwnd);
         
+        [LinkName("ImGui_ImplWin32_InitForOpenGL")]
+        private static extern bool InitForOpenGLImpl(void* hwnd);
+        public static bool InitForOpenGL(void* hwnd) => InitForOpenGLImpl(hwnd);
+        
         [LinkName("ImGui_ImplWin32_NewFrame")]
         private static extern void NewFrameImpl();
         public static void NewFrame() => NewFrameImpl();

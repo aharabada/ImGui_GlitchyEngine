@@ -20,6 +20,10 @@ namespace ImGui
         private static extern bool InitForOpenGLImpl(SDL_Window* window, void* sdl_gl_context);
         public static bool InitForOpenGL(SDL_Window* window, void* sdl_gl_context) => InitForOpenGLImpl(window, sdl_gl_context);
         
+        [LinkName("ImGui_ImplSDL2_InitForOther")]
+        private static extern bool InitForOtherImpl(SDL_Window* window);
+        public static bool InitForOther(SDL_Window* window) => InitForOtherImpl(window);
+        
         [LinkName("ImGui_ImplSDL2_InitForSDLRenderer")]
         private static extern bool InitForSDLRendererImpl(SDL_Window* window, SDL_Renderer* renderer);
         public static bool InitForSDLRenderer(SDL_Window* window, SDL_Renderer* renderer) => InitForSDLRendererImpl(window, renderer);

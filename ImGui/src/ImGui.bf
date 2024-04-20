@@ -3604,7 +3604,24 @@ namespace ImGui
             private static extern void DestroyImpl(LastItemData* ptr);
             
         }
-        
+
+		public class ListClipperWrapper
+		{
+			private ListClipper* _listClipper;
+
+			public this()
+			{
+				_listClipper = ListClipper.[Friend]CtorImpl();
+			}
+
+			public ~this()
+			{
+				ListClipper.[Friend]DestroyImpl(_listClipper);
+			}
+
+			public static ListClipper* operator ->(Self clipper) => clipper._listClipper;
+		}
+
         [CRepr]
         public struct ListClipper
         {
@@ -3620,7 +3637,7 @@ namespace ImGui
             private static extern ListClipper* CtorImpl();
             public this()
             {
-                this = *CtorImpl();
+				this = *CtorImpl();
             }
             
             [LinkName("ImGuiListClipper_destroy")]
